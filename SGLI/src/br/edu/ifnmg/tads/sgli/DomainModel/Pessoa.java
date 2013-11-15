@@ -20,6 +20,8 @@ import java.util.regex.Pattern;
 public class Pessoa {
     private String nome;
     private int codigo;
+    private int CPF;
+    private int RG;
     private Date DataNascimento;
     private List<Email> emails;
     private List<Endereco> enderecos;
@@ -73,6 +75,24 @@ public class Pessoa {
             throw new Exception("Codigo Inválido!");
         }
     }
+
+    public int getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(int CPF) {
+        this.CPF = CPF;
+    }
+
+    public int getRG() {
+        return RG;
+    }
+
+    public void setRG(int RG) {
+        this.RG = RG;
+    }
+    
+    
 
     public void addEmail(Email email) {
         if (!emails.contains(email)) {
