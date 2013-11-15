@@ -18,8 +18,9 @@ import java.util.regex.Pattern;
  * @author Diego
  */
 public class Pessoa {
+    
+    private int CodPessoa;
     private String nome;
-    private int codigo;
     private int CPF;
     private int RG;
     private Date DataNascimento;
@@ -29,7 +30,7 @@ public class Pessoa {
 
     //construtor
     public Pessoa() {
-        codigo = 0;
+        CodPessoa = 0;
         emails = new ArrayList<Email>();
         enderecos = new ArrayList<Endereco>();
         telefones = new ArrayList<Telefone>();
@@ -65,12 +66,12 @@ public class Pessoa {
     }
 
     public int getCodigo() {
-        return codigo;
+        return CodPessoa;
     }
 
     public void setCodigo(int codigo) throws Exception {
         if (codigo >= 0) {
-            this.codigo = codigo;
+            this.CodPessoa = codigo;
         } else {
             throw new Exception("Codigo Inválido!");
         }
@@ -149,7 +150,7 @@ public class Pessoa {
     public int hashCode() {
         int hash = 3;
         hash = 43 * hash + Objects.hashCode(this.nome);
-        hash = 43 * hash + this.codigo;
+        hash = 43 * hash + this.CodPessoa;
         hash = 43 * hash + Objects.hashCode(this.DataNascimento);
         return hash;
     }
@@ -167,7 +168,7 @@ public class Pessoa {
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (this.codigo != other.codigo) {
+        if (this.CodPessoa != other.CodPessoa) {
             return false;
         }
         if (!Objects.equals(this.DataNascimento, other.DataNascimento)) {
