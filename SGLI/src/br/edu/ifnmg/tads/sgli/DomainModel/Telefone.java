@@ -4,6 +4,8 @@
  */
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
+import java.util.Objects;
+
 /**
  *
  * @author Diego
@@ -13,14 +15,16 @@ public class Telefone {
     private int DDD;
     private int Telefone;
     private int Codigo;
+    private String Operadora;
 
-    public Telefone(int DDD, int Telefone, int Codigo) {
+    public Telefone() {
+    }
+
+    public Telefone(int DDD, int Telefone, int Codigo, String Operadora) {
         this.DDD = DDD;
         this.Telefone = Telefone;
         this.Codigo = Codigo;
-    }
-
-    public Telefone() {
+        this.Operadora = Operadora;
     }
 
     public int getDDD() {
@@ -47,12 +51,21 @@ public class Telefone {
         this.Codigo = Codigo;
     }
 
+    public String getOperadora() {
+        return Operadora;
+    }
+
+    public void setOperadora(String Operadora) {
+        this.Operadora = Operadora;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 97 * hash + this.DDD;
-        hash = 97 * hash + this.Telefone;
-        hash = 97 * hash + this.Codigo;
+        int hash = 5;
+        hash = 47 * hash + this.DDD;
+        hash = 47 * hash + this.Telefone;
+        hash = 47 * hash + this.Codigo;
+        hash = 47 * hash + Objects.hashCode(this.Operadora);
         return hash;
     }
 
@@ -74,14 +87,16 @@ public class Telefone {
         if (this.Codigo != other.Codigo) {
             return false;
         }
+        if (!Objects.equals(this.Operadora, other.Operadora)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Telefone{" + "DDD=" + DDD + ", Telefone=" + Telefone + ", Codigo=" + Codigo + '}';
+        return "Telefone{" + "DDD=" + DDD + ", Telefone=" + Telefone + ", Codigo=" + Codigo + ", Operadora=" + Operadora + '}';
     }
 
-    
     
 }

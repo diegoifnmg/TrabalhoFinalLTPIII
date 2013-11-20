@@ -30,21 +30,97 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        mnuControle = new javax.swing.JMenu();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        Ferramentas = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("jButton1");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        mnuControle.setText("Controle");
+
+        jMenuItem3.setText("Estatística de Caixa");
+        mnuControle.add(jMenuItem3);
+        mnuControle.add(jSeparator1);
+
+        jMenuItem4.setText("Trocar de Funcionário");
+        mnuControle.add(jMenuItem4);
+
+        Ferramentas.setText("Ferramentas");
+        mnuControle.add(Ferramentas);
+
+        jMenuItem6.setText("Fechar");
+        mnuControle.add(jMenuItem6);
+
+        jMenuBar1.add(mnuControle);
+
+        jMenu3.setText("Cadastro");
+
+        jMenuItem5.setText("Cadastro de Clientes");
+        jMenu3.add(jMenuItem5);
+
+        jMenuItem1.setText("Cadastro de Produtos");
+        jMenu3.add(jMenuItem1);
+
+        jMenuItem2.setText("Cadastro de Funcionários");
+        jMenu3.add(jMenuItem2);
+
+        jMenuBar1.add(jMenu3);
+
+        jMenu2.setText("Vendas");
+        jMenuBar1.add(jMenu2);
+
+        jMenu1.setText("OS");
+        jMenuBar1.add(jMenu1);
+
+        jMenu4.setText("Relatórios");
+        jMenuBar1.add(jMenu4);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(129, 129, 129)
+                .addComponent(jButton1)
+                .addContainerGap(198, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(88, 88, 88)
+                .addComponent(jButton1)
+                .addContainerGap(170, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        frmPessoaListagem janela = new frmPessoaListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -86,5 +162,20 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Ferramentas;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JMenu mnuControle;
     // End of variables declaration//GEN-END:variables
 }

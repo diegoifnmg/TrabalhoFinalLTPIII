@@ -20,8 +20,31 @@ public class Endereco {
     private String cidade;
     private int numero;
     private String cep;
+    private String complemento;
+    private String pais;
+    private String estado;
 
     public Endereco() {
+    }
+
+    public Endereco(int codigo, String rua, String bairro, String cidade, int numero, String cep, String complemento, String pais, String estado) {
+        this.codigo = codigo;
+        this.rua = rua;
+        this.bairro = bairro;
+        this.cidade = cidade;
+        this.numero = numero;
+        this.cep = cep;
+        this.complemento = complemento;
+        this.pais = pais;
+        this.estado = estado;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
     public String getRua() {
@@ -37,7 +60,6 @@ public class Endereco {
     }
 
     public void setBairro(String bairro) {
-
         this.bairro = bairro;
     }
 
@@ -46,64 +68,61 @@ public class Endereco {
     }
 
     public void setCidade(String cidade) {
-
         this.cidade = cidade;
     }
 
     public int getNumero() {
-
         return numero;
     }
 
-    public void setNumero(int numero) throws Exception{
-
-        if (numero > 0) {
-            this.numero = numero;
-        } else {
-            throw new Exception(" Numero inválido! (Somente são aceitos inteiros positivos)");
-        }
+    public void setNumero(int numero) {
+        this.numero = numero;
     }
 
     public String getCep() {
         return cep;
     }
 
-    public void setCep(String cep) throws Exception {
-        Pattern padraoCep = Pattern.compile("\\d{5}-\\d{3}");
-        Matcher comparar = padraoCep.matcher(cep);
-        if (comparar.matches()) {
-            this.cep = cep;
-        } else { 
-            //captura execessão
-            throw new Exception("Formato de CEP Inválido!");
-
-        }
-
-
+    public void setCep(String cep) {
+        this.cep = cep;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public String getComplemento() {
+        return complemento;
     }
 
-    public void setCodigo(int codigo) throws Exception {
-        if (codigo >= 0) {
-            this.codigo = codigo;
-        } else {
-            //captura excessão
-            throw new Exception("Codigo Inválido!");
-        }
+    public void setComplemento(String complemento) {
+        this.complemento = complemento;
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 53 * hash + this.codigo;
-        hash = 53 * hash + Objects.hashCode(this.rua);
-        hash = 53 * hash + Objects.hashCode(this.bairro);
-        hash = 53 * hash + Objects.hashCode(this.cidade);
-        hash = 53 * hash + this.numero;
-        hash = 53 * hash + Objects.hashCode(this.cep);
+        hash = 23 * hash + this.codigo;
+        hash = 23 * hash + Objects.hashCode(this.rua);
+        hash = 23 * hash + Objects.hashCode(this.bairro);
+        hash = 23 * hash + Objects.hashCode(this.cidade);
+        hash = 23 * hash + this.numero;
+        hash = 23 * hash + Objects.hashCode(this.cep);
+        hash = 23 * hash + Objects.hashCode(this.complemento);
+        hash = 23 * hash + Objects.hashCode(this.pais);
+        hash = 23 * hash + Objects.hashCode(this.estado);
         return hash;
     }
 
@@ -134,6 +153,23 @@ public class Endereco {
         if (!Objects.equals(this.cep, other.cep)) {
             return false;
         }
+        if (!Objects.equals(this.complemento, other.complemento)) {
+            return false;
+        }
+        if (!Objects.equals(this.pais, other.pais)) {
+            return false;
+        }
+        if (!Objects.equals(this.estado, other.estado)) {
+            return false;
+        }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return "Endereco{" + "codigo=" + codigo + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", numero=" + numero + ", cep=" + cep + ", complemento=" + complemento + ", pais=" + pais + ", estado=" + estado + '}';
+    }
+    
+    
+    
 }
