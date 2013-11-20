@@ -57,16 +57,16 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
         lblId.setText(Integer.toString(pessoa.getCodigo()));
         txtNome.setText(pessoa.getNome());
         txtDataNasc.setText(String.valueOf(pessoa.getDataNascimento()));
-        txtCPF.setText(Integer.toString(pessoa.getCPF()));
-        txtRG.setText(Integer.toString(pessoa.getRG()));
+        txtCPF.setText(pessoa.getCPF());
+        txtRG.setText(pessoa.getRG());
     }
 
     private void carregaObjeto() {
         try {
             pessoa.setNome(txtNome.getText());
             pessoa.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
-            pessoa.setCPF(Integer.parseInt(txtCPF.getText()));
-            pessoa.setRG(Integer.parseInt(txtRG.getText()));
+            pessoa.setCPF(txtCPF.getText());
+            pessoa.setRG(txtRG.getText());
 
         } catch (Exception ex) {
             Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,8 +128,6 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagemTelefones = new javax.swing.JTable();
         btnAdicionar = new javax.swing.JButton();
-        lblOperadora = new javax.swing.JLabel();
-        txtOperadora = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         lblEmail = new javax.swing.JLabel();
         txtEmail = new javax.swing.JTextField();
@@ -140,6 +138,9 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
         jComboBox1 = new javax.swing.JComboBox();
         btnApagar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
+
+        setClosable(true);
+        setMaximizable(true);
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -224,7 +225,7 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblRg)
                     .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(253, Short.MAX_VALUE))
+                .addContainerGap(265, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -299,11 +300,11 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(txtPais, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(41, 41, 41)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(6, 6, 6)
                                         .addComponent(lblBairro)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(txtBairro))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,7 +340,7 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtComplemento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblBairro)
                     .addComponent(txtBairro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtCidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,8 +392,6 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
             }
         });
 
-        lblOperadora.setText("Operadora:");
-
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -402,19 +401,13 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblOperadora)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtOperadora))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                                .addComponent(lblDDD)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(lblDDD)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtDDD, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnAdicionar)))
                 .addContainerGap(26, Short.MAX_VALUE))
@@ -429,13 +422,10 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                     .addComponent(jLabel2)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblOperadora)
-                    .addComponent(txtOperadora, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnAdicionar))
+                .addComponent(btnAdicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(174, Short.MAX_VALUE))
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -490,7 +480,7 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(173, Short.MAX_VALUE))
+                .addContainerGap(185, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);
@@ -525,7 +515,7 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(376, Short.MAX_VALUE))
+                .addContainerGap(388, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("tab5", jPanel5);
@@ -612,7 +602,7 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
                 e.setBairro(txtBairro.getText());
                 e.setCep(txtCEP.getText());
                 e.setCidade(txtCidade.getText());
-                e.setNumero(Integer.parseInt(txtBairro.getText()));
+                e.setNumero(Integer.parseInt(txtNumero.getText()));
                 e.setRua(txtRua.getText());
                 e.setComplemento(txtComplemento.getText());
                 e.setEstado(txtEstado.getText());
@@ -640,7 +630,6 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
                 Telefone t = new Telefone();
                 t.setDDD(Integer.parseInt( txtDDD.getText() ));
-                t.setOperadora(txtOperadora.getText());
                 t.setTelefone(Integer.parseInt(txtTelefone.getText()));
 
                 pessoa.addTelefone(t);
@@ -737,15 +726,13 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
     private void atualizaTabelaTelefones(List<Telefone> telefones) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("DDD");
-        model.addColumn("Operadora");
         model.addColumn("Telefone");
 
 
         for (Telefone t : telefones) {
             Vector valores = new Vector();
             valores.add(0,t.getDDD());
-            valores.add(1,t.getOperadora());
-            valores.add(0, t.getTelefone());
+            valores.add(1, t.getTelefone());
 
             model.addRow(valores);
         }
@@ -839,7 +826,6 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblIdCampo;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;
-    private javax.swing.JLabel lblOperadora;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblRua;
@@ -858,7 +844,6 @@ public class frmPessoaEditar extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
-    private javax.swing.JTextField txtOperadora;
     private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtRG;
     private javax.swing.JTextField txtRua;

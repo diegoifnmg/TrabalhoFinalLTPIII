@@ -39,16 +39,16 @@ public class PessoaDAO extends DAO {
                 PreparedStatement sql = getConexao().prepareStatement("insert into pessoa(Nome,DataNascimento,CPF,RG) values(?,?,?,?)");
                 sql.setString(1, obj.getNome());
                 sql.setDate(2, new java.sql.Date(obj.getDataNascimento().getTime()));
-                sql.setInt(3,obj.getCPF());
-                sql.setInt(4, obj.getRG());
+                sql.setString(3,obj.getCPF());
+                sql.setString(4, obj.getRG());
                 
                 sql.executeUpdate();
 
                 PreparedStatement sql2 = getConexao().prepareStatement("select IdPessoa from pessoa where nome = ? and DataNascimento = ? and CPF = ? and RG = ?");
                 sql2.setString(1, obj.getNome());
                 sql2.setDate(2, new java.sql.Date(obj.getDataNascimento().getTime()));
-                sql2.setInt(3, obj.getCPF());
-                sql2.setInt(4, obj.getRG());
+                sql2.setString(3, obj.getCPF());
+                sql2.setString(4, obj.getRG());
                 
                 ResultSet resultado = sql2.executeQuery();
                 if (resultado.next()) {
@@ -78,8 +78,8 @@ public class PessoaDAO extends DAO {
                 PreparedStatement sql = con.prepareStatement("update Pessoa set nome=?, DataNascimento=?, CPF=?, RG=? where IdPessoa=?");
                 sql.setString(1, obj.getNome());
                 sql.setDate(2, new java.sql.Date(obj.getDataNascimento().getTime()));
-                sql.setInt(3,obj.getCPF());
-                sql.setInt(4,obj.getRG());
+                sql.setString(3,obj.getCPF());
+                sql.setString(4,obj.getRG());
                 sql.setInt(5, obj.getCodigo());
                 sql.executeUpdate();
 
@@ -136,8 +136,8 @@ public class PessoaDAO extends DAO {
 
                 obj.setCodigo(resultado.getInt("IdPessoa"));
                 obj.setNome(resultado.getString("Nome"));
-                obj.setCPF(resultado.getInt("CPF"));
-                obj.setCPF(resultado.getInt("RG"));
+                obj.setCPF(resultado.getString("CPF"));
+                obj.setRG(resultado.getString("RG"));
                 obj.setDataNascimento(resultado.getDate("DataNascimento"));
 
                 AbrirTelefones(obj);
@@ -168,8 +168,8 @@ public class PessoaDAO extends DAO {
 
                 obj.setCodigo(resultado.getInt("IdPessoa"));
                 obj.setNome(resultado.getString("Nome"));
-                obj.setCodigo(resultado.getInt("CPF"));
-                obj.setCodigo(resultado.getInt("RG"));
+                obj.setCPF(resultado.getString("CPF"));
+                obj.setRG(resultado.getString("RG"));
                 obj.setDataNascimento(resultado.getDate("DataNascimento"));
 
                 lista.add(obj);
@@ -196,7 +196,6 @@ public class PessoaDAO extends DAO {
                 obj.setCodigo(resultado.getInt("IdTelefone"));
                 obj.setDDD(resultado.getInt("DDD"));
                 obj.setTelefone(resultado.getInt("telefone"));
-                obj.setOperadora(resultado.getString("operadora"));
 
                 lista.add(obj);
             }
@@ -330,11 +329,11 @@ public class PessoaDAO extends DAO {
     private void SalvarTelefone(Pessoa pessoa, Telefone obj) {
         if (obj.getCodigo() == 0) {
             try {
-                PreparedStatement sql = getConexao().prepareStatement("insert into telefones(IdPessoa,telefone,DDD,operadora) values(?,?,?,?)");
+                PreparedStatement sql = getConexao().prepareStatement("insert into telefones(IdPessoa,telefone,DDD) values(?,?,?)");
                 sql.setInt(1, pessoa.getCodigo());
                 sql.setInt(2, obj.getTelefone());
                 sql.setInt(3, obj.getDDD());
-                sql.setString(4, obj.getOperadora());
+                
                 sql.executeUpdate();
 
             } catch (Exception ex) {
@@ -342,11 +341,11 @@ public class PessoaDAO extends DAO {
             }
         } else {
             try {
-                PreparedStatement sql = getConexao().prepareStatement("update telefones set IdPessoa = ?, telefone = ?, DDD = ?, operadora = ? where IdTelefone=?");
+                PreparedStatement sql = getConexao().prepareStatement("update telefones set IdPessoa = ?, telefone = ?, DDD = ? where IdTelefone=?");
                 sql.setInt(1, pessoa.getCodigo());
                 sql.setInt(2, obj.getTelefone());
                 sql.setInt(3, obj.getDDD());
-                sql.setString(4, obj.getOperadora());
+                
                 sql.setInt(5, obj.getCodigo());
       
                 sql.executeQuery();
@@ -392,8 +391,8 @@ public class PessoaDAO extends DAO {
                     tmp.setCodigo(resultado.getInt("Idpessoa"));
                     tmp.setNome(resultado.getString("nome"));
                     tmp.setDataNascimento(resultado.getDate("DataNascimento"));
-                    tmp.setCPF(resultado.getInt("CPF"));
-                    tmp.setRG(resultado.getInt("RG"));
+                    tmp.setCPF(resultado.getString("CPF"));
+                    tmp.setRG(resultado.getString("RG"));
                 } catch (Exception ex) {
                     Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -428,7 +427,6 @@ public class PessoaDAO extends DAO {
         try {
             tel.setCodigo(resultado.getInt("IdTelefone"));
             tel.setDDD(resultado.getInt("DDD"));
-            tel.setOperadora(resultado.getString("Operadora"));
             tel.setTelefone(resultado.getInt("telefone"));
             return tel;
         } catch (Exception ex) {

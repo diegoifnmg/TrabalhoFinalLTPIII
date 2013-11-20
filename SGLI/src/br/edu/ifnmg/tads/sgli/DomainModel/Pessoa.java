@@ -21,8 +21,8 @@ public class Pessoa {
     
     private int CodPessoa;
     private String nome;
-    private int CPF;
-    private int RG;
+    private String CPF;
+    private String RG;
     private Date DataNascimento;
     private List<Email> emails;
     private List<Endereco> enderecos;
@@ -52,6 +52,22 @@ public class Pessoa {
         }
     }
 
+    public String getCPF() {
+        return CPF;
+    }
+
+    public void setCPF(String CPF) {
+        this.CPF = CPF;
+    }
+
+    public String getRG() {
+        return RG;
+    }
+
+    public void setRG(String RG) {
+        this.RG = RG;
+    }
+
     public Date getDataNascimento() {
         return DataNascimento;
     }
@@ -77,23 +93,7 @@ public class Pessoa {
         }
     }
 
-    public int getCPF() {
-        return CPF;
-    }
 
-    public void setCPF(int CPF) {
-        this.CPF = CPF;
-    }
-
-    public int getRG() {
-        return RG;
-    }
-
-    public void setRG(int RG) {
-        this.RG = RG;
-    }
-    
-    
 
     public void addEmail(Email email) {
         if (!emails.contains(email)) {
@@ -144,17 +144,20 @@ public class Pessoa {
     public List<Telefone> getTelefones() {
         return telefones;
     }
-    // hashCode
 
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 43 * hash + Objects.hashCode(this.nome);
-        hash = 43 * hash + this.CodPessoa;
-        hash = 43 * hash + Objects.hashCode(this.DataNascimento);
+        hash = 73 * hash + this.CodPessoa;
+        hash = 73 * hash + Objects.hashCode(this.nome);
+        hash = 73 * hash + Objects.hashCode(this.CPF);
+        hash = 73 * hash + Objects.hashCode(this.RG);
+        hash = 73 * hash + Objects.hashCode(this.DataNascimento);
+        hash = 73 * hash + Objects.hashCode(this.emails);
+        hash = 73 * hash + Objects.hashCode(this.enderecos);
+        hash = 73 * hash + Objects.hashCode(this.telefones);
         return hash;
     }
-    // Equals 
 
     @Override
     public boolean equals(Object obj) {
@@ -165,13 +168,28 @@ public class Pessoa {
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
         if (this.CodPessoa != other.CodPessoa) {
             return false;
         }
+        if (!Objects.equals(this.nome, other.nome)) {
+            return false;
+        }
+        if (!Objects.equals(this.CPF, other.CPF)) {
+            return false;
+        }
+        if (!Objects.equals(this.RG, other.RG)) {
+            return false;
+        }
         if (!Objects.equals(this.DataNascimento, other.DataNascimento)) {
+            return false;
+        }
+        if (!Objects.equals(this.emails, other.emails)) {
+            return false;
+        }
+        if (!Objects.equals(this.enderecos, other.enderecos)) {
+            return false;
+        }
+        if (!Objects.equals(this.telefones, other.telefones)) {
             return false;
         }
         return true;
@@ -179,8 +197,9 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return  nome ;
+        return "Pessoa{" + "CodPessoa=" + CodPessoa + ", nome=" + nome + ", CPF=" + CPF + ", RG=" + RG + ", DataNascimento=" + DataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
     }
+    
     
   
     
