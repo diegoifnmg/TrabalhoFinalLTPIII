@@ -4,33 +4,27 @@
  */
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
+import java.util.Objects;
+
 /**
  *
  * @author Diego
  */
-public class Cliente {
+public class Cliente extends Pessoa{
     
-    private int CodCliente;
+    private int Codigo;
     private int FisicaouJuridica;
-    private int CNPJ;
-    private int CodPessoa;
+    private String CNPJ;
+    private int Ativo;
 
     public Cliente() {
     }
 
-    public Cliente(int CodCliente, int FisicaouJuridica, int CNPJ, int CodPessoa) {
-        this.CodCliente = CodCliente;
+    public Cliente(int CodCliente, int FisicaouJuridica, String CNPJ, int Ativo) {
+        this.Codigo = CodCliente;
         this.FisicaouJuridica = FisicaouJuridica;
         this.CNPJ = CNPJ;
-        this.CodPessoa = CodPessoa;
-    }
-
-    public int getCodCliente() {
-        return CodCliente;
-    }
-
-    public void setCodCliente(int CodCliente) {
-        this.CodCliente = CodCliente;
+        this.Ativo = Ativo;
     }
 
     public int getFisicaouJuridica() {
@@ -41,29 +35,29 @@ public class Cliente {
         this.FisicaouJuridica = FisicaouJuridica;
     }
 
-    public int getCNPJ() {
+    public String getCNPJ() {
         return CNPJ;
     }
 
-    public void setCNPJ(int CNPJ) {
+    public void setCNPJ(String CNPJ) {
         this.CNPJ = CNPJ;
     }
 
-    public int getCodPessoa() {
-        return CodPessoa;
+    public int getAtivo() {
+        return Ativo;
     }
 
-    public void setCodPessoa(int CodPessoa) {
-        this.CodPessoa = CodPessoa;
+    public void setAtivo(int Ativo) {
+        this.Ativo = Ativo;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 59 * hash + this.CodCliente;
-        hash = 59 * hash + this.FisicaouJuridica;
-        hash = 59 * hash + this.CNPJ;
-        hash = 59 * hash + this.CodPessoa;
+        hash = 19 * hash + this.Codigo;
+        hash = 19 * hash + this.FisicaouJuridica;
+        hash = 19 * hash + Objects.hashCode(this.CNPJ);
+        hash = 19 * hash + this.Ativo;
         return hash;
     }
 
@@ -76,16 +70,16 @@ public class Cliente {
             return false;
         }
         final Cliente other = (Cliente) obj;
-        if (this.CodCliente != other.CodCliente) {
+        if (this.Codigo != other.Codigo) {
             return false;
         }
         if (this.FisicaouJuridica != other.FisicaouJuridica) {
             return false;
         }
-        if (this.CNPJ != other.CNPJ) {
+        if (!Objects.equals(this.CNPJ, other.CNPJ)) {
             return false;
         }
-        if (this.CodPessoa != other.CodPessoa) {
+        if (this.Ativo != other.Ativo) {
             return false;
         }
         return true;
@@ -93,10 +87,8 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "CodCliente=" + CodCliente + ", FisicaouJuridica=" + FisicaouJuridica + ", CNPJ=" + CNPJ + ", CodPessoa=" + CodPessoa + '}';
+        return "Cliente{" + "Codigo=" + Codigo + ", FisicaouJuridica=" + FisicaouJuridica + ", CNPJ=" + CNPJ + ", Ativo=" + Ativo + '}';
     }
-    
-    
-    
+
     
 }
