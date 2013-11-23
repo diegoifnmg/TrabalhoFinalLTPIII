@@ -30,7 +30,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnTestePessoa = new javax.swing.JButton();
+        btnTesteCliente = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -48,10 +49,17 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("jButton1");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnTestePessoa.setText("Teste Pessoa");
+        btnTestePessoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnTestePessoaActionPerformed(evt);
+            }
+        });
+
+        btnTesteCliente.setText("Teste Cliente");
+        btnTesteCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTesteClienteActionPerformed(evt);
             }
         });
 
@@ -102,25 +110,35 @@ public class frmPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(129, 129, 129)
-                .addComponent(jButton1)
-                .addContainerGap(198, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnTestePessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnTesteCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(88, 88, 88)
-                .addComponent(jButton1)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addComponent(btnTestePessoa)
+                .addGap(18, 18, 18)
+                .addComponent(btnTesteCliente)
+                .addContainerGap(129, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnTestePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestePessoaActionPerformed
         frmPessoaListagem janela = new frmPessoaListagem();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnTestePessoaActionPerformed
+
+    private void btnTesteClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTesteClienteActionPerformed
+        frmClienteListagem janela = new frmClienteListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_btnTesteClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,7 +181,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Ferramentas;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnTesteCliente;
+    private javax.swing.JButton btnTestePessoa;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -85,12 +85,10 @@ public class Pessoa {
         return CodPessoa;
     }
 
-    public void setCodigo(int codigo) throws Exception {
+    public void setCodigo(int codigo) {
         if (codigo >= 0) {
             this.CodPessoa = codigo;
-        } else {
-            throw new Exception("Codigo Inválido!");
-        }
+        } 
     }
 
 

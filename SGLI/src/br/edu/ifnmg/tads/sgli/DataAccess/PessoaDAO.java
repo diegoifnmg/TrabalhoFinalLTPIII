@@ -166,11 +166,7 @@ public class PessoaDAO extends DAO {
             while (resultado.next()) {
                 Pessoa obj = new Pessoa();
 
-                obj.setCodigo(resultado.getInt("IdPessoa"));
-                obj.setNome(resultado.getString("Nome"));
-                obj.setCPF(resultado.getString("CPF"));
-                obj.setRG(resultado.getString("RG"));
-                obj.setDataNascimento(resultado.getDate("DataNascimento"));
+                carregaObjeto(obj, resultado);
 
                 lista.add(obj);
             }
@@ -388,11 +384,7 @@ public class PessoaDAO extends DAO {
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
-                    tmp.setCodigo(resultado.getInt("Idpessoa"));
-                    tmp.setNome(resultado.getString("nome"));
-                    tmp.setDataNascimento(resultado.getDate("DataNascimento"));
-                    tmp.setCPF(resultado.getString("CPF"));
-                    tmp.setRG(resultado.getString("RG"));
+                    carregaObjeto(tmp, resultado);
                 } catch (Exception ex) {
                     Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -499,5 +491,13 @@ public class PessoaDAO extends DAO {
             return null;
         }
 
+    }
+
+    protected void carregaObjeto(Pessoa tmp, ResultSet resultado) throws Exception, SQLException {
+        tmp.setCodigo(resultado.getInt("Idpessoa"));
+        tmp.setNome(resultado.getString("nome"));
+        tmp.setDataNascimento(resultado.getDate("DataNascimento"));
+        tmp.setCPF(resultado.getString("CPF"));
+        tmp.setRG(resultado.getString("RG"));
     }
 }

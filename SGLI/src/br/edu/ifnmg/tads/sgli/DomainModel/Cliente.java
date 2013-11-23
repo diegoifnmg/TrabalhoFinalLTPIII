@@ -20,13 +20,14 @@ public class Cliente extends Pessoa{
     public Cliente() {
     }
 
-    public Cliente(int CodCliente, int FisicaouJuridica, String CNPJ, int Ativo) {
-        this.Codigo = CodCliente;
+    public Cliente(int Codigo, int FisicaouJuridica, String CNPJ, int Ativo) {
+        this.Codigo = Codigo;
         this.FisicaouJuridica = FisicaouJuridica;
         this.CNPJ = CNPJ;
         this.Ativo = Ativo;
     }
-
+    
+    
     public int getFisicaouJuridica() {
         return FisicaouJuridica;
     }
@@ -53,11 +54,11 @@ public class Cliente extends Pessoa{
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 19 * hash + this.Codigo;
-        hash = 19 * hash + this.FisicaouJuridica;
-        hash = 19 * hash + Objects.hashCode(this.CNPJ);
-        hash = 19 * hash + this.Ativo;
+        int hash = 3;
+        hash = 67 * hash + this.Codigo;
+        hash = 67 * hash + this.FisicaouJuridica;
+        hash = 67 * hash + Objects.hashCode(this.CNPJ);
+        hash = 67 * hash + this.Ativo;
         return hash;
     }
 
@@ -89,6 +90,8 @@ public class Cliente extends Pessoa{
     public String toString() {
         return "Cliente{" + "Codigo=" + Codigo + ", FisicaouJuridica=" + FisicaouJuridica + ", CNPJ=" + CNPJ + ", Ativo=" + Ativo + '}';
     }
-
+    
+    
+   
     
 }
