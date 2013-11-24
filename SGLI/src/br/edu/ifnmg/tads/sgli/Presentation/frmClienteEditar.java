@@ -25,53 +25,54 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmClienteEditar extends javax.swing.JInternalFrame {
 
-    PessoaDAO DAO;
-    Pessoa pessoa;
+    ClienteDAO DAO;
+    Cliente cliente;
 
     
     /**
      * Creates new form frmClienteEditar
      */
-    public frmClienteEditar(Pessoa p, PessoaDAO d) {
+    public frmClienteEditar(Cliente p, ClienteDAO d) {
         initComponents();
 
         if (p.getCodigo() > 0) {
-            this.pessoa = p;
+            this.cliente = p;
             this.DAO = d;
 
             carregaCampos();
             
-            List<Telefone> telefones = pessoa.getTelefones();
+            List<Telefone> telefones = cliente.getTelefones();
             atualizaTabelaTelefones(telefones);
             
-            List<Endereco> enderecos = pessoa.getEnderecos();
+            List<Endereco> enderecos = cliente.getEnderecos();
             atualizaTabelaEnderecos(enderecos);
             
-            List<Email> emails = pessoa.getEmails();
+            List<Email> emails = cliente.getEmails();
             atualizaTabelaEmails(emails);   
             
             
         } else {
-            pessoa = new Pessoa();
-            DAO = new PessoaDAO();
+            cliente = new Cliente();
+            DAO = new ClienteDAO();
         }
 
     }
 
     private void carregaCampos() {
-        lblId.setText(Integer.toString(pessoa.getCodigo()));
-        txtNome.setText(pessoa.getNome());
-        txtDataNasc.setText(String.valueOf(pessoa.getDataNascimento()));
-        txtCPF.setText(pessoa.getCPF());
-        txtRG.setText(pessoa.getRG());
+        lblId.setText(Integer.toString(cliente.getCodigo()));
+        txtNome.setText(cliente.getNome());
+        txtDataNasc.setText(String.valueOf(cliente.getDataNascimento()));
+        txtCPF.setText(cliente.getCPF());
+        txtRG.setText(cliente.getRG());
+        txtCNPJ.setText(cliente.getCNPJ());
     }
 
     private void carregaObjeto() {
         try {
-            pessoa.setNome(txtNome.getText());
-            pessoa.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
-            pessoa.setCPF(txtCPF.getText());
-            pessoa.setRG(txtRG.getText());
+            cliente.setNome(txtNome.getText());
+            cliente.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
+            cliente.setCPF(txtCPF.getText());
+            cliente.setRG(txtRG.getText());
 
         } catch (Exception ex) {
             Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,6 +197,11 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         lblPessoa.setText("Pessoa:");
 
         rbFisica.setText("Física");
+        rbFisica.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbFisicaActionPerformed(evt);
+            }
+        });
 
         rbJuridica.setText("Juridica");
         rbJuridica.addActionListener(new java.awt.event.ActionListener() {
@@ -221,7 +227,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(lblRg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(119, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -393,7 +399,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                                 .addComponent(Adicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRemover)))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 98, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -502,7 +508,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnAdicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemover1)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -564,7 +570,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnEmailAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemover2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 97, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -607,7 +613,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(108, 108, 108)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(175, Short.MAX_VALUE))
+                .addContainerGap(272, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -633,14 +639,14 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(pnlGuias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -667,7 +673,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
                 carregaObjeto();
 
-                if (DAO.Salvar(pessoa)) {
+                if (DAO.Salvar(cliente)) {
                     JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
 
                 } else {
@@ -686,13 +692,13 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     private void jComboBox1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyTyped
         String valor = jComboBox1.getSelectedItem().toString();
         if (valor.length() >= 3) {
-            Pessoa filtro = new Pessoa();
+            Cliente filtro = new Cliente();
             try {
                 filtro.setNome(valor);
             } catch (Exception ex) {
                 Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
             }
-            List<Pessoa> lista = DAO.buscar(filtro);
+            List<Cliente> lista = DAO.buscar(filtro);
 
             for(Pessoa p : lista){
                 jComboBox1.addItem(p);
@@ -704,13 +710,13 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
         String valor = jComboBox1.getSelectedItem().toString();
         if (valor.length() >= 3) {
-            Pessoa filtro = new Pessoa();
+            Cliente filtro = new Cliente();
             try {
                 filtro.setNome(valor);
             } catch (Exception ex) {
                 Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
             }
-            List<Pessoa> lista = DAO.buscar(filtro);
+            List<Cliente> lista = DAO.buscar(filtro);
 
             for(Pessoa p : lista){
                 jComboBox1.addItem(p);
@@ -730,9 +736,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
                 e.setEmail(txtEmail.getText());
 
-                pessoa.addEmail(e);
+                cliente.addEmail(e);
 
-                atualizaTabelaEmails(pessoa.getEmails());
+                atualizaTabelaEmails(cliente.getEmails());
 
                 JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
             } else {
@@ -754,9 +760,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 t.setDDD(Integer.parseInt( txtDDD.getText() ));
                 t.setTelefone(Integer.parseInt(txtTelefone.getText()));
 
-                pessoa.addTelefone(t);
+                cliente.addTelefone(t);
 
-                atualizaTabelaTelefones(pessoa.getTelefones());
+                atualizaTabelaTelefones(cliente.getTelefones());
 
                 JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
             } else {
@@ -789,9 +795,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 e.setEstado(txtEstado.getText());
                 e.setPais(txtPais.getText());
 
-                pessoa.addEndereco(e);
+                cliente.addEndereco(e);
 
-                atualizaTabelaEnderecos(pessoa.getEnderecos());
+                atualizaTabelaEnderecos(cliente.getEnderecos());
 
                 JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
             } else {
@@ -821,6 +827,10 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNomeActionPerformed
+
+    private void rbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFisicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbFisicaActionPerformed
 
     private void atualizaTabelaTelefones(List<Telefone> telefones) {
         DefaultTableModel model = new DefaultTableModel();

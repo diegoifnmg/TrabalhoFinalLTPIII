@@ -74,8 +74,10 @@ public class ClienteDAO extends PessoaDAO {
         }
     }
 
-    public Cliente Abrir(int cod){
+    public Cliente Abrir(int cod) {
+
         Cliente cliente = new Cliente();
+
         try {
             PreparedStatement comando = bd.getConexao().
                     prepareStatement("select * from cliente where Idcliente = ?");
@@ -86,15 +88,16 @@ public class ClienteDAO extends PessoaDAO {
             cliente.setFisicaouJuridica(resultado.getInt("FisicaOuJuridica"));
             cliente.setCNPJ(resultado.getString("CNPJ"));
             cliente.setCodigo(resultado.getInt("Idpessoa"));
+
             return cliente;
+
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }  
+        }
     }
-    
 
-    public boolean Apagar(int cod){
+    public boolean Apagar(int cod) {
         try {
             PreparedStatement comando = bd.getConexao().
                     prepareStatement("update cliente set ativo = 0 where IdCliente = ?");
@@ -105,7 +108,7 @@ public class ClienteDAO extends PessoaDAO {
             Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-    }   
+    }
 
     public List<Cliente> buscar(Cliente filtro) {
         try {
@@ -128,9 +131,9 @@ public class ClienteDAO extends PessoaDAO {
             }
 
             if (where.length() > 0) {
-                sql = sql  + where;
+                sql = sql + where;
             }
-            
+
             Statement comando = bd.getConexao().createStatement();
 
             ResultSet resultado = comando.executeQuery(sql);
@@ -160,9 +163,8 @@ public class ClienteDAO extends PessoaDAO {
             return null;
         }
     }
-    
-        
-         public List<Cliente> ListarTodosCli() {
+
+    public List<Cliente> ListarTodosCli() {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from cliente where ativo = 1 ORDER BY IdCliente ASC");
 
@@ -184,8 +186,4 @@ public class ClienteDAO extends PessoaDAO {
             return null;
         }
     }
-    
-    
-    
-    
 }
