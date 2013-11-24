@@ -166,7 +166,11 @@ public class PessoaDAO extends DAO {
             while (resultado.next()) {
                 Pessoa obj = new Pessoa();
 
-                carregaObjeto(obj, resultado);
+                obj.setCodigo(resultado.getInt("IdPessoa"));
+                obj.setNome(resultado.getString("Nome"));
+                obj.setDataNascimento(resultado.getDate("DataNascimento"));
+                obj.setCPF(resultado.getString("CPF"));
+                obj.setRG(resultado.getString("RG"));
 
                 lista.add(obj);
             }
@@ -360,7 +364,7 @@ public class PessoaDAO extends DAO {
             if (filtro.getNome().length() > 0) {
                 where = "nome like '%" + filtro.getNome() + "%'";
             }
-
+            
             if (filtro.getCodigo() > 0) {
                 if (where.length() > 0) {
                     where = where + " and ";
@@ -375,7 +379,6 @@ public class PessoaDAO extends DAO {
             Statement comando = bd.getConexao().createStatement();
 
             ResultSet resultado = comando.executeQuery(sql);
-            
             // Cria uma lista de produtos vazia
             List<Pessoa> pessoas = new LinkedList<>();
             while (resultado.next()) {
@@ -384,7 +387,11 @@ public class PessoaDAO extends DAO {
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
-                    carregaObjeto(tmp, resultado);
+                    tmp.setCodigo(resultado.getInt("Idpessoa"));
+                    tmp.setNome(resultado.getString("nome"));
+                    tmp.setDataNascimento(resultado.getDate("DataNascimento"));
+                    tmp.setCPF(resultado.getString("CPF"));
+                    tmp.setRG(resultado.getString("RG"));
                 } catch (Exception ex) {
                     Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -493,11 +500,5 @@ public class PessoaDAO extends DAO {
 
     }
 
-    protected void carregaObjeto(Pessoa tmp, ResultSet resultado) throws Exception, SQLException {
-        tmp.setCodigo(resultado.getInt("Idpessoa"));
-        tmp.setNome(resultado.getString("nome"));
-        tmp.setDataNascimento(resultado.getDate("DataNascimento"));
-        tmp.setCPF(resultado.getString("CPF"));
-        tmp.setRG(resultado.getString("RG"));
-    }
+    
 }

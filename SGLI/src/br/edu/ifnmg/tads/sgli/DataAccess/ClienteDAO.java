@@ -142,7 +142,7 @@ public class ClienteDAO extends PessoaDAO {
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
-                    super.carregaObjeto(tmp, resultado);
+                    tmp.setCodigo(resultado.getInt("IdCliente"));
                     tmp.setCNPJ(resultado.getString("CNPJ"));
                     tmp.setFisicaouJuridica(resultado.getInt("Ativo"));
                     tmp.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
@@ -171,7 +171,10 @@ public class ClienteDAO extends PessoaDAO {
             while (resultado.next()) {
                 Cliente obj = new Cliente();
 
-                carregaObjeto(obj, resultado);
+                obj.setCodigo(resultado.getInt("IdCliente"));
+                obj.setCNPJ(resultado.getString("CNPJ"));
+                obj.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
+
 
                 lista.add(obj);
             }
