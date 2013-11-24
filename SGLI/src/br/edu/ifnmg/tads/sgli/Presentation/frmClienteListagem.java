@@ -4,8 +4,9 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DataAccess.DAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.PessoaDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Pessoa;
 import java.util.List;
 import java.util.Vector;
@@ -19,35 +20,38 @@ import javax.swing.table.DefaultTableModel;
  */
 public class frmClienteListagem extends javax.swing.JInternalFrame {
 
-    PessoaDAO DAO;
+    ClienteDAO DAO;
     /**
      * Creates new form frmClienteListagem
      */
     public frmClienteListagem() {
         initComponents();
         
-        DAO = new PessoaDAO();
+        DAO = new ClienteDAO();
 
-        List<Pessoa> pessoas = DAO.ListarTodos();
+        List<Cliente> clientes = DAO.ListarTodosCli();
 
-        preencheTabela(pessoas);
+        preencheTabela(clientes);
     }
 
-    private void preencheTabela(List<Pessoa> lista) {
+    private void preencheTabela(List<Cliente> lista) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("IdPessoa");
         model.addColumn("Nome");
         model.addColumn("DataNascimento");
         model.addColumn("CPF");
         model.addColumn("RG");
-
-        for (Pessoa p : lista) {
+        model.addColumn("CNPJ");
+        model.addColumn("Fisica ou Juridica");
+        for (Cliente c : lista) {
             Vector valores = new Vector();
-            valores.add(0, p.getCodigo());
-            valores.add(1, p.getNome());
-            valores.add(2, p.getDataNascimento());
-            valores.add(3, p.getCPF());
-            valores.add(4, p.getRG());
+            valores.add(0, c.getCodigo());
+            valores.add(1, c.getNome());
+            valores.add(2, c.getDataNascimento());
+            valores.add(3, c.getCPF());
+            valores.add(4, c.getRG());
+            valores.add(5, c.getCNPJ());
+            valores.add(6, c.getFisicaouJuridica());
             model.addRow(valores);
         }
         tblListagem.setModel(model);
@@ -142,31 +146,31 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Pessoa p = new Pessoa();
+        Cliente c = new Cliente();
         try {
-            p.setNome(txtFiltro.getText());
+            c.setNome(txtFiltro.getText());
         } catch (Exception ex) {
             Logger.getLogger(frmPessoaListagem.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        List<Pessoa> lista = DAO.buscar(p);
+        List<Cliente> lista = DAO.buscar(c);
 
         preencheTabela(lista);
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
         Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        Pessoa p = DAO.Abrir((int) valor);
-        frmPessoaEditar janela = new frmPessoaEditar(p, DAO);
+        Cliente c = DAO.Abrir((int) valor);
+        frmClienteEditar janela = new frmClienteEditar(c, DAO);
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_tblListagemMouseClicked
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        Pessoa p = new Pessoa();
-        PessoaDAO d = new PessoaDAO();
-        frmPessoaEditar janela = new frmPessoaEditar(p, d);
+        Cliente c = new Cliente();
+        ClienteDAO d = new ClienteDAO();
+        frmClienteEditar janela = new frmClienteEditar(c, d);
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);

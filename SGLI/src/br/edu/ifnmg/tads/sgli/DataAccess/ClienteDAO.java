@@ -161,28 +161,28 @@ public class ClienteDAO extends PessoaDAO {
         }
     }
     
-        public List<Cliente> ListarTodos(){
         
+         public List<Cliente> ListarTodosCli() {
         try {
-            List<Cliente> clientes = new LinkedList<>();
-            PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from professores where ativo = 1 ORDER BY codprofessor ASC");
-            ResultSet resultado = comando.executeQuery();
-            while (resultado.next()){
-                Cliente cliente = new Cliente();
-                cliente.setCodigo(resultado.getInt("IdCliente"));
-                cliente.setFisicaouJuridica(resultado.getInt("FisicaOuJuridica"));
-                cliente.setCNPJ(resultado.getString("CNPJ"));
-                cliente.setCodigo(resultado.getInt("Idpessoa"));
+            PreparedStatement sql = getConexao().prepareStatement("select * from cliente where ativo = 1 ORDER BY IdCliente ASC");
 
-                cliente.add(cliente);
+            ResultSet resultado = sql.executeQuery();
+
+            List<Cliente> lista = new ArrayList<Cliente>();
+
+            while (resultado.next()) {
+                Cliente obj = new Cliente();
+
+                carregaObjeto(obj, resultado);
+
+                lista.add(obj);
             }
-            return clientes;
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+
+            return lista;
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
             return null;
         }
-        
     }
     
     
