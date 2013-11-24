@@ -5,6 +5,7 @@
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
 import java.util.Objects;
+import java.util.List;
 
 /**
  *

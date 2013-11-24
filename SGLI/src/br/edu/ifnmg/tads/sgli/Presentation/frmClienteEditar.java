@@ -16,6 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -71,6 +72,8 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             cliente.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
             cliente.setCPF(txtCPF.getText());
             cliente.setRG(txtRG.getText());
+            cliente.setCNPJ(txtCNPJ.getText());
+
 
         } catch (Exception ex) {
             Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);

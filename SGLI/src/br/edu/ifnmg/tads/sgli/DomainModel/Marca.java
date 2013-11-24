@@ -13,15 +13,14 @@ import java.util.Objects;
 public class Marca {
     
     private int CodMarca;
-    private int CodGrupoProdutos;
     private String Nome;
 
     public Marca() {
     }
 
-    public Marca(int CodMarca, int CodGrupoProdutos, String Nome) {
+
+    public Marca(int CodMarca, String Nome) {
         this.CodMarca = CodMarca;
-        this.CodGrupoProdutos = CodGrupoProdutos;
         this.Nome = Nome;
     }
 
@@ -31,14 +30,6 @@ public class Marca {
 
     public void setCodMarca(int CodMarca) {
         this.CodMarca = CodMarca;
-    }
-
-    public int getCodGrupoProdutos() {
-        return CodGrupoProdutos;
-    }
-
-    public void setCodGrupoProdutos(int CodGrupoProdutos) {
-        this.CodGrupoProdutos = CodGrupoProdutos;
     }
 
     public String getNome() {
@@ -52,9 +43,8 @@ public class Marca {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 59 * hash + this.CodMarca;
-        hash = 59 * hash + this.CodGrupoProdutos;
-        hash = 59 * hash + Objects.hashCode(this.Nome);
+        hash = 67 * hash + this.CodMarca;
+        hash = 67 * hash + Objects.hashCode(this.Nome);
         return hash;
     }
 
@@ -70,9 +60,6 @@ public class Marca {
         if (this.CodMarca != other.CodMarca) {
             return false;
         }
-        if (this.CodGrupoProdutos != other.CodGrupoProdutos) {
-            return false;
-        }
         if (!Objects.equals(this.Nome, other.Nome)) {
             return false;
         }
@@ -81,9 +68,9 @@ public class Marca {
 
     @Override
     public String toString() {
-        return "Marca{" + "CodMarca=" + CodMarca + ", CodGrupoProdutos=" + CodGrupoProdutos + ", Nome=" + Nome + '}';
+        return "Marca{" + "CodMarca=" + CodMarca + ", Nome=" + Nome + '}';
     }
-    
+
     
     
 }
