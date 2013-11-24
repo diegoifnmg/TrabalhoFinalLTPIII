@@ -5,7 +5,6 @@
 package br.edu.ifnmg.tads.sgli.Presentation;
 
 import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
-import br.edu.ifnmg.tads.sgli.DataAccess.PessoaDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Email;
 import br.edu.ifnmg.tads.sgli.DomainModel.Endereco;
@@ -28,7 +27,6 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     ClienteDAO DAO;
     Cliente cliente;
 
-    
     /**
      * Creates new form frmClienteEditar
      */
@@ -40,17 +38,17 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             this.DAO = d;
 
             carregaCampos();
-            
+
             List<Telefone> telefones = cliente.getTelefones();
             atualizaTabelaTelefones(telefones);
-            
+
             List<Endereco> enderecos = cliente.getEnderecos();
             atualizaTabelaEnderecos(enderecos);
-            
+
             List<Email> emails = cliente.getEmails();
-            atualizaTabelaEmails(emails);   
-            
-            
+            atualizaTabelaEmails(emails);
+
+
         } else {
             cliente = new Cliente();
             DAO = new ClienteDAO();
@@ -700,7 +698,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             }
             List<Cliente> lista = DAO.buscar(filtro);
 
-            for(Pessoa p : lista){
+            for (Pessoa p : lista) {
                 jComboBox1.addItem(p);
             }
             jComboBox1.repaint();
@@ -718,7 +716,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             }
             List<Cliente> lista = DAO.buscar(filtro);
 
-            for(Pessoa p : lista){
+            for (Pessoa p : lista) {
                 jComboBox1.addItem(p);
             }
             jComboBox1.repaint();
@@ -757,7 +755,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         try {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
                 Telefone t = new Telefone();
-                t.setDDD(Integer.parseInt( txtDDD.getText() ));
+                t.setDDD(Integer.parseInt(txtDDD.getText()));
                 t.setTelefone(Integer.parseInt(txtTelefone.getText()));
 
                 cliente.addTelefone(t);
@@ -840,7 +838,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
         for (Telefone t : telefones) {
             Vector valores = new Vector();
-            valores.add(0,t.getDDD());
+            valores.add(0, t.getDDD());
             valores.add(1, t.getTelefone());
 
             model.addRow(valores);
@@ -849,7 +847,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         tblListagemTelefones.setModel(model);
         tblListagemTelefones.repaint();
     }
-    
+
     private void atualizaTabelaEnderecos(List<Endereco> enderecos) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("Rua");
@@ -864,7 +862,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
         for (Endereco t : enderecos) {
             Vector valores = new Vector();
-            
+
             valores.add(0, t.getRua());
             valores.add(1, t.getNumero());
             valores.add(2, t.getBairro());
@@ -874,16 +872,15 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             valores.add(6, t.getEstado());
             valores.add(7, t.getComplemento());
 
-            
-            
+
+
             model.addRow(valores);
         }
 
         tblListagemEnderecos.setModel(model);
         tblListagemEnderecos.repaint();
     }
-    
-    
+
     private void atualizaTabelaEmails(List<Email> emails) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("email");
@@ -892,19 +889,16 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
         for (Email t : emails) {
             Vector valores = new Vector();
-            
+
             valores.add(0, t.getEmail());
-            
-   
+
+
             model.addRow(valores);
         }
 
         tblEmailListagem.setModel(model);
         tblEmailListagem.repaint();
     }
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar;
     private javax.swing.JButton btnAdicionar;

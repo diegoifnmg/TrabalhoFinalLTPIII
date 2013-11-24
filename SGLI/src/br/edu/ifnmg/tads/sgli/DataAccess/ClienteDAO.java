@@ -5,10 +5,6 @@
 package br.edu.ifnmg.tads.sgli.DataAccess;
 
 import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
-import br.edu.ifnmg.tads.sgli.DomainModel.Email;
-import br.edu.ifnmg.tads.sgli.DomainModel.Endereco;
-import br.edu.ifnmg.tads.sgli.DomainModel.Pessoa;
-import br.edu.ifnmg.tads.sgli.DomainModel.Telefone;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

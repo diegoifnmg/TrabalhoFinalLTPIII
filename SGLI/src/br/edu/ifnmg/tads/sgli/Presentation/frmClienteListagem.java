@@ -5,9 +5,7 @@
 package br.edu.ifnmg.tads.sgli.Presentation;
 
 import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
-import br.edu.ifnmg.tads.sgli.DataAccess.PessoaDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
-import br.edu.ifnmg.tads.sgli.DomainModel.Pessoa;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -21,12 +19,13 @@ import javax.swing.table.DefaultTableModel;
 public class frmClienteListagem extends javax.swing.JInternalFrame {
 
     ClienteDAO DAO;
+
     /**
      * Creates new form frmClienteListagem
      */
     public frmClienteListagem() {
         initComponents();
-        
+
         DAO = new ClienteDAO();
 
         List<Cliente> clientes = DAO.ListarTodosCli();
@@ -56,7 +55,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
         }
         tblListagem.setModel(model);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,7 +174,6 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
         janela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnNovoActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnNovo;
