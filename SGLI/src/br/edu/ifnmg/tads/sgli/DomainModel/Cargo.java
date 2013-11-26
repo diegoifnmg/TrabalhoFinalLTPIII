@@ -10,29 +10,40 @@ import java.util.Objects;
  *
  * @author Diego
  */
-public class Funcionario extends Pessoa {
-    
-    private Cargo cargo;
+public class Cargo {
 
-    public Funcionario() {
+    private int codigo;
+    private String cargo;
+
+    public Cargo() {
     }
 
-    public Funcionario(Cargo cargo) {
+    public Cargo(int codigo, String cargo) {
+        this.codigo = codigo;
         this.cargo = cargo;
     }
 
-    public Cargo getCargo() {
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
+    }
+
+    public String getCargo() {
         return cargo;
     }
 
-    public void setCargo(Cargo cargo) {
+    public void setCargo(String cargo) {
         this.cargo = cargo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.cargo);
+        int hash = 3;
+        hash = 37 * hash + this.codigo;
+        hash = 37 * hash + Objects.hashCode(this.cargo);
         return hash;
     }
 
@@ -44,7 +55,10 @@ public class Funcionario extends Pessoa {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Funcionario other = (Funcionario) obj;
+        final Cargo other = (Cargo) obj;
+        if (this.codigo != other.codigo) {
+            return false;
+        }
         if (!Objects.equals(this.cargo, other.cargo)) {
             return false;
         }
@@ -53,9 +67,6 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "cargo=" + cargo + '}';
+        return "Cargo{" + "codigo=" + codigo + ", cargo=" + cargo + '}';
     }
-
-    
-    
 }

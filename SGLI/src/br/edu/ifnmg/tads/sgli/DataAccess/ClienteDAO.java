@@ -73,29 +73,29 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
     public Cliente AbrirCliente(int id) {
         try {
             Cliente cliente = new Cliente();
-            
+
             super.AbrirPessoa(cliente, id);
- 
-            
- 
- 
+
+
+
+
             //Seleciona o funcionario e armazena em 'resultado'
-            PreparedStatement sql = getConexao().prepareStatement("select * from Cliente where IdCliente=?");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Cliente where IdPessoa=?");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
- 
- 
- 
+
+
+
             if (resultado.next()) {
-                
+
                 cliente.setCNPJ(resultado.getString("CNPJ"));
                 cliente.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
                 return cliente;
             } else {
                 return null;
             }
- 
- 
+
+
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return null;
@@ -179,7 +179,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
 
             while (resultado.next()) {
                 Cliente obj = new Cliente();
-                
+
                 super.CarregaObjetoPessoa(obj, resultado);
 
                 obj.setCodigo(resultado.getInt("IdPessoa"));
@@ -196,7 +196,4 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
             return null;
         }
     }
-    
-   
-    
 }
