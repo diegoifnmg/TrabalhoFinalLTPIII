@@ -12,16 +12,17 @@ import java.util.Objects;
  */
 public class Cliente extends Pessoa{
     
-    private int Codigo;
     private int FisicaouJuridica;
     private String CNPJ;
     private int Ativo;
 
     public Cliente() {
+        this.Ativo = 1;
+        
     }
 
     public Cliente(int Codigo, int FisicaouJuridica, String CNPJ, int Ativo) {
-        this.Codigo = Codigo;
+        setCodigo(Codigo);
         this.FisicaouJuridica = FisicaouJuridica;
         this.CNPJ = CNPJ;
         this.Ativo = Ativo;
@@ -55,7 +56,7 @@ public class Cliente extends Pessoa{
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + this.Codigo;
+        hash = 67 * hash + this.getCodigo();
         hash = 67 * hash + this.FisicaouJuridica;
         hash = 67 * hash + Objects.hashCode(this.CNPJ);
         hash = 67 * hash + this.Ativo;
@@ -71,7 +72,7 @@ public class Cliente extends Pessoa{
             return false;
         }
         final Cliente other = (Cliente) obj;
-        if (this.Codigo != other.Codigo) {
+        if (this.getCodigo() != other.getCodigo()) {
             return false;
         }
         if (this.FisicaouJuridica != other.FisicaouJuridica) {
@@ -88,7 +89,7 @@ public class Cliente extends Pessoa{
 
     @Override
     public String toString() {
-        return "Cliente{" + "Codigo=" + Codigo + ", FisicaouJuridica=" + FisicaouJuridica + ", CNPJ=" + CNPJ + ", Ativo=" + Ativo + '}';
+        return "Cliente{" + "Codigo=" + getCodigo() + ", FisicaouJuridica=" + FisicaouJuridica + ", CNPJ=" + CNPJ + ", Ativo=" + Ativo + '}';
     }
     
     

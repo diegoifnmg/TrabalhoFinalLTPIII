@@ -159,10 +159,10 @@ public class frmPessoaListagem extends javax.swing.JInternalFrame {
 
     private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
         Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        Pessoa p = DAO.Abrir((int) valor);
-        frmPessoaEditar janela = new frmPessoaEditar(p, DAO);
-        this.getParent().add(janela);
-        janela.setVisible(true);
+        //Pessoa p = DAO.Abrir((int) valor);
+        //frmPessoaEditar janela = new frmPessoaEditar(p, DAO);
+        //this.getParent().add(janela);
+        //janela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_tblListagemMouseClicked
 

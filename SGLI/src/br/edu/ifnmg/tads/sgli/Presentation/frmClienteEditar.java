@@ -8,7 +8,6 @@ import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Email;
 import br.edu.ifnmg.tads.sgli.DomainModel.Endereco;
-import br.edu.ifnmg.tads.sgli.DomainModel.Pessoa;
 import br.edu.ifnmg.tads.sgli.DomainModel.Telefone;
 import java.sql.Date;
 import java.util.List;
@@ -16,7 +15,6 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -149,6 +147,8 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         btnRemover2 = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox();
+
+        setClosable(true);
 
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -285,7 +285,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbJuridica)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -444,7 +444,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Endereço", jPanel2);
@@ -526,7 +526,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -586,7 +586,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(141, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);
@@ -621,7 +621,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(235, Short.MAX_VALUE))
+                .addContainerGap(243, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("tab5", jPanel5);
@@ -640,7 +640,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 579, Short.MAX_VALUE)
+                .addComponent(pnlGuias)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -697,12 +697,12 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             try {
                 filtro.setNome(valor);
             } catch (Exception ex) {
-                Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmClienteEditar.class.getName()).log(Level.SEVERE, null, ex);
             }
             List<Cliente> lista = DAO.buscar(filtro);
 
-            for (Pessoa p : lista) {
-                jComboBox1.addItem(p);
+            for (Cliente c : lista) {
+                jComboBox1.addItem(c);
             }
             jComboBox1.repaint();
         }
@@ -715,12 +715,12 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             try {
                 filtro.setNome(valor);
             } catch (Exception ex) {
-                Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(frmClienteEditar.class.getName()).log(Level.SEVERE, null, ex);
             }
             List<Cliente> lista = DAO.buscar(filtro);
 
-            for (Pessoa p : lista) {
-                jComboBox1.addItem(p);
+            for (Cliente c : lista) {
+                jComboBox1.addItem(c);
             }
             jComboBox1.repaint();
         }// TODO add your handling code here:

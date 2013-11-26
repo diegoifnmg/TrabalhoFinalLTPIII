@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author Diego
  */
-public class ClienteDAO extends PessoaDAO {
+public class ClienteDAO extends PessoaDAO<Cliente> {
 
     private DAO bd;
 
@@ -49,8 +49,8 @@ public class ClienteDAO extends PessoaDAO {
                 return false;
             }
         } else {
-            super.Salvar(obj);
             try {
+                super.Salvar(obj);
                 Connection con = getConexao();
                 PreparedStatement sql = con.prepareStatement("update Cliente set FisicaouJuridica=?, CNPJ=?, ATIVO=? where IdPessoa=?");
 
@@ -70,25 +70,34 @@ public class ClienteDAO extends PessoaDAO {
         }
     }
 
-    public Cliente Abrir(int cod) {
-
-        Cliente cliente = new Cliente();
-
+    public Cliente AbrirCliente(int id) {
         try {
-            PreparedStatement comando = bd.getConexao().
-                    prepareStatement("select * from cliente where Idcliente = ?");
-            comando.setInt(1, cod);
-            ResultSet resultado = comando.executeQuery();
-            resultado.first();
-            cliente.setCodigo(resultado.getInt("IdCliente"));
-            cliente.setFisicaouJuridica(resultado.getInt("FisicaOuJuridica"));
-            cliente.setCNPJ(resultado.getString("CNPJ"));
-            cliente.setCodigo(resultado.getInt("Idpessoa"));
-
-            return cliente;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Cliente cliente = new Cliente();
+            
+            super.AbrirPessoa(cliente, id);
+ 
+            
+ 
+ 
+            //Seleciona o funcionario e armazena em 'resultado'
+            PreparedStatement sql = getConexao().prepareStatement("select * from Cliente where IdCliente=?");
+            sql.setInt(1, id);
+            ResultSet resultado = sql.executeQuery();
+ 
+ 
+ 
+            if (resultado.next()) {
+                
+                cliente.setCNPJ(resultado.getString("CNPJ"));
+                cliente.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
+                return cliente;
+            } else {
+                return null;
+            }
+ 
+ 
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
             return null;
         }
     }
@@ -96,7 +105,7 @@ public class ClienteDAO extends PessoaDAO {
     public boolean Apagar(int cod) {
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update cliente set ativo = 0 where IdCliente = ?");
+                    prepareStatement("update cliente set ativo = 0 where IdPessoa = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;
@@ -142,12 +151,12 @@ public class ClienteDAO extends PessoaDAO {
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
-                    tmp.setCodigo(resultado.getInt("IdCliente"));
+                    tmp.setCodigo(resultado.getInt("IdPessoa"));
                     tmp.setCNPJ(resultado.getString("CNPJ"));
                     tmp.setFisicaouJuridica(resultado.getInt("Ativo"));
                     tmp.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
                 } catch (Exception ex) {
-                    Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 // Pega o objeto e coloca na lista
@@ -155,14 +164,14 @@ public class ClienteDAO extends PessoaDAO {
             }
             return clientes;
         } catch (SQLException ex) {
-            Logger.getLogger(PessoaDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
     public List<Cliente> ListarTodosCli() {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from cliente where ativo = 1 ORDER BY IdCliente ASC");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa P join Cliente C on P.IdPessoa = C.IdPessoa where C.ativo = 1");
 
             ResultSet resultado = sql.executeQuery();
 
@@ -170,8 +179,10 @@ public class ClienteDAO extends PessoaDAO {
 
             while (resultado.next()) {
                 Cliente obj = new Cliente();
+                
+                super.CarregaObjetoPessoa(obj, resultado);
 
-                obj.setCodigo(resultado.getInt("IdCliente"));
+                obj.setCodigo(resultado.getInt("IdPessoa"));
                 obj.setCNPJ(resultado.getString("CNPJ"));
                 obj.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
 
@@ -185,4 +196,7 @@ public class ClienteDAO extends PessoaDAO {
             return null;
         }
     }
+    
+   
+    
 }

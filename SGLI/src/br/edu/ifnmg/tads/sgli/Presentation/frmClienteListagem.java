@@ -149,7 +149,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
         try {
             c.setNome(txtFiltro.getText());
         } catch (Exception ex) {
-            Logger.getLogger(frmPessoaListagem.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmClienteListagem.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         List<Cliente> lista = DAO.buscar(c);
@@ -159,7 +159,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
 
     private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
         Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        Cliente c = DAO.Abrir((int) valor);
+        Cliente c = DAO.AbrirCliente((int) valor);
         frmClienteEditar janela = new frmClienteEditar(c, DAO);
         this.getParent().add(janela);
         janela.setVisible(true);

@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
  */
 public class Pessoa {
     
-    private int CodPessoa;
+    private int Codigo;
     private String nome;
     private String CPF;
     private String RG;
@@ -30,7 +30,7 @@ public class Pessoa {
 
     //construtor
     public Pessoa() {
-        CodPessoa = 0;
+        Codigo = 0;
         emails = new ArrayList<Email>();
         enderecos = new ArrayList<Endereco>();
         telefones = new ArrayList<Telefone>();
@@ -82,12 +82,12 @@ public class Pessoa {
     }
 
     public int getCodigo() {
-        return CodPessoa;
+        return Codigo;
     }
 
     public void setCodigo(int codigo) {
         if (codigo >= 0) {
-            this.CodPessoa = codigo;
+            this.Codigo = codigo;
         } 
     }
 
@@ -146,7 +146,7 @@ public class Pessoa {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 73 * hash + this.CodPessoa;
+        hash = 73 * hash + this.Codigo;
         hash = 73 * hash + Objects.hashCode(this.nome);
         hash = 73 * hash + Objects.hashCode(this.CPF);
         hash = 73 * hash + Objects.hashCode(this.RG);
@@ -166,7 +166,7 @@ public class Pessoa {
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (this.CodPessoa != other.CodPessoa) {
+        if (this.Codigo != other.Codigo) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
@@ -195,7 +195,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "CodPessoa=" + CodPessoa + ", nome=" + nome + ", CPF=" + CPF + ", RG=" + RG + ", DataNascimento=" + DataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
+        return "Pessoa{" + "CodPessoa=" + Codigo + ", nome=" + nome + ", CPF=" + CPF + ", RG=" + RG + ", DataNascimento=" + DataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
     }
     
     
