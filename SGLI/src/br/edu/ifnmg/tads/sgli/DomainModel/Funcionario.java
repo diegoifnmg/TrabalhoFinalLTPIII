@@ -13,8 +13,10 @@ import java.util.Objects;
 public class Funcionario extends Pessoa {
     
     private Cargo cargo;
+    private int Ativo;
 
     public Funcionario() {
+        this.Ativo = 1;
     }
 
     public Funcionario(Cargo cargo) {
@@ -29,10 +31,19 @@ public class Funcionario extends Pessoa {
         this.cargo = cargo;
     }
 
+    public int getAtivo() {
+        return Ativo;
+    }
+
+    public void setAtivo(int Ativo) {
+        this.Ativo = Ativo;
+    }
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 17 * hash + Objects.hashCode(this.cargo);
+        hash = 19 * hash + Objects.hashCode(this.cargo);
+        hash = 19 * hash + this.Ativo;
         return hash;
     }
 
@@ -46,6 +57,9 @@ public class Funcionario extends Pessoa {
         }
         final Funcionario other = (Funcionario) obj;
         if (!Objects.equals(this.cargo, other.cargo)) {
+            return false;
+        }
+        if (this.Ativo != other.Ativo) {
             return false;
         }
         return true;

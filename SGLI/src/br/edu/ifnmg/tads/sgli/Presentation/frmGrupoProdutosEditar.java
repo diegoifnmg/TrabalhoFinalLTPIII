@@ -66,6 +66,9 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
         txtNome = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
+        setClosable(true);
+        setMaximizable(true);
+
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +101,7 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
                 .addGap(32, 32, 32))
         );

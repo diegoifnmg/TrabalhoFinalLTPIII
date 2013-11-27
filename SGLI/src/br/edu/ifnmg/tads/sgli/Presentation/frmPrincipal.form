@@ -38,20 +38,50 @@
             <Property name="text" type="java.lang.String" value="Cadastro"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroClientes">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastro de Clientes"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imnuCadastroClientesActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroProdutos">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastro de Produtos"/>
               </Properties>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem2">
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroFuncionarios">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastro de Funcion&#xe1;rios"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imnuCadastroFuncionariosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroFornecedores">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastro de Fornecedores"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imnuCadastroFornecedoresActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroCargos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastro de Cargos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imnuCadastroCargosActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="imnuCadastroGrupoProdutos">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cadastro de Grupo de Produtos"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="imnuCadastroGrupoProdutosActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -75,6 +105,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="SGLI - Sistema Loja de Inform&#xe1;tica"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
@@ -96,88 +127,13 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                  <Component id="btnTestePessoa" max="32767" attributes="0"/>
-                  <Component id="btnTesteCliente" max="32767" attributes="0"/>
-                  <Component id="jButton1" max="32767" attributes="0"/>
-                  <Component id="lblFuncionario" max="32767" attributes="0"/>
-                  <Component id="btnCargo" max="32767" attributes="0"/>
-                  <Component id="btnFornecedor" max="32767" attributes="0"/>
-              </Group>
-              <EmptySpace pref="134" max="32767" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="400" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-              <Component id="btnTestePessoa" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnTesteCliente" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="lblFuncionario" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnFornecedor" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="36" max="32767" attributes="0"/>
-              <Component id="btnCargo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
-          </Group>
+          <EmptySpace min="0" pref="281" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
-  <SubComponents>
-    <Component class="javax.swing.JButton" name="btnTestePessoa">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Teste Pessoa"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTestePessoaActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnTesteCliente">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Teste Cliente"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnTesteClienteActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Teste Grupo Produtos"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="lblFuncionario">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Teste Funcionario"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="lblFuncionarioActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnCargo">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Cargo"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCargoActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="btnFornecedor">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Teste Fornecedor"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFornecedorActionPerformed"/>
-      </Events>
-    </Component>
-  </SubComponents>
 </Form>

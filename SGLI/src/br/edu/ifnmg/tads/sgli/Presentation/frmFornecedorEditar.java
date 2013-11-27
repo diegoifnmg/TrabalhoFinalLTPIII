@@ -106,9 +106,6 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
         txtCPF = new javax.swing.JTextField();
         lblRg = new javax.swing.JLabel();
         txtRG = new javax.swing.JTextField();
-        lblPessoa = new javax.swing.JLabel();
-        rbFisica = new javax.swing.JRadioButton();
-        rbJuridica = new javax.swing.JRadioButton();
         lblCNPJ = new javax.swing.JLabel();
         txtCNPJ = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
@@ -148,6 +145,9 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmailListagem = new javax.swing.JTable();
         btnRemover2 = new javax.swing.JButton();
+
+        setClosable(true);
+        setMaximizable(true);
 
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -194,22 +194,6 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
 
         lblRg.setText("RG:");
 
-        lblPessoa.setText("Pessoa:");
-
-        rbFisica.setText("Física");
-        rbFisica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFisicaActionPerformed(evt);
-            }
-        });
-
-        rbJuridica.setText("Juridica");
-        rbJuridica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbJuridicaActionPerformed(evt);
-            }
-        });
-
         lblCNPJ.setText("CNPJ:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -227,7 +211,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                         .addComponent(lblRg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(22, Short.MAX_VALUE))
+                        .addContainerGap(44, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -245,16 +229,9 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPessoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbJuridica)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbFisica)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(lblCNPJ)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lblCNPJ)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -278,13 +255,9 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPessoa)
-                    .addComponent(rbFisica)
                     .addComponent(lblCNPJ)
                     .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbJuridica)
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -399,7 +372,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                                 .addComponent(Adicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRemover)))
-                        .addGap(0, 1, Short.MAX_VALUE))
+                        .addGap(0, 23, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -443,7 +416,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Endereço", jPanel2);
@@ -508,7 +481,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnAdicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemover1)))
-                .addContainerGap(15, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -525,7 +498,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addContainerGap(122, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -570,7 +543,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnEmailAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemover2)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 22, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -585,7 +558,7 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);
@@ -601,17 +574,17 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
                 .addComponent(btnLimpar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnApagar)
-                .addContainerGap(157, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(pnlGuias)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
+                .addComponent(pnlGuias)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -653,22 +626,6 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
-
-    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataNascActionPerformed
-
-    private void rbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFisicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbFisicaActionPerformed
-
-    private void rbJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbJuridicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbJuridicaActionPerformed
 
     private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
         // TODO add your handling code here:
@@ -756,6 +713,14 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
         }
     }//GEN-LAST:event_btnEmailAddActionPerformed
+
+    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDataNascActionPerformed
+
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNomeActionPerformed
 
     private void atualizaTabelaTelefones(List<Telefone> telefones) {
         DefaultTableModel model = new DefaultTableModel();
@@ -862,12 +827,9 @@ public class frmFornecedorEditar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblPais;
-    private javax.swing.JLabel lblPessoa;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblRua;
     private javax.swing.JTabbedPane pnlGuias;
-    private javax.swing.JRadioButton rbFisica;
-    private javax.swing.JRadioButton rbJuridica;
     private javax.swing.JTable tblEmailListagem;
     private javax.swing.JTable tblListagemEnderecos;
     private javax.swing.JTable tblListagemTelefones;

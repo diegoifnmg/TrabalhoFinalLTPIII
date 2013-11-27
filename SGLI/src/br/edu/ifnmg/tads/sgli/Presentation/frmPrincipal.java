@@ -26,12 +26,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnTestePessoa = new javax.swing.JButton();
-        btnTesteCliente = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        lblFuncionario = new javax.swing.JButton();
-        btnCargo = new javax.swing.JButton();
-        btnFornecedor = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -40,56 +34,18 @@ public class frmPrincipal extends javax.swing.JFrame {
         Ferramentas = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        imnuCadastroClientes = new javax.swing.JMenuItem();
+        imnuCadastroProdutos = new javax.swing.JMenuItem();
+        imnuCadastroFuncionarios = new javax.swing.JMenuItem();
+        imnuCadastroFornecedores = new javax.swing.JMenuItem();
+        imnuCadastroCargos = new javax.swing.JMenuItem();
+        imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnTestePessoa.setText("Teste Pessoa");
-        btnTestePessoa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTestePessoaActionPerformed(evt);
-            }
-        });
-
-        btnTesteCliente.setText("Teste Cliente");
-        btnTesteCliente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTesteClienteActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Teste Grupo Produtos");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        lblFuncionario.setText("Teste Funcionario");
-        lblFuncionario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lblFuncionarioActionPerformed(evt);
-            }
-        });
-
-        btnCargo.setText("Cargo");
-        btnCargo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCargoActionPerformed(evt);
-            }
-        });
-
-        btnFornecedor.setText("Teste Fornecedor");
-        btnFornecedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFornecedorActionPerformed(evt);
-            }
-        });
+        setTitle("SGLI - Sistema Loja de Informática");
 
         mnuControle.setText("Controle");
 
@@ -110,14 +66,48 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Cadastro");
 
-        jMenuItem5.setText("Cadastro de Clientes");
-        jMenu3.add(jMenuItem5);
+        imnuCadastroClientes.setText("Cadastro de Clientes");
+        imnuCadastroClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroClientesActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuCadastroClientes);
 
-        jMenuItem1.setText("Cadastro de Produtos");
-        jMenu3.add(jMenuItem1);
+        imnuCadastroProdutos.setText("Cadastro de Produtos");
+        jMenu3.add(imnuCadastroProdutos);
 
-        jMenuItem2.setText("Cadastro de Funcionários");
-        jMenu3.add(jMenuItem2);
+        imnuCadastroFuncionarios.setText("Cadastro de Funcionários");
+        imnuCadastroFuncionarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroFuncionariosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuCadastroFuncionarios);
+
+        imnuCadastroFornecedores.setText("Cadastro de Fornecedores");
+        imnuCadastroFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroFornecedoresActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuCadastroFornecedores);
+
+        imnuCadastroCargos.setText("Cadastro de Cargos");
+        imnuCadastroCargos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroCargosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuCadastroCargos);
+
+        imnuCadastroGrupoProdutos.setText("Cadastro de Grupo de Produtos");
+        imnuCadastroGrupoProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroGrupoProdutosActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuCadastroGrupoProdutos);
 
         jMenuBar1.add(jMenu3);
 
@@ -136,73 +126,45 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnTestePessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnTesteCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(134, Short.MAX_VALUE))
+            .addGap(0, 400, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(btnTestePessoa)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnTesteCliente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblFuncionario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnFornecedor)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addComponent(btnCargo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addGap(46, 46, 46))
+            .addGap(0, 281, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTestePessoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTestePessoaActionPerformed
-        frmPessoaListagem janela = new frmPessoaListagem();
-        add(janela);
-        janela.setVisible(true);
-    }//GEN-LAST:event_btnTestePessoaActionPerformed
-
-    private void btnTesteClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTesteClienteActionPerformed
+    private void imnuCadastroClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroClientesActionPerformed
         frmClienteListagem janela = new frmClienteListagem();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_btnTesteClienteActionPerformed
+    }//GEN-LAST:event_imnuCadastroClientesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void imnuCadastroGrupoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroGrupoProdutosActionPerformed
         frmGrupoProdutosListagem janela = new frmGrupoProdutosListagem();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_imnuCadastroGrupoProdutosActionPerformed
 
-    private void lblFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblFuncionarioActionPerformed
+    private void imnuCadastroFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroFuncionariosActionPerformed
         frmFuncionarioListagem janela = new frmFuncionarioListagem();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_lblFuncionarioActionPerformed
+    }//GEN-LAST:event_imnuCadastroFuncionariosActionPerformed
 
-    private void btnCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargoActionPerformed
-        frmCargoListagem janela = new frmCargoListagem();
-        add(janela);
-        janela.setVisible(true);
-    }//GEN-LAST:event_btnCargoActionPerformed
-
-    private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
+    private void imnuCadastroFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroFornecedoresActionPerformed
         frmFornecedorListagem janela = new frmFornecedorListagem();
         add(janela);
         janela.setVisible(true);
-    }//GEN-LAST:event_btnFornecedorActionPerformed
+    }//GEN-LAST:event_imnuCadastroFornecedoresActionPerformed
+
+    private void imnuCadastroCargosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroCargosActionPerformed
+        frmCargoListagem janela = new frmCargoListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_imnuCadastroCargosActionPerformed
 
     /**
      * @param args the command line arguments
@@ -245,24 +207,21 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Ferramentas;
-    private javax.swing.JButton btnCargo;
-    private javax.swing.JButton btnFornecedor;
-    private javax.swing.JButton btnTesteCliente;
-    private javax.swing.JButton btnTestePessoa;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JMenuItem imnuCadastroCargos;
+    private javax.swing.JMenuItem imnuCadastroClientes;
+    private javax.swing.JMenuItem imnuCadastroFornecedores;
+    private javax.swing.JMenuItem imnuCadastroFuncionarios;
+    private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
+    private javax.swing.JMenuItem imnuCadastroProdutos;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
-    private javax.swing.JButton lblFuncionario;
     private javax.swing.JMenu mnuControle;
     // End of variables declaration//GEN-END:variables
 }

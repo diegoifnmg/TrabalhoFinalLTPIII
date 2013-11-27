@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.8" type="org.netbeans.modules.form.forminfo.JInternalFrameFormInfo">
+  <Properties>
+    <Property name="closable" type="boolean" value="true"/>
+    <Property name="maximizable" type="boolean" value="true"/>
+  </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>
@@ -39,7 +43,7 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
-              <Component id="pnlGuias" pref="428" max="32767" attributes="0"/>
+              <Component id="pnlGuias" max="32767" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnSalvar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -141,7 +145,7 @@
                           <Component id="lblCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="CbxCargo" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="235" max="32767" attributes="0"/>
+                      <EmptySpace pref="239" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -351,7 +355,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="100" max="-2" attributes="0"/>
-                      <EmptySpace pref="106" max="32767" attributes="0"/>
+                      <EmptySpace pref="110" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -513,7 +517,7 @@
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" min="-2" pref="102" max="-2" attributes="0"/>
-                      <EmptySpace pref="205" max="32767" attributes="0"/>
+                      <EmptySpace pref="209" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -618,7 +622,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="124" max="-2" attributes="0"/>
-                      <EmptySpace pref="228" max="32767" attributes="0"/>
+                      <EmptySpace pref="232" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -689,7 +693,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
                       <Component id="jComboBox1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="330" max="32767" attributes="0"/>
+                      <EmptySpace pref="334" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

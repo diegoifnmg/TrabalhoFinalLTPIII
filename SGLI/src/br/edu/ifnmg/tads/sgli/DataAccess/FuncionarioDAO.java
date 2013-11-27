@@ -36,10 +36,10 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
 
             try {
 
-                PreparedStatement sql = getConexao().prepareStatement("insert into Funcionario(IdCargo,Idpessoa) values(?,?)");
+                PreparedStatement sql = getConexao().prepareStatement("insert into Funcionario(IdCargo,Idpessoa,Ativo) values(?,?,?)");
                 sql.setInt(1, obj.getCargo().getCodigo());
                 sql.setInt(2, obj.getCodigo());
-
+                sql.setInt(3, obj.getAtivo());
                 sql.executeUpdate();
 
                 return true;
@@ -51,10 +51,12 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
             try {
                 super.Salvar(obj);
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update Funcionario set IdCargo=? where IdPessoa=?");
+                PreparedStatement sql = con.prepareStatement("update Funcionario set IdCargo=?, ATIVO=?  where IdPessoa=?");
 
                 sql.setInt(1, obj.getCargo().getCodigo());
-                sql.setInt(2, obj.getCodigo());
+                sql.setInt(2, obj.getAtivo());
+                sql.setInt(3, obj.getCodigo());
+                
 
                 sql.executeUpdate();
 
@@ -168,7 +170,7 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
                 try {
 
                     tmp.setCodigo(resultado.getInt("IdPessoa"));
-                    //tmp.setCargo(resultado.getInt("Idcargo"));
+                    
 
                 } catch (Exception ex) {
                     Logger.getLogger(FuncionarioDAO.class.getName()).log(Level.SEVERE, null, ex);

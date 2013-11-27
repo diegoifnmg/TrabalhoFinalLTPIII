@@ -71,6 +71,9 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
         tblListagem = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
 
+        setClosable(true);
+        setMaximizable(true);
+
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -134,7 +137,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
 
         pack();

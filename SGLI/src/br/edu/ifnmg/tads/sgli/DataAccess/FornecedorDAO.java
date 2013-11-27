@@ -120,7 +120,7 @@ public class FornecedorDAO extends PessoaDAO<Fornecedor> {
                 if (where.length() > 0) {
                     where = where + " and ";
                 }
-                where = "and nome like '%" + filtro.getNome() + "%'";
+                where = " and nome like '%" + filtro.getNome() + "%'";
             }
 
             if (filtro.getCodigo() > 0) {
@@ -153,7 +153,7 @@ public class FornecedorDAO extends PessoaDAO<Fornecedor> {
                     tmp.setRG(resultado.getString("RG"));
                     tmp.setDataNascimento(resultado.getDate("DataNascimento"));
                     tmp.setCNPJ(resultado.getString("CNPJ"));
-                    tmp.setAtivo(resultado.getInt("Ativo"));
+                    
 
                 } catch (Exception ex) {
                     Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,7 +171,7 @@ public class FornecedorDAO extends PessoaDAO<Fornecedor> {
 
     public List<Fornecedor> ListarTodosFornec() {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa P join Fornecedor f on P.IdPessoa = f.IdPessoa where C.ativo = 1");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa P join Fornecedor F on P.IdPessoa = F.IdPessoa where F.ativo = 1");
 
             ResultSet resultado = sql.executeQuery();
 

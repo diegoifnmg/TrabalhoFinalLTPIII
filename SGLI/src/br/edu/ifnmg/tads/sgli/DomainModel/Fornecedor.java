@@ -17,6 +17,8 @@ public class Fornecedor extends Pessoa{
     private int Ativo;
 
     public Fornecedor() {
+        this.Ativo = 1;
+        
     }
 
     public Fornecedor(String CNPJ) {

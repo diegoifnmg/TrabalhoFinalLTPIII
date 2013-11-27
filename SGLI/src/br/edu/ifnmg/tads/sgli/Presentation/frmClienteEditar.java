@@ -151,6 +151,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         btnRemover2 = new javax.swing.JButton();
 
         setClosable(true);
+        setMaximizable(true);
 
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -287,7 +288,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbJuridica)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -446,7 +447,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Endereço", jPanel2);
@@ -528,7 +529,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(130, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -588,7 +589,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);

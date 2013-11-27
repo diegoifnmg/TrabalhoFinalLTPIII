@@ -41,14 +41,15 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
         model.addColumn("CPF");
         model.addColumn("RG");
         model.addColumn("Cargo");
+        
         for (Funcionario c : lista) {
             Vector valores = new Vector();
             valores.add(0, c.getCodigo());
             valores.add(1, c.getNome());
             valores.add(2, c.getDataNascimento());
             valores.add(3, c.getCPF());
-            valores.add(4, c.getRG());
             valores.add(4, c.getCargo());
+            valores.add(4, c.getRG());
 
             model.addRow(valores);
         }
@@ -69,6 +70,9 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagem = new javax.swing.JTable();
         btnNovo = new javax.swing.JButton();
+
+        setClosable(true);
+        setMaximizable(true);
 
         btnBuscar.setText("Buscar");
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -133,7 +137,7 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
