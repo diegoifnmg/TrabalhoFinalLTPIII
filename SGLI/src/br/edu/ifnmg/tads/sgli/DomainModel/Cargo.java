@@ -67,6 +67,6 @@ public class Cargo {
 
     @Override
     public String toString() {
-        return "Cargo{" + "codigo=" + codigo + ", cargo=" + cargo + '}';
+        return cargo;
     }
 }

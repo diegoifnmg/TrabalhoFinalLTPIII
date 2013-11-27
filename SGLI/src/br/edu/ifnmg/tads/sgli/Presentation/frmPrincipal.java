@@ -4,10 +4,6 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
-import br.edu.ifnmg.tads.sgli.DomainModel.Pessoa;
-import com.sun.security.ntlm.Client;
-
 /**
  *
  * @author Diego
@@ -33,6 +29,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         btnTestePessoa = new javax.swing.JButton();
         btnTesteCliente = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        lblFuncionario = new javax.swing.JButton();
+        btnCargo = new javax.swing.JButton();
+        btnFornecedor = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -68,6 +67,27 @@ public class frmPrincipal extends javax.swing.JFrame {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        lblFuncionario.setText("Teste Funcionario");
+        lblFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lblFuncionarioActionPerformed(evt);
+            }
+        });
+
+        btnCargo.setText("Cargo");
+        btnCargo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCargoActionPerformed(evt);
+            }
+        });
+
+        btnFornecedor.setText("Teste Fornecedor");
+        btnFornecedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFornecedorActionPerformed(evt);
             }
         });
 
@@ -121,19 +141,28 @@ public class frmPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnTestePessoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnTesteCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblFuncionario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnCargo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnFornecedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(134, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addGap(32, 32, 32)
                 .addComponent(btnTestePessoa)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnTesteCliente)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblFuncionario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnFornecedor)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addComponent(btnCargo)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton1)
-                .addContainerGap(88, Short.MAX_VALUE))
+                .addGap(46, 46, 46))
         );
 
         pack();
@@ -157,16 +186,34 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void lblFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lblFuncionarioActionPerformed
+        frmFuncionarioListagem janela = new frmFuncionarioListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_lblFuncionarioActionPerformed
+
+    private void btnCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCargoActionPerformed
+        frmCargoListagem janela = new frmCargoListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_btnCargoActionPerformed
+
+    private void btnFornecedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFornecedorActionPerformed
+        frmFornecedorListagem janela = new frmFornecedorListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_btnFornecedorActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
-        
-        
-        
-        
+
+
+
+
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -198,6 +245,8 @@ public class frmPrincipal extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem Ferramentas;
+    private javax.swing.JButton btnCargo;
+    private javax.swing.JButton btnFornecedor;
     private javax.swing.JButton btnTesteCliente;
     private javax.swing.JButton btnTestePessoa;
     private javax.swing.JButton jButton1;
@@ -213,6 +262,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JButton lblFuncionario;
     private javax.swing.JMenu mnuControle;
     // End of variables declaration//GEN-END:variables
 }

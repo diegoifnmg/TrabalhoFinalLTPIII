@@ -4,46 +4,41 @@
  */
 package br.edu.ifnmg.tads.sgli.DataAccess;
 
-import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
+import br.edu.ifnmg.tads.sgli.DomainModel.Fornecedor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.xml.bind.ParseConversionEvent;
-import sun.awt.SunHints;
 
 /**
  *
  * @author Diego
  */
-public class ClienteDAO extends PessoaDAO<Cliente> {
+public class FornecedorDAO extends PessoaDAO<Fornecedor> {
 
     private DAO bd;
 
-    public ClienteDAO() {
+    public FornecedorDAO() {
         super();
         bd = new DAO();
     }
     //Salvar
 
-    public boolean Salvar(Cliente obj) {
+    public boolean Salvar(Fornecedor obj) {
         if (obj.getCodigo() == 0) {
             super.Salvar(obj);
 
             try {
-                PreparedStatement sql = getConexao().prepareStatement("insert into cliente(FisicaouJuridica,CNPJ,Ativo,Idpessoa) values(?,?,?,?)");
-                sql.setInt(1, obj.getFisicaouJuridica());
-                sql.setString(2, obj.getCNPJ());
-                sql.setInt(3, obj.getAtivo());
-                sql.setInt(4, obj.getCodigo());  
+                PreparedStatement sql = getConexao().prepareStatement("insert into fornecedor(CNPJ,Ativo,Idpessoa) values(?,?,?)");
+                sql.setString(1, obj.getCNPJ());
+                sql.setInt(2, obj.getAtivo());
+                sql.setInt(3, obj.getCodigo());
 
                 sql.executeUpdate();
 
@@ -56,12 +51,11 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
             try {
                 super.Salvar(obj);
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update Cliente set FisicaouJuridica=?, CNPJ=?, ATIVO=? where IdPessoa=?");
+                PreparedStatement sql = con.prepareStatement("update Fornecedor set CNPJ=?, ATIVO=? where IdPessoa=?");
 
-                sql.setInt(1, obj.getFisicaouJuridica());
-                sql.setString(2, obj.getCNPJ());
-                sql.setInt(3, obj.getAtivo());
-                sql.setInt(4, obj.getCodigo());
+                sql.setString(1, obj.getCNPJ());
+                sql.setInt(2, obj.getAtivo());
+                sql.setInt(3, obj.getCodigo());
 
                 sql.executeUpdate();
 
@@ -74,17 +68,14 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
         }
     }
 
-    public Cliente AbrirCliente(int id) {
+    public Fornecedor AbrirFornecedor(int id) {
         try {
-            Cliente cliente = new Cliente();
+            Fornecedor fornecedor = new Fornecedor();
 
-            super.AbrirPessoa(cliente, id);
-
-
-
+            super.AbrirPessoa(fornecedor, id);
 
             //Seleciona o funcionario e armazena em 'resultado'
-            PreparedStatement sql = getConexao().prepareStatement("select * from Cliente where IdPessoa=?");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Fornecedor where IdPessoa=?");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
 
@@ -92,9 +83,9 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
 
             if (resultado.next()) {
 
-                cliente.setCNPJ(resultado.getString("CNPJ"));
-                cliente.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
-                return cliente;
+                fornecedor.setCNPJ(resultado.getString("CNPJ"));
+
+                return fornecedor;
             } else {
                 return null;
             }
@@ -109,20 +100,20 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
     public boolean Apagar(int cod) {
         try {
             PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update cliente set ativo = 0 where IdPessoa = ?");
+                    prepareStatement("update fornecedor set ativo = 0 where IdPessoa = ?");
             comando.setInt(1, cod);
             comando.executeUpdate();
             return true;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
 
-    public List<Cliente> buscar(Cliente filtro) {
+    public List<Fornecedor> buscar(Fornecedor filtro) {
         try {
 
-            String sql = "select * from pessoa p join cliente c on p.IdPessoa = c.IdPessoa where ativo = 1 ";
+            String sql = "select * from pessoa p join Fornecedor f on p.IdPessoa = f.IdPessoa where ativo = 1 ";
             String where = "";
 
             if (filtro.getNome().length() > 0) {
@@ -148,14 +139,14 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
             ResultSet resultado = comando.executeQuery(sql);
 
             // Cria uma lista de produtos vazia
-            List<Cliente> clientes = new LinkedList<>();
+            List<Fornecedor> fornecedores = new LinkedList<>();
             while (resultado.next()) {
                 // Inicializa um objeto de produto vazio
-                Cliente tmp = new Cliente();
+                Fornecedor tmp = new Fornecedor();
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
-                    
+
                     tmp.setCodigo(resultado.getInt("IdPessoa"));
                     tmp.setNome(resultado.getString("Nome"));
                     tmp.setCPF(resultado.getString("CPF"));
@@ -163,38 +154,36 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                     tmp.setDataNascimento(resultado.getDate("DataNascimento"));
                     tmp.setCNPJ(resultado.getString("CNPJ"));
                     tmp.setAtivo(resultado.getInt("Ativo"));
-                    tmp.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
+
                 } catch (Exception ex) {
-                    Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
                 // Pega o objeto e coloca na lista
-                clientes.add(tmp);
+                fornecedores.add(tmp);
             }
-            return clientes;
+            return fornecedores;
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FornecedorDAO.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
     }
 
-    public List<Cliente> ListarTodosCli() {
+    public List<Fornecedor> ListarTodosFornec() {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa P join Cliente C on P.IdPessoa = C.IdPessoa where C.ativo = 1");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Pessoa P join Fornecedor f on P.IdPessoa = f.IdPessoa where C.ativo = 1");
 
             ResultSet resultado = sql.executeQuery();
 
-            List<Cliente> lista = new ArrayList<Cliente>();
+            List<Fornecedor> lista = new ArrayList<Fornecedor>();
 
             while (resultado.next()) {
-                Cliente obj = new Cliente();
+                Fornecedor obj = new Fornecedor();
 
                 super.CarregaObjetoPessoa(obj, resultado);
 
                 obj.setCodigo(resultado.getInt("IdPessoa"));
                 obj.setCNPJ(resultado.getString("CNPJ"));
-                obj.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
-
 
                 lista.add(obj);
             }

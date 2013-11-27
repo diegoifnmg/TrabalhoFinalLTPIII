@@ -4,10 +4,10 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
-import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
+import br.edu.ifnmg.tads.sgli.DataAccess.FornecedorDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Email;
 import br.edu.ifnmg.tads.sgli.DomainModel.Endereco;
+import br.edu.ifnmg.tads.sgli.DomainModel.Fornecedor;
 import br.edu.ifnmg.tads.sgli.DomainModel.Telefone;
 import java.sql.Date;
 import java.util.List;
@@ -21,67 +21,67 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Diego
  */
-public class frmClienteEditar extends javax.swing.JInternalFrame {
+public class frmFornecedorEditar extends javax.swing.JInternalFrame {
 
-    ClienteDAO DAO;
-    Cliente cliente;
-
+    FornecedorDAO DAO;
+    Fornecedor fornecedor;
+    
     /**
-     * Creates new form frmClienteEditar
+     * Creates new form frmFornecedorEditar
      */
-    public frmClienteEditar(Cliente p, ClienteDAO d) {
+    public frmFornecedorEditar(Fornecedor p, FornecedorDAO d) {
         initComponents();
         
-        buttonGroup1.add(rbFisica);
-        buttonGroup1.add(rbJuridica);
-
         if (p.getCodigo() > 0) {
-            this.cliente = p;
+            this.fornecedor = p;
             this.DAO = d;
 
             carregaCampos();
 
-            List<Telefone> telefones = cliente.getTelefones();
+            List<Telefone> telefones = fornecedor.getTelefones();
             atualizaTabelaTelefones(telefones);
 
-            List<Endereco> enderecos = cliente.getEnderecos();
+            List<Endereco> enderecos = fornecedor.getEnderecos();
             atualizaTabelaEnderecos(enderecos);
 
-            List<Email> emails = cliente.getEmails();
+            List<Email> emails = fornecedor.getEmails();
             atualizaTabelaEmails(emails);
 
 
         } else {
-            cliente = new Cliente();
-            DAO = new ClienteDAO();
+            fornecedor = new Fornecedor();
+            DAO = new FornecedorDAO();
         }
 
+        
     }
 
+    
     private void carregaCampos() {
-        lblId.setText(Integer.toString(cliente.getCodigo()));
-        txtNome.setText(cliente.getNome());
-        txtDataNasc.setText(String.valueOf(cliente.getDataNascimento()));
-        txtCPF.setText(cliente.getCPF());
-        txtRG.setText(cliente.getRG());
-        txtCNPJ.setText(cliente.getCNPJ());
+        lblId.setText(Integer.toString(fornecedor.getCodigo()));
+        txtNome.setText(fornecedor.getNome());
+        txtDataNasc.setText(String.valueOf(fornecedor.getDataNascimento()));
+        txtCPF.setText(fornecedor.getCPF());
+        txtRG.setText(fornecedor.getRG());
+        txtCNPJ.setText(fornecedor.getCNPJ());
     }
 
     private void carregaObjeto() {
         try {
-            cliente.setNome(txtNome.getText());
-            cliente.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
-            cliente.setCPF(txtCPF.getText());
-            cliente.setRG(txtRG.getText());
-            cliente.setCNPJ(txtCNPJ.getText());
+            fornecedor.setNome(txtNome.getText());
+            fornecedor.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
+            fornecedor.setCPF(txtCPF.getText());
+            fornecedor.setRG(txtRG.getText());
+            fornecedor.setCNPJ(txtCNPJ.getText());
 
 
         } catch (Exception ex) {
-            Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmFornecedorEditar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -91,7 +91,6 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
         btnApagar = new javax.swing.JButton();
         btnLimpar = new javax.swing.JButton();
         btnSalvar = new javax.swing.JButton();
@@ -149,8 +148,6 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmailListagem = new javax.swing.JTable();
         btnRemover2 = new javax.swing.JButton();
-
-        setClosable(true);
 
         btnApagar.setText("Apagar");
         btnApagar.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +227,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(lblRg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(119, Short.MAX_VALUE))
+                        .addContainerGap(22, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -287,7 +284,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(rbJuridica)
-                .addContainerGap(130, Short.MAX_VALUE))
+                .addContainerGap(114, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -402,7 +399,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                                 .addComponent(Adicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRemover)))
-                        .addGap(0, 98, Short.MAX_VALUE))
+                        .addGap(0, 1, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -446,7 +443,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Endereço", jPanel2);
@@ -511,7 +508,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnAdicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemover1)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,7 +525,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(110, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -573,7 +570,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnEmailAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemover2)
-                        .addGap(0, 97, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -588,7 +585,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);
@@ -604,17 +601,17 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 .addComponent(btnLimpar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnApagar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(157, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias)
+                .addComponent(pnlGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias)
+                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
@@ -641,7 +638,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
                 carregaObjeto();
 
-                if (DAO.Salvar(cliente)) {
+                if (DAO.Salvar(fornecedor)) {
                     JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
 
                 } else {
@@ -657,57 +654,29 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnEmailAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailAddActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Email?") == 0) {
-                Email e = new Email();
-
-                e.setEmail(txtEmail.getText());
-
-                cliente.addEmail(e);
-
-                atualizaTabelaEmails(cliente.getEmails());
-
-                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
-        }
-    }//GEN-LAST:event_btnEmailAddActionPerformed
-
-    private void btnRemover1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemover1ActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemover1ActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
-                Telefone t = new Telefone();
-                t.setDDD(Integer.parseInt(txtDDD.getText()));
-                t.setTelefone(Integer.parseInt(txtTelefone.getText()));
-
-                cliente.addTelefone(t);
-
-                atualizaTabelaTelefones(cliente.getTelefones());
-
-                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
-        }
-    }//GEN-LAST:event_btnAdicionarActionPerformed
-
-    private void txtDDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDDDActionPerformed
+    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDDDActionPerformed
+    }//GEN-LAST:event_txtDataNascActionPerformed
 
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+    private void rbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFisicaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverActionPerformed
+    }//GEN-LAST:event_rbFisicaActionPerformed
+
+    private void rbJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbJuridicaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbJuridicaActionPerformed
+
+    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBairroActionPerformed
+
+    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCidadeActionPerformed
 
     private void AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarActionPerformed
         try {
@@ -723,9 +692,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 e.setEstado(txtEstado.getText());
                 e.setPais(txtPais.getText());
 
-                cliente.addEndereco(e);
+                fornecedor.addEndereco(e);
 
-                atualizaTabelaEnderecos(cliente.getEnderecos());
+                atualizaTabelaEnderecos(fornecedor.getEnderecos());
 
                 JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
             } else {
@@ -736,29 +705,57 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AdicionarActionPerformed
 
-    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCidadeActionPerformed
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
-    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
+    private void txtDDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDDDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBairroActionPerformed
+    }//GEN-LAST:event_txtDDDActionPerformed
 
-    private void rbJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbJuridicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbJuridicaActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
+                Telefone t = new Telefone();
+                t.setDDD(Integer.parseInt(txtDDD.getText()));
+                t.setTelefone(Integer.parseInt(txtTelefone.getText()));
 
-    private void rbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFisicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbFisicaActionPerformed
+                fornecedor.addTelefone(t);
 
-    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataNascActionPerformed
+                atualizaTabelaTelefones(fornecedor.getTelefones());
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnRemover1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemover1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
+    }//GEN-LAST:event_btnRemover1ActionPerformed
+
+    private void btnEmailAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailAddActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Email?") == 0) {
+                Email e = new Email();
+
+                e.setEmail(txtEmail.getText());
+
+                fornecedor.addEmail(e);
+
+                atualizaTabelaEmails(fornecedor.getEmails());
+
+                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnEmailAddActionPerformed
 
     private void atualizaTabelaTelefones(List<Telefone> telefones) {
         DefaultTableModel model = new DefaultTableModel();
@@ -829,6 +826,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         tblEmailListagem.setModel(model);
         tblEmailListagem.repaint();
     }
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar;
     private javax.swing.JButton btnAdicionar;
@@ -839,7 +839,6 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     private javax.swing.JButton btnRemover1;
     private javax.swing.JButton btnRemover2;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

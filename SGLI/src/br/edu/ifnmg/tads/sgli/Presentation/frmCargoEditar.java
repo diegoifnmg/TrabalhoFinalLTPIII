@@ -4,8 +4,8 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DataAccess.GrupoProdutosDAO;
-import br.edu.ifnmg.tads.sgli.DomainModel.GrupoProdutos;
+import br.edu.ifnmg.tads.sgli.DataAccess.CargoDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Cargo;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -14,43 +14,45 @@ import javax.swing.JOptionPane;
  *
  * @author Diego
  */
-public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
+public class frmCargoEditar extends javax.swing.JInternalFrame {
 
-    GrupoProdutosDAO DAO;
-    GrupoProdutos grupoProdutos;
+    CargoDAO DAO;
+    Cargo cargo;
 
     /**
-     * Creates new form frmGrupoProdutosEditar
+     * Creates new form frmCargoEditar
      */
-    public frmGrupoProdutosEditar(GrupoProdutos p, GrupoProdutosDAO d) {
+    public frmCargoEditar(Cargo p, CargoDAO d) {
         initComponents();
 
-        if (p.getCodGrupoProdutos() == 0) {
-            this.grupoProdutos = p;
+        if (p.getCodigo() == 0) {
+            this.cargo = p;
             this.DAO = d;
 
             carregaCampos();
         } else {
 
-            grupoProdutos = new GrupoProdutos();
-            DAO = new GrupoProdutosDAO();
+            cargo = new Cargo();
+            DAO = new CargoDAO();
+
         }
 
     }
 
     private void carregaObjeto() {
         try {
-            grupoProdutos.setNome(txtNome.getText());
-
+            
+            cargo.setCargo(txtNome.getText());
+            
         } catch (Exception ex) {
-            Logger.getLogger(frmGrupoProdutosEditar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmCargoEditar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void carregaCampos() {
-        
-        txtNome.setText(grupoProdutos.getNome());
-        
+
+        txtNome.setText(cargo.getCargo());
+
     }
 
     /**
@@ -62,9 +64,9 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnSalvar = new javax.swing.JButton();
         txtNome = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        btnSalvar = new javax.swing.JButton();
+        lblCargo = new javax.swing.JLabel();
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -73,7 +75,7 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel1.setText("Grupo de Produtos:");
+        lblCargo.setText("Cargo:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -85,11 +87,11 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
                         .addGap(35, 35, 35)
                         .addComponent(btnSalvar))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(36, 36, 36)
+                        .addGap(28, 28, 28)
+                        .addComponent(lblCargo)
+                        .addGap(18, 18, 18)
                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -97,8 +99,8 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
                 .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 170, Short.MAX_VALUE)
+                    .addComponent(lblCargo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 162, Short.MAX_VALUE)
                 .addComponent(btnSalvar)
                 .addGap(32, 32, 32))
         );
@@ -112,7 +114,7 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
 
                 carregaObjeto();
 
-                if (DAO.Salvar(grupoProdutos)) {
+                if (DAO.Salvar(cargo)) {
                     JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
 
                 } else {
@@ -129,7 +131,7 @@ public class frmGrupoProdutosEditar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnSalvarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JTextField txtNome;
     // End of variables declaration//GEN-END:variables
 }

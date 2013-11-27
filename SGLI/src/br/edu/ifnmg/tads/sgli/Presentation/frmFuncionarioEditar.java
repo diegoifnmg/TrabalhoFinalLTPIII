@@ -4,10 +4,12 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
-import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
+import br.edu.ifnmg.tads.sgli.DataAccess.CargoDAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.FuncionarioDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Cargo;
 import br.edu.ifnmg.tads.sgli.DomainModel.Email;
 import br.edu.ifnmg.tads.sgli.DomainModel.Endereco;
+import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
 import br.edu.ifnmg.tads.sgli.DomainModel.Telefone;
 import java.sql.Date;
 import java.util.List;
@@ -21,66 +23,81 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Diego
  */
-public class frmClienteEditar extends javax.swing.JInternalFrame {
 
-    ClienteDAO DAO;
-    Cliente cliente;
+public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
 
+    FuncionarioDAO DAO;
+    Funcionario funcionario;
+    CargoDAO cargoDAO;
+    Cargo selecionado;
+    
     /**
-     * Creates new form frmClienteEditar
+     * Creates new form frmFuncionarioEditar
      */
-    public frmClienteEditar(Cliente p, ClienteDAO d) {
+    public frmFuncionarioEditar(Funcionario p, FuncionarioDAO d) {
         initComponents();
-        
-        buttonGroup1.add(rbFisica);
-        buttonGroup1.add(rbJuridica);
-
+        cargoDAO = new CargoDAO();
+        carregaCargos();
         if (p.getCodigo() > 0) {
-            this.cliente = p;
+            this.funcionario = p;
             this.DAO = d;
 
             carregaCampos();
 
-            List<Telefone> telefones = cliente.getTelefones();
+            List<Telefone> telefones = funcionario.getTelefones();
             atualizaTabelaTelefones(telefones);
 
-            List<Endereco> enderecos = cliente.getEnderecos();
+            List<Endereco> enderecos = funcionario.getEnderecos();
             atualizaTabelaEnderecos(enderecos);
 
-            List<Email> emails = cliente.getEmails();
+            List<Email> emails = funcionario.getEmails();
             atualizaTabelaEmails(emails);
 
 
         } else {
-            cliente = new Cliente();
-            DAO = new ClienteDAO();
+            funcionario = new Funcionario();
+            DAO = new FuncionarioDAO();
         }
-
+        
     }
-
+    
+    private void carregaCargos(){
+        List<Cargo> cargos = cargoDAO.ListarCargos();
+        CbxCargo.removeAllItems();
+        for(Cargo c : cargos){
+            CbxCargo.addItem(c);
+        }
+        
+        //Cargo selecionado = (Cargo)CbxCargo.getSelectedItem();
+        
+    }
+    
     private void carregaCampos() {
-        lblId.setText(Integer.toString(cliente.getCodigo()));
-        txtNome.setText(cliente.getNome());
-        txtDataNasc.setText(String.valueOf(cliente.getDataNascimento()));
-        txtCPF.setText(cliente.getCPF());
-        txtRG.setText(cliente.getRG());
-        txtCNPJ.setText(cliente.getCNPJ());
+        lblId.setText(Integer.toString(funcionario.getCodigo()));
+        txtNome.setText(funcionario.getNome());
+        txtDataNasc.setText(String.valueOf(funcionario.getDataNascimento()));
+        txtCPF.setText(funcionario.getCPF());
+        txtRG.setText(funcionario.getRG());
+
     }
 
     private void carregaObjeto() {
         try {
-            cliente.setNome(txtNome.getText());
-            cliente.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
-            cliente.setCPF(txtCPF.getText());
-            cliente.setRG(txtRG.getText());
-            cliente.setCNPJ(txtCNPJ.getText());
-
+            funcionario.setNome(txtNome.getText());
+            funcionario.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
+            funcionario.setCPF(txtCPF.getText());
+            funcionario.setRG(txtRG.getText());
+            funcionario.setCargo((Cargo)CbxCargo.getSelectedItem());
+            
+            
 
         } catch (Exception ex) {
-            Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmFuncionarioEditar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -91,10 +108,6 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        btnApagar = new javax.swing.JButton();
-        btnLimpar = new javax.swing.JButton();
-        btnSalvar = new javax.swing.JButton();
         pnlGuias = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         lblNome = new javax.swing.JLabel();
@@ -107,11 +120,8 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         txtCPF = new javax.swing.JTextField();
         lblRg = new javax.swing.JLabel();
         txtRG = new javax.swing.JTextField();
-        lblPessoa = new javax.swing.JLabel();
-        rbFisica = new javax.swing.JRadioButton();
-        rbJuridica = new javax.swing.JRadioButton();
-        lblCNPJ = new javax.swing.JLabel();
-        txtCNPJ = new javax.swing.JTextField();
+        lblCargo = new javax.swing.JLabel();
+        CbxCargo = new javax.swing.JComboBox();
         jPanel2 = new javax.swing.JPanel();
         lblRua = new javax.swing.JLabel();
         txtRua = new javax.swing.JTextField();
@@ -149,29 +159,11 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmailListagem = new javax.swing.JTable();
         btnRemover2 = new javax.swing.JButton();
-
-        setClosable(true);
-
-        btnApagar.setText("Apagar");
-        btnApagar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnApagarActionPerformed(evt);
-            }
-        });
-
-        btnLimpar.setText("Limpar");
-        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimparActionPerformed(evt);
-            }
-        });
-
-        btnSalvar.setText("Salvar");
-        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalvarActionPerformed(evt);
-            }
-        });
+        jPanel5 = new javax.swing.JPanel();
+        jComboBox1 = new javax.swing.JComboBox();
+        btnLimpar = new javax.swing.JButton();
+        btnApagar1 = new javax.swing.JButton();
+        btnSalvar = new javax.swing.JButton();
 
         lblNome.setText("Nome:");
 
@@ -197,23 +189,14 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
         lblRg.setText("RG:");
 
-        lblPessoa.setText("Pessoa:");
+        lblCargo.setText("Cargo:");
 
-        rbFisica.setText("Física");
-        rbFisica.addActionListener(new java.awt.event.ActionListener() {
+        CbxCargo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        CbxCargo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbFisicaActionPerformed(evt);
+                CbxCargoActionPerformed(evt);
             }
         });
-
-        rbJuridica.setText("Juridica");
-        rbJuridica.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rbJuridicaActionPerformed(evt);
-            }
-        });
-
-        lblCNPJ.setText("CNPJ:");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -230,7 +213,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(lblRg)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(119, Short.MAX_VALUE))
+                        .addContainerGap(24, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -248,16 +231,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                                         .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtDataNasc, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lblPessoa)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(rbJuridica)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(rbFisica)
-                                        .addGap(38, 38, 38)
-                                        .addComponent(lblCNPJ)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(lblCargo)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -281,13 +257,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblPessoa)
-                    .addComponent(rbFisica)
-                    .addComponent(lblCNPJ)
-                    .addComponent(txtCNPJ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(rbJuridica)
-                .addContainerGap(130, Short.MAX_VALUE))
+                    .addComponent(lblCargo)
+                    .addComponent(CbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(231, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -402,7 +374,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                                 .addComponent(Adicionar)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnRemover)))
-                        .addGap(0, 98, Short.MAX_VALUE))
+                        .addGap(0, 3, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
                 .addContainerGap())
         );
@@ -446,7 +418,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addContainerGap(102, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Endereço", jPanel2);
@@ -511,7 +483,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnAdicionar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRemover1)))
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -528,7 +500,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(btnRemover1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addContainerGap(201, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Telefone", jPanel3);
@@ -573,7 +545,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                         .addComponent(btnEmailAdd)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnRemover2)
-                        .addGap(0, 97, Short.MAX_VALUE)))
+                        .addGap(0, 2, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -588,10 +560,66 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblEmail))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Email", jPanel4);
+
+        jComboBox1.setEditable(true);
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+        jComboBox1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jComboBox1KeyTyped(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(108, 108, 108)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(177, Short.MAX_VALUE))
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(326, Short.MAX_VALUE))
+        );
+
+        pnlGuias.addTab("tab5", jPanel5);
+
+        btnLimpar.setText("Limpar");
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+
+        btnApagar1.setText("Apagar");
+        btnApagar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnApagar1ActionPerformed(evt);
+            }
+        });
+
+        btnSalvar.setText("Salvar");
+        btnSalvar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalvarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -603,7 +631,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnLimpar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnApagar)
+                .addComponent(btnApagar1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
@@ -614,100 +642,33 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(pnlGuias)
+                .addComponent(pnlGuias, javax.swing.GroupLayout.DEFAULT_SIZE, 424, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
-                    .addComponent(btnApagar))
+                    .addComponent(btnApagar1))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnApagarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagarActionPerformed
+    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnApagarActionPerformed
+    }//GEN-LAST:event_txtNomeActionPerformed
 
-    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
-        txtNome.setText("");
-        txtDataNasc.setText("");
-    }//GEN-LAST:event_btnLimparActionPerformed
-
-    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar?") == 0) {
-
-                carregaObjeto();
-
-                if (DAO.Salvar(cliente)) {
-                    JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
-
-                } else {
-                    JOptionPane.showMessageDialog(rootPane, "Falha ao salvar! Consulte o administrador do sistema!");
-                    this.dispose();
-                }
-
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Operação cancelada!");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
-        }
-    }//GEN-LAST:event_btnSalvarActionPerformed
-
-    private void btnEmailAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailAddActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Email?") == 0) {
-                Email e = new Email();
-
-                e.setEmail(txtEmail.getText());
-
-                cliente.addEmail(e);
-
-                atualizaTabelaEmails(cliente.getEmails());
-
-                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
-        }
-    }//GEN-LAST:event_btnEmailAddActionPerformed
-
-    private void btnRemover1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemover1ActionPerformed
+    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemover1ActionPerformed
+    }//GEN-LAST:event_txtDataNascActionPerformed
 
-    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        try {
-            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
-                Telefone t = new Telefone();
-                t.setDDD(Integer.parseInt(txtDDD.getText()));
-                t.setTelefone(Integer.parseInt(txtTelefone.getText()));
-
-                cliente.addTelefone(t);
-
-                atualizaTabelaTelefones(cliente.getTelefones());
-
-                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
-            }
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
-        }
-    }//GEN-LAST:event_btnAdicionarActionPerformed
-
-    private void txtDDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDDDActionPerformed
+    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDDDActionPerformed
+    }//GEN-LAST:event_txtBairroActionPerformed
 
-    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
+    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnRemoverActionPerformed
+    }//GEN-LAST:event_txtCidadeActionPerformed
 
     private void AdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdicionarActionPerformed
         try {
@@ -723,9 +684,9 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
                 e.setEstado(txtEstado.getText());
                 e.setPais(txtPais.getText());
 
-                cliente.addEndereco(e);
+                funcionario.addEndereco(e);
 
-                atualizaTabelaEnderecos(cliente.getEnderecos());
+                atualizaTabelaEnderecos(funcionario.getEnderecos());
 
                 JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
             } else {
@@ -736,29 +697,132 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_AdicionarActionPerformed
 
-    private void txtCidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCidadeActionPerformed
+    private void btnRemoverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtCidadeActionPerformed
+    }//GEN-LAST:event_btnRemoverActionPerformed
 
-    private void txtBairroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBairroActionPerformed
+    private void txtDDDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDDDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtBairroActionPerformed
+    }//GEN-LAST:event_txtDDDActionPerformed
 
-    private void rbJuridicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbJuridicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbJuridicaActionPerformed
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Telefone?") == 0) {
+                Telefone t = new Telefone();
+                t.setDDD(Integer.parseInt(txtDDD.getText()));
+                t.setTelefone(Integer.parseInt(txtTelefone.getText()));
 
-    private void rbFisicaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbFisicaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rbFisicaActionPerformed
+                funcionario.addTelefone(t);
 
-    private void txtDataNascActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataNascActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataNascActionPerformed
+                atualizaTabelaTelefones(funcionario.getTelefones());
 
-    private void txtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNomeActionPerformed
+                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnRemover1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemover1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNomeActionPerformed
+    }//GEN-LAST:event_btnRemover1ActionPerformed
+
+    private void btnEmailAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEmailAddActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja adicionar o Email?") == 0) {
+                Email e = new Email();
+
+                e.setEmail(txtEmail.getText());
+
+                funcionario.addEmail(e);
+
+                atualizaTabelaEmails(funcionario.getEmails());
+
+                JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação Cancelada");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
+        }
+    }//GEN-LAST:event_btnEmailAddActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jComboBox1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyPressed
+        String valor = jComboBox1.getSelectedItem().toString();
+        if (valor.length() >= 3) {
+            Funcionario filtro = new Funcionario();
+            try {
+                filtro.setNome(valor);
+            } catch (Exception ex) {
+                Logger.getLogger(frmClienteEditar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<Funcionario> lista = DAO.buscar(filtro);
+
+            for (Funcionario c : lista) {
+                jComboBox1.addItem(c);
+            }
+            jComboBox1.repaint();
+        }// TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1KeyPressed
+
+    private void jComboBox1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBox1KeyTyped
+        String valor = jComboBox1.getSelectedItem().toString();
+        if (valor.length() >= 3) {
+            Funcionario filtro = new Funcionario();
+            try {
+                filtro.setNome(valor);
+            } catch (Exception ex) {
+                Logger.getLogger(frmClienteEditar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            List<Funcionario> lista = DAO.buscar(filtro);
+
+            for (Funcionario c : lista) {
+                jComboBox1.addItem(c);
+            }
+            jComboBox1.repaint();
+        }
+    }//GEN-LAST:event_jComboBox1KeyTyped
+
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        txtNome.setText("");
+        txtDataNasc.setText("");
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void btnApagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnApagar1ActionPerformed
+
+    private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
+        try {
+            if (JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar?") == 0) {
+
+                carregaObjeto();
+
+                if (DAO.Salvar(funcionario)) {
+                    JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
+
+                } else {
+                    JOptionPane.showMessageDialog(rootPane, "Falha ao salvar! Consulte o administrador do sistema!");
+                    this.dispose();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Operação cancelada!");
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
+        }
+    }//GEN-LAST:event_btnSalvarActionPerformed
+
+    private void CbxCargoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CbxCargoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CbxCargoActionPerformed
 
     private void atualizaTabelaTelefones(List<Telefone> telefones) {
         DefaultTableModel model = new DefaultTableModel();
@@ -829,28 +893,35 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         tblEmailListagem.setModel(model);
         tblEmailListagem.repaint();
     }
+    
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar;
+    private javax.swing.JComboBox CbxCargo;
     private javax.swing.JButton btnAdicionar;
-    private javax.swing.JButton btnApagar;
+    private javax.swing.JButton btnApagar1;
     private javax.swing.JButton btnEmailAdd;
     private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnRemover;
     private javax.swing.JButton btnRemover1;
     private javax.swing.JButton btnRemover2;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JLabel lblBairro;
     private javax.swing.JLabel lblCEP;
-    private javax.swing.JLabel lblCNPJ;
+    private javax.swing.JLabel lblCargo;
     private javax.swing.JLabel lblCidade;
     private javax.swing.JLabel lblComplemento;
     private javax.swing.JLabel lblCpf;
@@ -863,18 +934,14 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblPais;
-    private javax.swing.JLabel lblPessoa;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblRua;
     private javax.swing.JTabbedPane pnlGuias;
-    private javax.swing.JRadioButton rbFisica;
-    private javax.swing.JRadioButton rbJuridica;
     private javax.swing.JTable tblEmailListagem;
     private javax.swing.JTable tblListagemEnderecos;
     private javax.swing.JTable tblListagemTelefones;
     private javax.swing.JTextField txtBairro;
     private javax.swing.JTextField txtCEP;
-    private javax.swing.JTextField txtCNPJ;
     private javax.swing.JTextField txtCPF;
     private javax.swing.JTextField txtCidade;
     private javax.swing.JTextField txtComplemento;
