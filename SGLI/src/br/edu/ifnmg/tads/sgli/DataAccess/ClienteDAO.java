@@ -10,11 +10,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.xml.bind.ParseConversionEvent;
+import sun.awt.SunHints;
 
 /**
  *
@@ -125,7 +129,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                 if (where.length() > 0) {
                     where = where + " and ";
                 }
-                where = "nome like '%" + filtro.getNome() + "%'";
+                where = "and nome like '%" + filtro.getNome() + "%'";
             }
 
             if (filtro.getCodigo() > 0) {
@@ -151,7 +155,12 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                 // Pega os valores do retorno da consulta e coloca no objeto
 
                 try {
+                    
                     tmp.setCodigo(resultado.getInt("IdPessoa"));
+                    tmp.setNome(resultado.getString("Nome"));
+                    tmp.setCPF(resultado.getString("CPF"));
+                    tmp.setRG(resultado.getString("RG"));
+                    tmp.setDataNascimento(resultado.getDate("DataNascimento"));
                     tmp.setCNPJ(resultado.getString("CNPJ"));
                     tmp.setFisicaouJuridica(resultado.getInt("Ativo"));
                     tmp.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
