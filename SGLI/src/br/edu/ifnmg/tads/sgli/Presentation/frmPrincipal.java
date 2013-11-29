@@ -40,6 +40,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         imnuCadastroFornecedores = new javax.swing.JMenuItem();
         imnuCadastroCargos = new javax.swing.JMenuItem();
         imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
+        imnuUsuario = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -109,6 +110,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(imnuCadastroGrupoProdutos);
 
+        imnuUsuario.setText("Cadastrar Usuarios");
+        imnuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuUsuario);
+
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Vendas");
@@ -166,6 +175,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_imnuCadastroCargosActionPerformed
 
+    private void imnuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuUsuarioActionPerformed
+        frmUsuarioListagem janela = new frmUsuarioListagem();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_imnuUsuarioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -213,6 +228,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imnuCadastroFuncionarios;
     private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
     private javax.swing.JMenuItem imnuCadastroProdutos;
+    private javax.swing.JMenuItem imnuUsuario;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
