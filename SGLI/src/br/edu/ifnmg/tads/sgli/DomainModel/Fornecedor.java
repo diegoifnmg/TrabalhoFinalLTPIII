@@ -69,7 +69,7 @@ public class Fornecedor extends Pessoa{
 
     @Override
     public String toString() {
-        return "Fornecedor{" + "CNPJ=" + CNPJ + ", Ativo=" + Ativo + '}';
+        return getNome();
     }
 
     

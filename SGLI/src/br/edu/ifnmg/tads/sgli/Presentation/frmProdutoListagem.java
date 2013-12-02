@@ -5,9 +5,8 @@
 package br.edu.ifnmg.tads.sgli.Presentation;
 
 import br.edu.ifnmg.tads.sgli.DataAccess.CargoDAO;
-import br.edu.ifnmg.tads.sgli.DataAccess.UsuarioDAO;
-import br.edu.ifnmg.tads.sgli.DomainModel.Cargo;
-import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
+import br.edu.ifnmg.tads.sgli.DataAccess.ProdutoDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Produto;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -18,39 +17,51 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Diego
  */
-public class frmUsuarioListagem extends javax.swing.JInternalFrame {
+public class frmProdutoListagem extends javax.swing.JInternalFrame {
 
-    UsuarioDAO DAO;
+    ProdutoDAO DAO;
     
     /**
-     * Creates new form frmUsuarioListagem
+     * Creates new form frmProdutoListagem
      */
-    public frmUsuarioListagem() {
+    public frmProdutoListagem() {
         initComponents();
         
-        DAO = new UsuarioDAO();
+        DAO = new ProdutoDAO();
 
-        //List<Usuario> usuarios = DAO.ListarTodosUsuarios();
+        List<Produto> produto = DAO.ListarTodosProdutos();
 
-        //preencheTabela(usuarios);
+        preencheTabela(produto);
         
     }
-
-    private void preencheTabela(List<Usuario> lista) {
+    
+    private void preencheTabela(List<Produto> lista) {
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("IdUsuario");
-        model.addColumn("Login");
+        model.addColumn("IdProduto");
+        model.addColumn("Nome");
+        model.addColumn("Qtd");
+        model.addColumn("Preço");
+        model.addColumn("Marca");
+        model.addColumn("Fornecedor");
+        model.addColumn("Descricao");
         
-        for (Usuario c : lista) {
+        
+        for (Produto c : lista) {
             Vector valores = new Vector();
-            valores.add(0, c.getCodigo());
-            valores.add(1, c.getLogin());
+            valores.add(0, c.getCodProduto());
+            valores.add(1, c.getNome());
+            valores.add(2, c.getQtd());
+            valores.add(3, c.getPreco());
+            valores.add(4, c.getMarca());
+            valores.add(5, c.getFornecedor());
+            valores.add(6, c.getDescricao());
+            
             
             model.addRow(valores);
         }
         tblListagem.setModel(model);
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -60,28 +71,19 @@ public class frmUsuarioListagem extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtFiltro = new javax.swing.JTextField();
         btnNovo = new javax.swing.JButton();
-        btnBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblListagem = new javax.swing.JTable();
-        txtFiltro = new javax.swing.JTextField();
+        btnBuscar = new javax.swing.JButton();
+
+        setClosable(true);
+        setMaximizable(true);
 
         btnNovo.setText("Novo");
         btnNovo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNovoActionPerformed(evt);
-            }
-        });
-
-        btnBuscar.setText("Buscar");
-        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnBuscarMouseClicked(evt);
-            }
-        });
-        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscarActionPerformed(evt);
             }
         });
 
@@ -102,6 +104,18 @@ public class frmUsuarioListagem extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblListagem);
+
+        btnBuscar.setText("Buscar");
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,46 +143,46 @@ public class frmUsuarioListagem extends javax.swing.JInternalFrame {
                     .addComponent(btnNovo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        Usuario c = new Usuario();
-        UsuarioDAO d = new UsuarioDAO();
-        frmUsuarioEditar janela = new frmUsuarioEditar(c, d);
+        Produto c = new Produto();
+        ProdutoDAO d = new ProdutoDAO();
+        frmProdutoEditar janela = new frmProdutoEditar(c, d);
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnNovoActionPerformed
+
+    private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
+        Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
+        Produto c = DAO.AbrirProduto((int) valor);
+        frmProdutoEditar janela = new frmProdutoEditar(c, DAO);
+        this.getParent().add(janela);
+        janela.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_tblListagemMouseClicked
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarMouseClicked
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        Usuario c = new Usuario();
+        Produto c = new Produto();
         try {
-            c.setLogin(txtFiltro.getText());
+            c.setNome(txtFiltro.getText());
         } catch (Exception ex) {
             Logger.getLogger(frmCargoListagem.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        //List<Usuario> lista = DAO.buscar(c);
+        List<Produto> lista = DAO.buscar(c);
 
-        //preencheTabela(lista);
+        preencheTabela(lista);
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
-        Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        //Usuario c = DAO.AbrirUsuario((int) valor);
-        //frmUsuarioEditar janela = new frmUsuarioEditar(c, DAO);
-        //this.getParent().add(janela);
-        //janela.setVisible(true);
-        this.setVisible(false);
-    }//GEN-LAST:event_tblListagemMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;

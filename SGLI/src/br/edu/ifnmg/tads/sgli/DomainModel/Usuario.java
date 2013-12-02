@@ -61,11 +61,11 @@ public class Usuario {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + this.codigo;
-        hash = 29 * hash + Objects.hashCode(this.login);
-        hash = 29 * hash + Objects.hashCode(this.senha);
-        hash = 29 * hash + Objects.hashCode(this.funcionario);
+        int hash = 7;
+        hash = 67 * hash + this.codigo;
+        hash = 67 * hash + Objects.hashCode(this.login);
+        hash = 67 * hash + Objects.hashCode(this.senha);
+        hash = 67 * hash + Objects.hashCode(this.funcionario);
         return hash;
     }
 
@@ -97,4 +97,6 @@ public class Usuario {
     public String toString() {
         return "Usuario{" + "codigo=" + codigo + ", login=" + login + ", senha=" + senha + ", funcionario=" + funcionario + '}';
     }
+
+    
 }

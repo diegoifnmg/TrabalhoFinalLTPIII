@@ -4,7 +4,9 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
+import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.UsuarioDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -31,18 +33,21 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
 
             carregaCampos();
 
+        } else {
+            usuario = new Usuario();
+            DAO = new UsuarioDAO();
         }
     }
 
     private void carregaCampos() {
-
         lblLogin.setText(usuario.getLogin());
-
+        lblSenha.setText(usuario.getSenha());
     }
 
     private void carregaObjeto() {
         try {
             usuario.setLogin(txtLogin.getText());
+            usuario.setSenha(txtSenha.getText());
 
         } catch (Exception ex) {
             Logger.getLogger(frmUsuarioEditar.class.getName()).log(Level.SEVERE, null, ex);
@@ -63,10 +68,6 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
         txtLogin = new javax.swing.JTextField();
         lblSenha = new javax.swing.JLabel();
         txtSenha = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
-        txtSenhaAntiga = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtRepitaSenha = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -80,10 +81,6 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
         });
 
         lblSenha.setText("Senha:");
-
-        jLabel1.setText("Senha Antiga:");
-
-        jLabel2.setText("Repita a Senha:");
 
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -105,20 +102,12 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtRepitaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(lblLogin)
-                                    .addComponent(lblSenha))
-                                .addGap(19, 19, 19)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtSenhaAntiga, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                            .addComponent(lblLogin)
+                            .addComponent(lblSenha))
+                        .addGap(53, 53, 53)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(btnSalvar)
@@ -131,11 +120,7 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtSenhaAntiga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(70, 70, 70)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblLogin)
                     .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -143,11 +128,7 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSenha)
                     .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtRepitaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(jButton2)
@@ -182,19 +163,15 @@ public class frmUsuarioEditar extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, "Erro ao salvar! Consulte o administrador do sistema!");
         }
-    
+
     }//GEN-LAST:event_btnSalvarActionPerformed
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblSenha;
     private javax.swing.JTextField txtLogin;
-    private javax.swing.JTextField txtRepitaSenha;
     private javax.swing.JTextField txtSenha;
-    private javax.swing.JTextField txtSenhaAntiga;
     // End of variables declaration//GEN-END:variables
 }

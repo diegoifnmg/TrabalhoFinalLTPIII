@@ -10,41 +10,38 @@ import java.util.Objects;
  *
  * @author Diego
  */
-public class Marca {
+public class Estoque {
     
     private int codigo;
-    private String nome;
+    private int quantidade;
+    
 
-    public Marca() {
+    public Estoque() {
     }
 
-
-    public Marca(int CodMarca, String Nome) {
-        this.codigo = CodMarca;
-        this.nome = Nome;
-    }
-
-    public int getCodMarca() {
+    public int getCodigo() {
         return codigo;
     }
 
-    public void setCodMarca(int CodMarca) {
-        this.codigo = CodMarca;
+    public void setCodigo(int codigo) {
+        this.codigo = codigo;
     }
 
-    public String getNome() {
-        return nome;
+    public int getQuantidade() {
+        return quantidade;
     }
 
-    public void setNome(String Nome) {
-        this.nome = Nome;
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
+    
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 67 * hash + this.codigo;
-        hash = 67 * hash + Objects.hashCode(this.nome);
+        hash = 29 * hash + this.codigo;
+        hash = 29 * hash + this.quantidade;
+    
         return hash;
     }
 
@@ -56,19 +53,23 @@ public class Marca {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final Marca other = (Marca) obj;
+        final Estoque other = (Estoque) obj;
         if (this.codigo != other.codigo) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
+        if (this.quantidade != other.quantidade) {
             return false;
         }
+    
         return true;
     }
 
     @Override
     public String toString() {
-        return nome;
+        return "Estoque{" + "codigo=" + codigo + ", quantidade=" + quantidade + '}';
     }
-
+    
+    
+    
 }
+

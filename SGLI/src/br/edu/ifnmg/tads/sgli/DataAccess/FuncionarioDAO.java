@@ -36,10 +36,12 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
 
             try {
 
-                PreparedStatement sql = getConexao().prepareStatement("insert into Funcionario(IdCargo,Idpessoa,Ativo) values(?,?,?)");
+                PreparedStatement sql = getConexao().prepareStatement("insert into Funcionario(IdCargo,Idpessoa,Ativo,Login,Senha) values(?,?,?,?,?)");
                 sql.setInt(1, obj.getCargo().getCodigo());
                 sql.setInt(2, obj.getCodigo());
                 sql.setInt(3, obj.getAtivo());
+                sql.setString(4, obj.getLogin());
+                sql.setString(5, obj.getSenha());
                 sql.executeUpdate();
 
                 return true;
@@ -51,11 +53,13 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
             try {
                 super.Salvar(obj);
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update Funcionario set IdCargo=?, ATIVO=?  where IdPessoa=?");
+                PreparedStatement sql = con.prepareStatement("update Funcionario set IdCargo=?, ATIVO=?, Login=?, Senha=?  where IdPessoa=?");
 
                 sql.setInt(1, obj.getCargo().getCodigo());
                 sql.setInt(2, obj.getAtivo());
-                sql.setInt(3, obj.getCodigo());
+                sql.setString(3, obj.getLogin());
+                sql.setString(4, obj.getSenha());
+                sql.setInt(5, obj.getCodigo());
                 
 
                 sql.executeUpdate();
@@ -185,4 +189,25 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
             return null;
         }
     }
+    
+    public boolean AutenticarUsuario(Funcionario funcionario) {
+        try {            
+            PreparedStatement sql = getConexao().prepareStatement("select Login,Senha from Funcionario");
+            ResultSet resultado = sql.executeQuery();
+
+            if (resultado.next()) {
+                if ((funcionario.getLogin().equals(resultado.getString("Login")))
+                        && (funcionario.getSenha().equals(resultado.getString("Senha")))) {
+                    
+                    return true;
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+            return false;
+        }
+        return false;
+    }
+    
+    
 }

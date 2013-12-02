@@ -11,22 +11,28 @@ import java.util.Objects;
  * @author Diego
  */
 public class Produto {
-    
+
     private int CodProduto;
-    private int CodMarca;
-    private int CodFornecedor;
+    private Marca marca;
+    private Fornecedor fornecedor;
     private String Nome;
+    private int qtd;
     private float Preco;
+    private int ativo;
+    private String descricao;
 
     public Produto() {
     }
 
-    public Produto(int CodProduto, int CodMarca, int CodFornecedor, String Nome, float Preco) {
+    public Produto(int CodProduto, Marca marca, Fornecedor fornecedor, String Nome, int qtd, float Preco, int ativo, String descricao) {
         this.CodProduto = CodProduto;
-        this.CodMarca = CodMarca;
-        this.CodFornecedor = CodFornecedor;
+        this.marca = marca;
+        this.fornecedor = fornecedor;
         this.Nome = Nome;
+        this.qtd = qtd;
         this.Preco = Preco;
+        this.ativo = ativo;
+        this.descricao = descricao;
     }
 
     public int getCodProduto() {
@@ -37,20 +43,20 @@ public class Produto {
         this.CodProduto = CodProduto;
     }
 
-    public int getCodMarca() {
-        return CodMarca;
+    public Marca getMarca() {
+        return marca;
     }
 
-    public void setCodMarca(int CodMarca) {
-        this.CodMarca = CodMarca;
+    public void setMarca(Marca marca) {
+        this.marca = marca;
     }
 
-    public int getCodFornecedor() {
-        return CodFornecedor;
+    public Fornecedor getFornecedor() {
+        return fornecedor;
     }
 
-    public void setCodFornecedor(int CodFornecedor) {
-        this.CodFornecedor = CodFornecedor;
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
     }
 
     public String getNome() {
@@ -61,6 +67,14 @@ public class Produto {
         this.Nome = Nome;
     }
 
+    public int getQtd() {
+        return qtd;
+    }
+
+    public void setQtd(int qtd) {
+        this.qtd = qtd;
+    }
+
     public float getPreco() {
         return Preco;
     }
@@ -69,14 +83,33 @@ public class Produto {
         this.Preco = Preco;
     }
 
+    public int getAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(int ativo) {
+        this.ativo = ativo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 13 * hash + this.CodProduto;
-        hash = 13 * hash + this.CodMarca;
-        hash = 13 * hash + this.CodFornecedor;
-        hash = 13 * hash + Objects.hashCode(this.Nome);
-        hash = 13 * hash + Float.floatToIntBits(this.Preco);
+        int hash = 7;
+        hash = 43 * hash + this.CodProduto;
+        hash = 43 * hash + Objects.hashCode(this.marca);
+        hash = 43 * hash + Objects.hashCode(this.fornecedor);
+        hash = 43 * hash + Objects.hashCode(this.Nome);
+        hash = 43 * hash + this.qtd;
+        hash = 43 * hash + Float.floatToIntBits(this.Preco);
+        hash = 43 * hash + this.ativo;
+        hash = 43 * hash + Objects.hashCode(this.descricao);
         return hash;
     }
 
@@ -92,16 +125,25 @@ public class Produto {
         if (this.CodProduto != other.CodProduto) {
             return false;
         }
-        if (this.CodMarca != other.CodMarca) {
+        if (!Objects.equals(this.marca, other.marca)) {
             return false;
         }
-        if (this.CodFornecedor != other.CodFornecedor) {
+        if (!Objects.equals(this.fornecedor, other.fornecedor)) {
             return false;
         }
         if (!Objects.equals(this.Nome, other.Nome)) {
             return false;
         }
+        if (this.qtd != other.qtd) {
+            return false;
+        }
         if (Float.floatToIntBits(this.Preco) != Float.floatToIntBits(other.Preco)) {
+            return false;
+        }
+        if (this.ativo != other.ativo) {
+            return false;
+        }
+        if (!Objects.equals(this.descricao, other.descricao)) {
             return false;
         }
         return true;
@@ -109,6 +151,8 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" + "CodProduto=" + CodProduto + ", CodMarca=" + CodMarca + ", CodFornecedor=" + CodFornecedor + ", Nome=" + Nome + ", Preco=" + Preco + '}';
+        return "Produto{" + "CodProduto=" + CodProduto + ", marca=" + marca + ", fornecedor=" + fornecedor + ", Nome=" + Nome + ", qtd=" + qtd + ", Preco=" + Preco + ", ativo=" + ativo + ", descricao=" + descricao + '}';
     }
+
+    
 }
