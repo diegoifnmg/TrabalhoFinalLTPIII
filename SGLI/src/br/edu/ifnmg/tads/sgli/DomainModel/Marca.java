@@ -5,6 +5,8 @@
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  *
@@ -28,16 +30,27 @@ public class Marca {
         return codigo;
     }
 
-    public void setCodMarca(int CodMarca) {
-        this.codigo = CodMarca;
+    public void setCodMarca(int codigo) throws Exception {
+        if (codigo > 0) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
+        }
     }
 
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String Nome) {
-        this.nome = Nome;
+    public void setNome(String nome) throws Exception {
+        Pattern Nome = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
+        Matcher verifica = Nome.matcher(nome);
+
+        if (verifica.matches()) {
+            this.nome = nome;
+        } else {
+            throw new Exception("Campo 'Nome' deve ter no mínimo 3 caracteres");
+        }
     }
 
     @Override

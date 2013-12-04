@@ -4,7 +4,9 @@
  */
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Objects;
 
 /**
@@ -12,64 +14,121 @@ import java.util.Objects;
  * @author Diego
  */
 public class Sessao {
-    
-    private int CodSessao;
-    private Date DataInicio;
-    private Date DataFim;
-    private int CodLogin;
+    private int codigo;
+    private Date dataInicio;
+    private Date dataTermino;
+    private double saldoAbertura;
+    private double saldoFechamento;
+    private Caixa caixa;
+    private Usuario usuario;
 
+    //Construtor
     public Sessao() {
+        this.codigo = 0;
+        this.dataInicio = new Date();
+        this.saldoAbertura = caixa.getSaldo();
     }
 
-    public Sessao(int CodSessao, Date DataInicio, Date DataFim, int CodLogin) {
-        this.CodSessao = CodSessao;
-        this.DataInicio = DataInicio;
-        this.DataFim = DataFim;
-        this.CodLogin = CodLogin;
-    }
 
-    public int getCodSessao() {
-        return CodSessao;
-    }
-
-    public void setCodSessao(int CodSessao) {
-        this.CodSessao = CodSessao;
+    //Getters
+    public int getCodigo() {
+        return codigo;
     }
 
     public Date getDataInicio() {
-        return DataInicio;
+        return dataInicio;
     }
 
-    public void setDataInicio(Date DataInicio) {
-        this.DataInicio = DataInicio;
+    public Date getDataTermino() {
+        return dataTermino;
     }
 
-    public Date getDataFim() {
-        return DataFim;
+    public double getSaldoAbertura() {
+        return saldoAbertura;
     }
 
-    public void setDataFim(Date DataFim) {
-        this.DataFim = DataFim;
+    public double getSaldoFechamento() {
+        return saldoFechamento;
     }
 
-    public int getCodLogin() {
-        return CodLogin;
+    public Caixa getCaixa() {
+        return caixa;
     }
 
-    public void setCodLogin(int CodLogin) {
-        this.CodLogin = CodLogin;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
+    //Setters
+    public void setCodigo(int codigo) throws Exception {
+        if (codigo > 0) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
+        }
+    }
+
+    public void setDataInicio(Date dataInicio) throws Exception{
+        
+        Calendar calendario = GregorianCalendar.getInstance();
+        calendario.set(1900, 1, 1);
+
+        if (calendario.getTime().before(dataInicio)) {
+            this.dataInicio = dataInicio;
+        } else {
+            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
+        }
+    }
+
+    public void setDataTermino(Date dataTermino) throws Exception{        
+        Calendar calendario = GregorianCalendar.getInstance();
+        calendario.set(1900, 1, 1);
+
+        if (calendario.getTime().before(dataTermino)) {
+            this.dataTermino = new Date();
+        } else {
+            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
+        }
+    }
+
+    public void setSaldoAbertura(double saldoAbertura) throws Exception {
+        if (saldoAbertura >= 0) {
+            this.saldoAbertura = saldoAbertura;
+        } else {
+            throw new Exception("Valor passado para o campo 'Saldo de Abertura' não pode ser negativo!");
+        }
+    }
+    
+    public void setSaldoFechamento(double saldoFechamento) throws Exception {
+        if (saldoFechamento >= 0) {
+            this.saldoFechamento = saldoFechamento;
+        } else {
+            throw new Exception("Valor passado para o campo 'Saldo de Abertura' não pode ser negativo!");
+        }
+    }
+
+    public void setCaixa(Caixa caixa) {
+        this.caixa = caixa;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+    
+    //hashCode
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.CodSessao;
-        hash = 79 * hash + Objects.hashCode(this.DataInicio);
-        hash = 79 * hash + Objects.hashCode(this.DataFim);
-        hash = 79 * hash + this.CodLogin;
+        hash = 59 * hash + this.codigo;
+        hash = 59 * hash + Objects.hashCode(this.dataInicio);
+        hash = 59 * hash + Objects.hashCode(this.dataTermino);
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.saldoAbertura) ^ (Double.doubleToLongBits(this.saldoAbertura) >>> 32));
+        hash = 59 * hash + (int) (Double.doubleToLongBits(this.saldoFechamento) ^ (Double.doubleToLongBits(this.saldoFechamento) >>> 32));
+        hash = 59 * hash + Objects.hashCode(this.caixa);
+        hash = 59 * hash + Objects.hashCode(this.usuario);
         return hash;
     }
-
+    //equals
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -79,25 +138,37 @@ public class Sessao {
             return false;
         }
         final Sessao other = (Sessao) obj;
-        if (this.CodSessao != other.CodSessao) {
+        if (this.codigo != other.codigo) {
             return false;
         }
-        if (!Objects.equals(this.DataInicio, other.DataInicio)) {
+        if (!Objects.equals(this.dataInicio, other.dataInicio)) {
             return false;
         }
-        if (!Objects.equals(this.DataFim, other.DataFim)) {
+        if (!Objects.equals(this.dataTermino, other.dataTermino)) {
             return false;
         }
-        if (this.CodLogin != other.CodLogin) {
+        if (Double.doubleToLongBits(this.saldoAbertura) != Double.doubleToLongBits(other.saldoAbertura)) {
+            return false;
+        }
+        if (Double.doubleToLongBits(this.saldoFechamento) != Double.doubleToLongBits(other.saldoFechamento)) {
+            return false;
+        }
+        if (!Objects.equals(this.caixa, other.caixa)) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
             return false;
         }
         return true;
     }
-
+    
+    //toString
     @Override
     public String toString() {
-        return "Sessao{" + "CodSessao=" + CodSessao + ", DataInicio=" + DataInicio + ", DataFim=" + DataFim + ", CodLogin=" + CodLogin + '}';
+        return "Sessao{" + "Codigo = " + codigo + ", Inicio = " + dataInicio 
+                + ", Termino = " + dataTermino + ", Saldo de Abertura=" + saldoAbertura 
+                + ", Saldo de Fechamento = " + saldoFechamento + ", Codido do Caixa=" + caixa.getCodCaixa()
+                + ", Usuario=" + usuario.getLogin() + '}';
     }
-    
     
 }

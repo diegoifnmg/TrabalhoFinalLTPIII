@@ -4,7 +4,7 @@
  */
 package br.edu.ifnmg.tads.sgli.DataAccess;
 
-import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
+import br.edu.ifnmg.tads.sgli.DomainModel.Fornecedor;
 import br.edu.ifnmg.tads.sgli.DomainModel.GrupoProdutos;
 import br.edu.ifnmg.tads.sgli.DomainModel.Marca;
 import br.edu.ifnmg.tads.sgli.DomainModel.Produto;
@@ -27,6 +27,7 @@ public class ProdutoDAO extends DAO {
     private DAO bd;
     private Marca marca;
     private GrupoProdutos grupoProdutos;
+    private Fornecedor fornecedor;
     private Produto produto;
 
     public ProdutoDAO() {
@@ -35,28 +36,37 @@ public class ProdutoDAO extends DAO {
         marca = new Marca();
         grupoProdutos = new GrupoProdutos();
         produto = new Produto();
+        fornecedor = new Fornecedor();
     }
 
     public boolean Salvar(Produto produto) {
         try {
             if (grupoProdutos.getCodGrupoProdutos() == 0) {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("insert into Produto(nome,idmarca,idfornecedor,qtd,preco,descricao) values(?,?,?,?,?,?)");
+                        prepareStatement("insert into Produto(nome,marca,fornecedor,qtd,preco,descricao,ativo) values(?,?,?,?,?,?,?)");
                 comando.setString(1, produto.getNome());
                 comando.setInt(2, produto.getMarca().getCodMarca());
                 comando.setInt(3, produto.getFornecedor().getCodigo());
                 comando.setInt(4, produto.getQtd());
                 comando.setFloat(5, produto.getPreco());
                 comando.setString(6, produto.getDescricao());
+                comando.setInt(7, produto.getAtivo());
 
                 comando.executeUpdate();
 
             } else {
                 PreparedStatement comando = bd.getConexao().
-                        prepareStatement("update Produto set nome = ? and idmarca=? and idfornecedor=? and qtd=? and preco=? and descricao=? where idProduto = ?");
-                comando.setString(1, grupoProdutos.getNome());
-                comando.setInt(2, grupoProdutos.getCodGrupoProdutos());
-
+                        prepareStatement("update Produto set nome = ? and marca=? and fornecedor=? and qtd=? and preco=? and descricao=? and ativo=? where idProduto = ?");
+                comando.setString(1, produto.getNome());
+                comando.setString(2, produto.getMarca().getNome());
+                comando.setString(3, produto.getFornecedor().getNome());
+                comando.setInt(4, produto.getQtd());
+                comando.setFloat(5, produto.getPreco());
+                comando.setString(6, produto.getDescricao());
+                comando.setInt(7, produto.getAtivo());
+                comando.setInt(8, produto.getCodProduto());
+                
+                
                 comando.executeUpdate();
             }
             return true;
@@ -66,15 +76,13 @@ public class ProdutoDAO extends DAO {
         }
     }
 
-    
-    
     public Produto AbrirProduto(int id) {
         try {
 
             FornecedorDAO fornecedorDAO = new FornecedorDAO();
             MarcaDAO marcaDAO = new MarcaDAO();
 
-            //Seleciona o funcionario e armazena em 'resultado'
+            
             PreparedStatement sql = getConexao().prepareStatement("select * from Produto where IdProduto=?");
             sql.setInt(1, id);
             ResultSet resultado = sql.executeQuery();
@@ -83,8 +91,8 @@ public class ProdutoDAO extends DAO {
 
             if (resultado.next()) {
 
-                produto.setFornecedor(fornecedorDAO.AbrirFornecedor(resultado.getInt("IdFornecedor")));
-                produto.setMarca(marcaDAO.Abrir(resultado.getInt("IdMarca")));
+                produto.setFornecedor(fornecedorDAO.AbrirFornecedor(resultado.getInt("Fornecedor")));
+                produto.setMarca(marcaDAO.Abrir(resultado.getInt("Marca")));
 
                 return produto;
             } else {
@@ -98,9 +106,7 @@ public class ProdutoDAO extends DAO {
         }
     }
 
-    
-
-     public List<Produto> ListarTodosProdutos() {
+    public List<Produto> ListarTodosProdutos() {
         try {
 
             FornecedorDAO fornecedorDAO = new FornecedorDAO();
@@ -115,9 +121,8 @@ public class ProdutoDAO extends DAO {
             while (resultado.next()) {
                 Produto obj = new Produto();
 
-                obj.setFornecedor(fornecedorDAO.AbrirFornecedor(resultado.getInt("IdFornecedor")));
-                obj.setMarca(marcaDAO.Abrir(resultado.getInt("IdMarca")));
-                
+                CarregaObjetoProduto(obj, resultado);
+
 
 
                 lista.add(obj);
@@ -129,8 +134,7 @@ public class ProdutoDAO extends DAO {
             return null;
         }
     }
-    
-    
+
     public List<Produto> buscar(Produto filtro) {
         try {
 
@@ -166,7 +170,7 @@ public class ProdutoDAO extends DAO {
 
                     tmp.setCodProduto(resultado.getInt("IdProduto"));
                     tmp.setNome(resultado.getString("nome"));
-                   
+
                 } catch (Exception ex) {
                     Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -194,6 +198,16 @@ public class ProdutoDAO extends DAO {
         }
     }
 
+    protected void CarregaObjetoProduto(Produto obj, ResultSet resultado) throws Exception, SQLException {
+        MarcaDAO marcaDAO = new MarcaDAO();
+        FornecedorDAO fornecedorDAO = new FornecedorDAO();
 
-    
+        obj.setCodProduto(resultado.getInt("idProduto"));
+        obj.setNome(resultado.getString("Nome"));
+        obj.setQtd(resultado.getInt("qtd"));
+        obj.setDescricao(resultado.getString("Descricao"));
+        obj.setPreco(resultado.getFloat("Preco"));
+        obj.setMarca(marcaDAO.Abrir(resultado.getInt("marca")));
+        obj.setFornecedor(fornecedorDAO.AbrirFornecedor(resultado.getInt("fornecedor")));
+    }
 }

@@ -11,61 +11,63 @@ import java.util.Objects;
  * @author Diego
  */
 public class Telefone {
-    
-    private int DDD;
-    private int Telefone;
-    private int Codigo;
-    private String Operadora;
+
+    private int ddd;
+    private int telefone;
+    private int codigo;
 
     public Telefone() {
     }
 
-    public Telefone(int DDD, int Telefone, int Codigo, String Operadora) {
-        this.DDD = DDD;
-        this.Telefone = Telefone;
-        this.Codigo = Codigo;
-        this.Operadora = Operadora;
+    public Telefone(int ddd, int telefone, int codigo, String Operadora) {
+        this.ddd = ddd;
+        this.telefone = telefone;
+        this.codigo = codigo;
+
     }
 
     public int getDDD() {
-        return DDD;
+        return ddd;
     }
 
-    public void setDDD(int DDD) {
-        this.DDD = DDD;
+    public void setDDD(int ddd) throws Exception {
+        if ((ddd > 9) && (ddd < 100)) {
+            this.ddd = ddd;
+        } else {
+            throw new Exception("Valor passado para o campo 'DDD' é Invalido!");
+        }
     }
 
     public int getTelefone() {
-        return Telefone;
+        return telefone;
     }
 
-    public void setTelefone(int Telefone) {
-        this.Telefone = Telefone;
+    public void setTelefone(int telefone) throws Exception {
+        if (telefone > 11111111) {
+            this.telefone = telefone;
+        } else {
+            throw new Exception("Valor passado para o campo 'Telefone' é Invalido!");
+        }
     }
 
     public int getCodigo() {
-        return Codigo;
+        return codigo;
     }
 
-    public void setCodigo(int Codigo) {
-        this.Codigo = Codigo;
-    }
-
-    public String getOperadora() {
-        return Operadora;
-    }
-
-    public void setOperadora(String Operadora) {
-        this.Operadora = Operadora;
+    public void setCodigo(int codigo) throws Exception {
+        if (codigo >= 1) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado Inválido");
+        }
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
-        hash = 47 * hash + this.DDD;
-        hash = 47 * hash + this.Telefone;
-        hash = 47 * hash + this.Codigo;
-        hash = 47 * hash + Objects.hashCode(this.Operadora);
+        hash = 47 * hash + this.ddd;
+        hash = 47 * hash + this.telefone;
+        hash = 47 * hash + this.codigo;
         return hash;
     }
 
@@ -78,25 +80,21 @@ public class Telefone {
             return false;
         }
         final Telefone other = (Telefone) obj;
-        if (this.DDD != other.DDD) {
+        if (this.ddd != other.ddd) {
             return false;
         }
-        if (this.Telefone != other.Telefone) {
+        if (this.telefone != other.telefone) {
             return false;
         }
-        if (this.Codigo != other.Codigo) {
+        if (this.codigo != other.codigo) {
             return false;
         }
-        if (!Objects.equals(this.Operadora, other.Operadora)) {
-            return false;
-        }
+
         return true;
     }
 
     @Override
     public String toString() {
-        return "Telefone{" + "DDD=" + DDD + ", Telefone=" + Telefone + ", Codigo=" + Codigo + ", Operadora=" + Operadora + '}';
+        return "Telefone{" + "DDD=" + ddd + ", Telefone=" + telefone + ", Codigo=" + codigo + '}';
     }
-
-    
 }

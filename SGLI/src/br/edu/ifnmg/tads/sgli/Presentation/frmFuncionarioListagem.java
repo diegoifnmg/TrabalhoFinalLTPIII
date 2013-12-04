@@ -37,7 +37,6 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
         DefaultTableModel model = new DefaultTableModel();
         
         model.addColumn("IdPessoa");
-        model.addColumn("Login");
         model.addColumn("Nome");
         model.addColumn("DataNascimento");
         model.addColumn("CPF");
@@ -48,12 +47,12 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
             Vector valores = new Vector();
             
             valores.add(0, c.getCodigo());
-            valores.add(1, c.getLogin());
-            valores.add(2, c.getNome());
-            valores.add(3, c.getDataNascimento());
-            valores.add(4, c.getCPF());
+            valores.add(1, c.getNome());
+            valores.add(2, c.getDataNascimento());
+            valores.add(3, c.getCPF());
+            valores.add(4, c.getRG());
             valores.add(5, c.getCargo());
-            valores.add(6, c.getRG());
+            
 
             model.addRow(valores);
         }

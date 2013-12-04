@@ -104,12 +104,7 @@ public class frmLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        if(funcionarioDao.AutenticarUsuario(funcionario) == true){
-            frmPrincipal janela = new frmPrincipal();
-            janela.setVisible(true);
-            this.setVisible(false);
-            this.dispose();
-        }
+        
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**

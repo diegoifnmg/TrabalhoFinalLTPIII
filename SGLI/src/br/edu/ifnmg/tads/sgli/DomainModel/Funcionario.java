@@ -13,19 +13,9 @@ import java.util.Objects;
 public class Funcionario extends Pessoa {
 
     private Cargo cargo;
-    private int Ativo;
-    private String Login;
-    private String Senha;
+    private int ativo;
 
     public Funcionario() {
-        this.Ativo = 1;
-    }
-
-    public Funcionario(Cargo cargo, int Ativo, String Login, String Senha) {
-        this.cargo = cargo;
-        this.Ativo = Ativo;
-        this.Login = Login;
-        this.Senha = Senha;
     }
 
     public Cargo getCargo() {
@@ -37,36 +27,22 @@ public class Funcionario extends Pessoa {
     }
 
     public int getAtivo() {
-        return Ativo;
+        return ativo;
     }
 
-    public void setAtivo(int Ativo) {
-        this.Ativo = Ativo;
-    }
-
-    public String getLogin() {
-        return Login;
-    }
-
-    public void setLogin(String Login) {
-        this.Login = Login;
-    }
-
-    public String getSenha() {
-        return Senha;
-    }
-
-    public void setSenha(String Senha) {
-        this.Senha = Senha;
+    public void setAtivo(int ativo) throws Exception {
+        if ((ativo == 0) || (ativo == 1)) {
+            this.ativo = ativo;
+        } else {
+            throw new Exception("Campo 'ativo' deve receber valor '1' ou '0'");
+        }
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 17 * hash + Objects.hashCode(this.cargo);
-        hash = 17 * hash + this.Ativo;
-        hash = 17 * hash + Objects.hashCode(this.Login);
-        hash = 17 * hash + Objects.hashCode(this.Senha);
+        int hash = 7;
+        hash = 61 * hash + Objects.hashCode(this.cargo);
+        hash = 61 * hash + this.ativo;
         return hash;
     }
 
@@ -82,13 +58,7 @@ public class Funcionario extends Pessoa {
         if (!Objects.equals(this.cargo, other.cargo)) {
             return false;
         }
-        if (this.Ativo != other.Ativo) {
-            return false;
-        }
-        if (!Objects.equals(this.Login, other.Login)) {
-            return false;
-        }
-        if (!Objects.equals(this.Senha, other.Senha)) {
+        if (this.ativo != other.ativo) {
             return false;
         }
         return true;
@@ -96,6 +66,8 @@ public class Funcionario extends Pessoa {
 
     @Override
     public String toString() {
-        return "Funcionario{" + "cargo=" + cargo + '}';
+        return "Funcionario{" + "cargo=" + cargo + ", Ativo=" + ativo + '}';
     }
+
+    
 }

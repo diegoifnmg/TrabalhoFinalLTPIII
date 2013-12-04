@@ -14,18 +14,9 @@ import java.util.Objects;
 public class Caixa {
     
     private int CodCaixa;
-    private Date DataInicioCaixa;
-    private Date DataFimCaixa;
-    private float ValorCaixa;
+    private float Saldo;
 
     public Caixa() {
-    }
-
-    public Caixa(int CodCaixa, Date DataInicioCaixa, Date DataFimCaixa, float ValorCaixa) {
-        this.CodCaixa = CodCaixa;
-        this.DataInicioCaixa = DataInicioCaixa;
-        this.DataFimCaixa = DataFimCaixa;
-        this.ValorCaixa = ValorCaixa;
     }
 
     public int getCodCaixa() {
@@ -36,37 +27,19 @@ public class Caixa {
         this.CodCaixa = CodCaixa;
     }
 
-    public Date getDataInicioCaixa() {
-        return DataInicioCaixa;
+    public float getSaldo() {
+        return Saldo;
     }
 
-    public void setDataInicioCaixa(Date DataInicioCaixa) {
-        this.DataInicioCaixa = DataInicioCaixa;
-    }
-
-    public Date getDataFimCaixa() {
-        return DataFimCaixa;
-    }
-
-    public void setDataFimCaixa(Date DataFimCaixa) {
-        this.DataFimCaixa = DataFimCaixa;
-    }
-
-    public float getValorCaixa() {
-        return ValorCaixa;
-    }
-
-    public void setValorCaixa(float ValorCaixa) {
-        this.ValorCaixa = ValorCaixa;
+    public void setSaldo(float Saldo) {
+        this.Saldo = Saldo;
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
+        int hash = 5;
         hash = 29 * hash + this.CodCaixa;
-        hash = 29 * hash + Objects.hashCode(this.DataInicioCaixa);
-        hash = 29 * hash + Objects.hashCode(this.DataFimCaixa);
-        hash = 29 * hash + Float.floatToIntBits(this.ValorCaixa);
+        hash = 29 * hash + Float.floatToIntBits(this.Saldo);
         return hash;
     }
 
@@ -82,13 +55,7 @@ public class Caixa {
         if (this.CodCaixa != other.CodCaixa) {
             return false;
         }
-        if (!Objects.equals(this.DataInicioCaixa, other.DataInicioCaixa)) {
-            return false;
-        }
-        if (!Objects.equals(this.DataFimCaixa, other.DataFimCaixa)) {
-            return false;
-        }
-        if (Float.floatToIntBits(this.ValorCaixa) != Float.floatToIntBits(other.ValorCaixa)) {
+        if (Float.floatToIntBits(this.Saldo) != Float.floatToIntBits(other.Saldo)) {
             return false;
         }
         return true;
@@ -96,7 +63,8 @@ public class Caixa {
 
     @Override
     public String toString() {
-        return "Caixa{" + "CodCaixa=" + CodCaixa + ", DataInicioCaixa=" + DataInicioCaixa + ", DataFimCaixa=" + DataFimCaixa + ", ValorCaixa=" + ValorCaixa + '}';
+        return "Caixa{" + "CodCaixa=" + CodCaixa + ", Saldo=" + Saldo + '}';
     }
+
     
 }

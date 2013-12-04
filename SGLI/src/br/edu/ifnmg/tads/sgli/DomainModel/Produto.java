@@ -22,6 +22,7 @@ public class Produto {
     private String descricao;
 
     public Produto() {
+        this.ativo = 1;
     }
 
     public Produto(int CodProduto, Marca marca, Fornecedor fornecedor, String Nome, int qtd, float Preco, int ativo, String descricao) {
@@ -153,6 +154,4 @@ public class Produto {
     public String toString() {
         return "Produto{" + "CodProduto=" + CodProduto + ", marca=" + marca + ", fornecedor=" + fornecedor + ", Nome=" + Nome + ", qtd=" + qtd + ", Preco=" + Preco + ", ativo=" + ativo + ", descricao=" + descricao + '}';
     }
-
-    
 }

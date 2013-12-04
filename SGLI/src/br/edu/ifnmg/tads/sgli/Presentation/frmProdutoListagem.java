@@ -4,7 +4,6 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
-import br.edu.ifnmg.tads.sgli.DataAccess.CargoDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.ProdutoDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Produto;
 import java.util.List;
@@ -176,7 +175,7 @@ public class frmProdutoListagem extends javax.swing.JInternalFrame {
         try {
             c.setNome(txtFiltro.getText());
         } catch (Exception ex) {
-            Logger.getLogger(frmCargoListagem.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmProdutoListagem.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         List<Produto> lista = DAO.buscar(c);

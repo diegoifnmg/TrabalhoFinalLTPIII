@@ -34,11 +34,13 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
      */
     public frmProdutoEditar(Produto p, ProdutoDAO d) {
         initComponents();
+
         marcaDAO = new MarcaDAO();
         fornecedorDAO = new FornecedorDAO();
 
         carregaMarca();
         carregaFornecedor();
+
         if (p.getCodProduto() > 0) {
             this.produto = p;
             this.DAO = d;
@@ -46,8 +48,8 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
             carregaCampos();
 
         } else {
-            fornecedor = new Fornecedor();
-            fornecedorDAO = new FornecedorDAO();
+            produto = new Produto();
+            DAO = new ProdutoDAO();
         }
     }
 
@@ -80,11 +82,11 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
     private void carregaObjeto() {
         try {
             produto.setNome(txtNome.getText());
-            produto.setPreco(Float.parseFloat(txtPreco.getText()));
-            produto.setQtd(Integer.getInteger(txtqtd.getText()));
-
+            produto.setPreco(Float.valueOf(txtPreco.getText()));
+            produto.setQtd(Integer.parseInt(txtqtd.getText()));
             produto.setFornecedor((Fornecedor) cbxFornecedor.getSelectedItem());
             produto.setMarca((Marca) cbxMarca.getSelectedItem());
+            produto.setDescricao(txtDescricao.getText());
 
         } catch (Exception ex) {
             Logger.getLogger(frmProdutoEditar.class.getName()).log(Level.SEVERE, null, ex);
@@ -204,12 +206,13 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(lblFornecedor)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(cbxFornecedor, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(lblMarca)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(cbxMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(14, 14, 14))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblIdCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -253,7 +256,7 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(txtDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnLimpar)
@@ -302,6 +305,7 @@ public class frmProdutoEditar extends javax.swing.JInternalFrame {
         txtNome.setText("");
         txtqtd.setText("");
     }//GEN-LAST:event_btnLimparActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApagar;
     private javax.swing.JButton btnLimpar;

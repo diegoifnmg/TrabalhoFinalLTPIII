@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @author Diego
  */
 public class Endereco {
-    
+
     private int codigo;
     private String rua;
     private String bairro;
@@ -43,40 +43,69 @@ public class Endereco {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
+    public void setCodigo(int codigo) throws Exception {
+        if (codigo >= 1) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
+        }
     }
 
     public String getRua() {
         return rua;
     }
 
-    public void setRua(String rua) {
-        this.rua = rua;
+    public void setRua(String rua) throws Exception {
+        Pattern Rua = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
+        Matcher verifica = Rua.matcher(rua);
+
+        if (verifica.matches()) {
+            this.rua = rua;
+        } else {
+            throw new Exception("Valor passado para o campo 'Rua' é Invalido!");
+        }
     }
 
     public String getBairro() {
         return bairro;
     }
 
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
+    public void setBairro(String bairro) throws Exception {
+        Pattern Bairro = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
+        Matcher verifica = Bairro.matcher(bairro);
+
+        if (verifica.matches()) {
+            this.bairro = bairro;
+        } else {
+            throw new Exception("Valor passado para o campo 'Bairro' é Invalido!");
+        }
     }
 
     public String getCidade() {
         return cidade;
     }
 
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
+    public void setCidade(String cidade) throws Exception {
+        Pattern Cidade = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
+        Matcher verifica = Cidade.matcher(cidade);
+
+        if (verifica.matches()) {
+            this.cidade = cidade;
+        } else {
+            throw new Exception("Valor passado para o campo 'Cidade' é Invalido!");
+        }
     }
 
     public int getNumero() {
         return numero;
-    }
+    }   
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public void setNumero(int numero) throws Exception {
+        if (numero >= 1) {
+            this.numero = numero;
+        } else {
+            throw new Exception("Valor passado para o campo 'Numero' não pode ser negativo!");
+        }
     }
 
     public String getCep() {
@@ -91,24 +120,45 @@ public class Endereco {
         return complemento;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setComplemento(String complemento) throws Exception {
+        Pattern Complemento = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{1,}");
+        Matcher verifica = Complemento.matcher(complemento);
+
+        if (verifica.matches()) {
+            this.complemento = complemento;
+        } else {
+            throw new Exception("Valor passado para o campo 'Complemento' é Invalido!");
+        }
     }
 
     public String getPais() {
         return pais;
     }
 
-    public void setPais(String pais) {
-        this.pais = pais;
+    public void setPais(String pais) throws Exception {
+        Pattern Pais = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{1,}");
+        Matcher verifica = Pais.matcher(pais);
+        
+        if (verifica.matches()) {
+            this.pais = pais;
+        } else {
+            throw new Exception("Valor passado para o campo 'Pais' é Invalido!");
+        }
     }
 
     public String getEstado() {
         return estado;
     }
 
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setEstado(String estado) throws Exception {
+        Pattern Estado = Pattern.compile("\\w*{2,}");
+        Matcher verifica = Estado.matcher(estado);
+
+        if (verifica.matches()) {
+            this.estado = estado;
+        } else {
+            throw new Exception("Valor passado para o campo 'UF' é Invalido!");
+        }
     }
 
     @Override
@@ -167,9 +217,10 @@ public class Endereco {
 
     @Override
     public String toString() {
-        return "Endereco{" + "codigo=" + codigo + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" + cidade + ", numero=" + numero + ", cep=" + cep + ", complemento=" + complemento + ", pais=" + pais + ", estado=" + estado + '}';
+        return "Endereco{" + "codigo=" + codigo 
+                + ", rua=" + rua + ", bairro=" + bairro + ", cidade=" 
+                + cidade + ", numero=" + numero + ", cep=" + cep + ", "
+                + "complemento=" + complemento + ", pais=" + pais 
+                + ", estado=" + estado + '}';
     }
-    
-    
-    
 }

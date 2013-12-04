@@ -19,18 +19,18 @@ import java.util.regex.Pattern;
  */
 public class Pessoa {
     
-    private int Codigo;
+    private int codigo;
     private String nome;
-    private String CPF;
-    private String RG;
-    private Date DataNascimento;
+    private String cpf;
+    private String rg;
+    private Date dataNascimento;
     private List<Email> emails;
     private List<Endereco> enderecos;
     private List<Telefone> telefones;
 
     //construtor
     public Pessoa() {
-        Codigo = 0;
+        codigo = 0;
         emails = new ArrayList<Email>();
         enderecos = new ArrayList<Endereco>();
         telefones = new ArrayList<Telefone>();
@@ -41,67 +41,89 @@ public class Pessoa {
     }
 
     public void setNome(String nome) throws Exception {
-        Pattern Nome = Pattern.compile("[\\w\\s]{3,}");
+        Pattern Nome = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
         Matcher verifica = Nome.matcher(nome);
 
         if (verifica.matches()) {
             this.nome = nome;
         } else {
-            throw new Exception("Formato de nome Inválido!");
-
+            throw new Exception("Campo 'Nome' deve ter no mínimo 3 caracteres");
         }
     }
 
     public String getCPF() {
-        return CPF;
+        return cpf;
     }
 
-    public void setCPF(String CPF) {
-        this.CPF = CPF;
+    public void setCPF(String cpf) throws Exception {
+        Pattern Pcpf = Pattern.compile("\\d{3}.\\d{3}.\\d{3}-\\d{2}");
+        Matcher verificacao = Pcpf.matcher(cpf);
+
+        if (verificacao.matches()) {
+            this.cpf = cpf;
+        } else {
+            throw new Exception("Entrada para o campo CPF INVALIDA!");
+        }
+
     }
 
     public String getRG() {
-        return RG;
+        return rg;
     }
 
-    public void setRG(String RG) {
-        this.RG = RG;
+    public void setRG(String rg) throws Exception {
+        Pattern PRG = Pattern.compile("[\\d\\w\\.-]{6,20}");
+        Matcher verificacao = PRG.matcher(rg);
+
+        if (verificacao.matches()) {
+            this.rg = rg;
+        } else {
+            throw new Exception("Entrada para o campo RG INVALIDA!");
+        }
     }
 
     public Date getDataNascimento() {
-        return DataNascimento;
+        return dataNascimento;
     }
 
-    public void setDataNascimento(Date DataNascimento) {
+    public void setDataNascimento(Date dataNascimento) throws Exception {
         Calendar calendario = GregorianCalendar.getInstance();
         calendario.set(1900, 1, 1);
 
-        if (calendario.getTime().before(DataNascimento)) {
-            this.DataNascimento = DataNascimento;
+        if (calendario.getTime().before(dataNascimento)) {
+            this.dataNascimento = dataNascimento;
+        } else {
+            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
         }
     }
 
     public int getCodigo() {
-        return Codigo;
+        return codigo;
     }
 
-    public void setCodigo(int codigo) {
-        if (codigo >= 0) {
-            this.Codigo = codigo;
-        } 
-    }
-
-
-
-    public void addEmail(Email email) {
-        if (!emails.contains(email)) {
-            emails.add(email);
+    public void setCodigo(int codigo) throws Exception {
+        if (codigo > 0) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
         }
     }
 
-    public void removeEmail(Email email) {
+
+
+    public void addEmail(Email email) throws Exception {
+        if (!emails.contains(email)) {
+            emails.add(email);
+        } else {
+            throw new Exception("Esse email ja foi cadastrado!");
+        }
+    }
+
+    public void removeEmail(Email email) throws Exception {
         if (emails.contains(email)) {
             emails.remove(email);
+        } else {
+            throw new Exception("O email pedido não existe!");
         }
     }
 
@@ -109,16 +131,21 @@ public class Pessoa {
         return emails;
     }
 
-    public void addEndereco(Endereco endereco) {
+    public void addEndereco(Endereco endereco) throws Exception {
         if (!enderecos.contains(endereco)) {
             enderecos.add(endereco);
+        } else {
+            throw new Exception("O valor passado para o campo endereco ja existe!");
         }
     }
 
-    public void removeEndereco(Endereco endereco) {
+    public void removeEndereco(Endereco endereco) throws Exception {
         if (enderecos.contains(endereco)) {
             enderecos.remove(endereco);
+        } else {
+            throw new Exception("Não foi possivel remover o endereço, pois ele não existe!");
         }
+
     }
 
     public List<Endereco> getEnderecos() {
@@ -126,16 +153,20 @@ public class Pessoa {
     }
 
     //adicionar telefone
-    public void addTelefone(Telefone telefone) {
+    public void addTelefone(Telefone telefone) throws Exception {
         if (!telefones.contains(telefone)) {
             telefones.add(telefone);
+        } else {
+            throw new Exception("O valor passado para o campo telefone ja existe!");
         }
     }
     //Remover um Telefone
 
-    public void removeTelefone(Telefone telefone) {
+    public void removeTelefone(Telefone telefone) throws Exception {
         if (telefones.contains(telefone)) {
             telefones.remove(telefone);
+        } else {
+            throw new Exception("Não foi possivel remover o telefone, pois ele não existe!");
         }
     }
 
@@ -146,11 +177,11 @@ public class Pessoa {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 73 * hash + this.Codigo;
+        hash = 73 * hash + this.codigo;
         hash = 73 * hash + Objects.hashCode(this.nome);
-        hash = 73 * hash + Objects.hashCode(this.CPF);
-        hash = 73 * hash + Objects.hashCode(this.RG);
-        hash = 73 * hash + Objects.hashCode(this.DataNascimento);
+        hash = 73 * hash + Objects.hashCode(this.cpf);
+        hash = 73 * hash + Objects.hashCode(this.rg);
+        hash = 73 * hash + Objects.hashCode(this.dataNascimento);
         hash = 73 * hash + Objects.hashCode(this.emails);
         hash = 73 * hash + Objects.hashCode(this.enderecos);
         hash = 73 * hash + Objects.hashCode(this.telefones);
@@ -166,19 +197,19 @@ public class Pessoa {
             return false;
         }
         final Pessoa other = (Pessoa) obj;
-        if (this.Codigo != other.Codigo) {
+        if (this.codigo != other.codigo) {
             return false;
         }
         if (!Objects.equals(this.nome, other.nome)) {
             return false;
         }
-        if (!Objects.equals(this.CPF, other.CPF)) {
+        if (!Objects.equals(this.cpf, other.cpf)) {
             return false;
         }
-        if (!Objects.equals(this.RG, other.RG)) {
+        if (!Objects.equals(this.rg, other.rg)) {
             return false;
         }
-        if (!Objects.equals(this.DataNascimento, other.DataNascimento)) {
+        if (!Objects.equals(this.dataNascimento, other.dataNascimento)) {
             return false;
         }
         if (!Objects.equals(this.emails, other.emails)) {
@@ -195,7 +226,7 @@ public class Pessoa {
 
     @Override
     public String toString() {
-        return "Pessoa{" + "CodPessoa=" + Codigo + ", nome=" + nome + ", CPF=" + CPF + ", RG=" + RG + ", DataNascimento=" + DataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
+        return "Pessoa{" + "CodPessoa=" + codigo + ", nome=" + nome + ", CPF=" + cpf + ", RG=" + rg + ", DataNascimento=" + dataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
     }
     
     
