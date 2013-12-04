@@ -49,7 +49,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
             valores.add(2, c.getDataNascimento());
             valores.add(3, c.getCPF());
             valores.add(4, c.getRG());
-            valores.add(5, c.getCNPJ());
+            valores.add(5, c.getCnpj());
             valores.add(6, c.getFisicaouJuridica());
             model.addRow(valores);
         }

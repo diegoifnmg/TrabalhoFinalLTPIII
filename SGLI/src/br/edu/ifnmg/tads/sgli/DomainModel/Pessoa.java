@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * @author Diego
  */
 public class Pessoa {
-    
+
     private int codigo;
     private String nome;
     private String cpf;
@@ -55,31 +55,17 @@ public class Pessoa {
         return cpf;
     }
 
-    public void setCPF(String cpf) throws Exception {
-        Pattern Pcpf = Pattern.compile("\\d{3}.\\d{3}.\\d{3}-\\d{2}");
-        Matcher verificacao = Pcpf.matcher(cpf);
-
-        if (verificacao.matches()) {
-            this.cpf = cpf;
-        } else {
-            throw new Exception("Entrada para o campo CPF INVALIDA!");
-        }
-
+    public void setCPF(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getRG() {
         return rg;
     }
 
-    public void setRG(String rg) throws Exception {
-        Pattern PRG = Pattern.compile("[\\d\\w\\.-]{6,20}");
-        Matcher verificacao = PRG.matcher(rg);
-
-        if (verificacao.matches()) {
+    public void setRG(String rg) {
+        
             this.rg = rg;
-        } else {
-            throw new Exception("Entrada para o campo RG INVALIDA!");
-        }
     }
 
     public Date getDataNascimento() {
@@ -108,8 +94,6 @@ public class Pessoa {
             throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
         }
     }
-
-
 
     public void addEmail(Email email) throws Exception {
         if (!emails.contains(email)) {
@@ -228,8 +212,4 @@ public class Pessoa {
     public String toString() {
         return "Pessoa{" + "CodPessoa=" + codigo + ", nome=" + nome + ", CPF=" + cpf + ", RG=" + rg + ", DataNascimento=" + dataNascimento + ", emails=" + emails + ", enderecos=" + enderecos + ", telefones=" + telefones + '}';
     }
-    
-    
-  
-    
 }

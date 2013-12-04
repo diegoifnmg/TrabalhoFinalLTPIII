@@ -30,7 +30,7 @@ public class VendaDAO extends DAO{
         if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sql = getConexao().prepareStatement
-                        ("insert into venda(data,valorTotal,formaPagamento,IdSessao,IdFuncionario,IdCliente) values(?,?,?,?,?,?)");
+                        ("insert into venda(data,valorTotal,formadePagamento,IdSessao,IdFuncionario,IdCliente) values(?,?,?,?,?,?)");
                 sql.setDate(1, new java.sql.Date(obj.getData().getTime()));
                 sql.setDouble(2, obj.getValorTotal());
                 sql.setString(3, obj.getFormaPagamento());
@@ -40,7 +40,7 @@ public class VendaDAO extends DAO{
                 sql.executeUpdate();
 
                 PreparedStatement sqlConsulta = getConexao().prepareStatement
-                        ("select codVenda from Venda where valorTotal=? and Data=? and formaPagamento=? and idSessao=? and IdFuncionario=? and IdCliente=?");
+                        ("select IdVenda from Venda where valorTotal=? and Data=? and formadePagamento=? and idSessao=? and IdFuncionario=? and IdCliente=?");
                 sqlConsulta.setDouble(1, obj.getValorTotal());
                 sqlConsulta.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 sqlConsulta.setString(3, obj.getFormaPagamento());

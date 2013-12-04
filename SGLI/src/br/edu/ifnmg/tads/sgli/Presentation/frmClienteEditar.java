@@ -64,7 +64,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         txtDataNasc.setText(String.valueOf(cliente.getDataNascimento()));
         txtCPF.setText(cliente.getCPF());
         txtRG.setText(cliente.getRG());
-        txtCNPJ.setText(cliente.getCNPJ());
+        txtCNPJ.setText(cliente.getCnpj());
     }
 
     private void carregaObjeto() {
@@ -73,7 +73,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
             cliente.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
             cliente.setCPF(txtCPF.getText());
             cliente.setRG(txtRG.getText());
-            cliente.setCNPJ(txtCNPJ.getText());
+            cliente.setCnpj(txtCNPJ.getText());
 
 
         } catch (Exception ex) {

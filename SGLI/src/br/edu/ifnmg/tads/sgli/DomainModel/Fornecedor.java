@@ -31,15 +31,8 @@ public class Fornecedor extends Pessoa{
         return cnpj;
     }
 
-    public void setCNPJ(String cnpj) throws Exception{
-        Pattern CNPJ = Pattern.compile("\\d{2}.\\d{3}.\\d{3}/\\d{4}-\\d{2}");
-        Matcher verifica = CNPJ.matcher(cnpj);
-
-        if (verifica.matches()) {
+    public void setCNPJ(String cnpj) {
             this.cnpj = cnpj;
-        } else {
-            throw new Exception("Entrada para o campo CNPJ INVALIDA!");
-        }
     }
 
     public int getAtivo() {

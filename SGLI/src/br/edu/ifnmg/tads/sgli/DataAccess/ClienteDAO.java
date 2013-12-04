@@ -41,7 +41,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
             try {
                 PreparedStatement sql = getConexao().prepareStatement("insert into cliente(FisicaouJuridica,CNPJ,Ativo,Idpessoa) values(?,?,?,?)");
                 sql.setInt(1, obj.getFisicaouJuridica());
-                sql.setString(2, obj.getCNPJ());
+                sql.setString(2, obj.getCnpj());
                 sql.setInt(3, obj.getAtivo());
                 sql.setInt(4, obj.getCodigo());  
 
@@ -59,7 +59,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                 PreparedStatement sql = con.prepareStatement("update Cliente set FisicaouJuridica=?, CNPJ=?, ATIVO=? where IdPessoa=?");
 
                 sql.setInt(1, obj.getFisicaouJuridica());
-                sql.setString(2, obj.getCNPJ());
+                sql.setString(2, obj.getCnpj());
                 sql.setInt(3, obj.getAtivo());
                 sql.setInt(4, obj.getCodigo());
 
@@ -92,7 +92,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
 
             if (resultado.next()) {
 
-                cliente.setCNPJ(resultado.getString("CNPJ"));
+                cliente.setCnpj(resultado.getString("CNPJ"));
                 cliente.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
                 return cliente;
             } else {
@@ -161,7 +161,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                     tmp.setCPF(resultado.getString("CPF"));
                     tmp.setRG(resultado.getString("RG"));
                     tmp.setDataNascimento(resultado.getDate("DataNascimento"));
-                    tmp.setCNPJ(resultado.getString("CNPJ"));
+                    tmp.setCnpj(resultado.getString("CNPJ"));
                     tmp.setAtivo(resultado.getInt("Ativo"));
                     tmp.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
                 } catch (Exception ex) {
@@ -192,7 +192,7 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
                 super.CarregaObjetoPessoa(obj, resultado);
 
                 obj.setCodigo(resultado.getInt("IdPessoa"));
-                obj.setCNPJ(resultado.getString("CNPJ"));
+                obj.setCnpj(resultado.getString("CNPJ"));
                 obj.setFisicaouJuridica(resultado.getInt("FisicaouJuridica"));
 
 

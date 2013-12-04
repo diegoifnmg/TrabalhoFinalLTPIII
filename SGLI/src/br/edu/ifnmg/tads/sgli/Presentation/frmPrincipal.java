@@ -44,6 +44,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         imnuCadastoProdutos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        imnuVenda = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
@@ -139,6 +140,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Vendas");
+
+        imnuVenda.setText("Venda");
+        imnuVenda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuVendaActionPerformed(evt);
+            }
+        });
+        jMenu2.add(imnuVenda);
+
         jMenuBar1.add(jMenu2);
 
         jMenu1.setText("OS");
@@ -211,6 +221,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    private void imnuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuVendaActionPerformed
+        frmVenda janela = new frmVenda();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_imnuVendaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -260,6 +276,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
     private javax.swing.JMenuItem imnuCadastroProdutos;
     private javax.swing.JMenuItem imnuUsuario;
+    private javax.swing.JMenuItem imnuVenda;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
