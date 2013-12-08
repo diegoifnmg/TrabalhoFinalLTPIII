@@ -87,9 +87,16 @@ public class MarcaDAO extends DAO {
             while (resultado.next()) {
 
                 Marca marca = new Marca();
-
-                marca.setCodMarca(resultado.getInt("IdMarca"));
-                marca.setNome(resultado.getString("nome"));
+                try {
+                    marca.setCodMarca(resultado.getInt("IdMarca"));
+                } catch (Exception ex) {
+                    Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                try {
+                    marca.setNome(resultado.getString("nome"));
+                } catch (Exception ex) {
+                    Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
 
                 marcas.add(marca);
@@ -126,8 +133,13 @@ public class MarcaDAO extends DAO {
 
             while (resultado.next()) {
                 Marca marca = new Marca();
-                marca.setCodMarca(resultado.getInt("Idmarca"));
-                marca.setNome(resultado.getString("nome"));
+                try {
+                    marca.setCodMarca(resultado.getInt("Idmarca"));
+                    marca.setNome(resultado.getString("nome"));
+                } catch (Exception ex) {
+                    Logger.getLogger(MarcaDAO.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
 
 
                 marcas.add(marca);

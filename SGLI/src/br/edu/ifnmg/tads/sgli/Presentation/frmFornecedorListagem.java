@@ -38,19 +38,13 @@ public class frmFornecedorListagem extends javax.swing.JInternalFrame {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn("IdPessoa");
         model.addColumn("Nome");
-        model.addColumn("DataNascimento");
-        model.addColumn("CPF");
-        model.addColumn("RG");
         model.addColumn("CNPJ");
         
         for (Fornecedor c : lista) {
             Vector valores = new Vector();
             valores.add(0, c.getCodigo());
             valores.add(1, c.getNome());
-            valores.add(2, c.getDataNascimento());
-            valores.add(3, c.getCPF());
-            valores.add(4, c.getRG());
-            valores.add(5, c.getCNPJ());
+            valores.add(2, c.getCNPJ());
             
             model.addRow(valores);
         }

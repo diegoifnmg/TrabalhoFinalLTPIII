@@ -68,9 +68,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblUsuario = new javax.swing.JLabel();
-        lblSessao = new javax.swing.JLabel();
-        txtInicioSessao = new javax.swing.JFormattedTextField();
         lblNomeUsuario = new javax.swing.JLabel();
         lblNomeUsuario1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -82,30 +79,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         imnuCadastroClientes = new javax.swing.JMenuItem();
-        imnuCadastroProdutos = new javax.swing.JMenuItem();
         imnuCadastroFuncionarios = new javax.swing.JMenuItem();
         imnuCadastroFornecedores = new javax.swing.JMenuItem();
-        imnuCadastroCargos = new javax.swing.JMenuItem();
-        imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
         imnuUsuario = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        imnuCadastroCargos = new javax.swing.JMenuItem();
+        jMenu1 = new javax.swing.JMenu();
         imnuCadastoProdutos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
+        imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         imnuVenda = new javax.swing.JMenuItem();
-        jMenu1 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLI - Sistema Loja de Informática");
-
-        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblUsuario.setText("Usuario:");
-
-        lblSessao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        lblSessao.setText("Sessão iniacada: ");
-
-        txtInicioSessao.setEditable(false);
-        txtInicioSessao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
 
         lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
@@ -138,9 +126,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(imnuCadastroClientes);
 
-        imnuCadastroProdutos.setText("Cadastro de Produtos");
-        jMenu3.add(imnuCadastroProdutos);
-
         imnuCadastroFuncionarios.setText("Cadastro de Funcionários");
         imnuCadastroFuncionarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -157,6 +142,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(imnuCadastroFornecedores);
 
+        imnuUsuario.setText("Cadastrar Usuarios");
+        imnuUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuUsuarioActionPerformed(evt);
+            }
+        });
+        jMenu3.add(imnuUsuario);
+        jMenu3.add(jSeparator2);
+
         imnuCadastroCargos.setText("Cadastro de Cargos");
         imnuCadastroCargos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,21 +159,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jMenu3.add(imnuCadastroCargos);
 
-        imnuCadastroGrupoProdutos.setText("Cadastro de Grupo de Produtos");
-        imnuCadastroGrupoProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imnuCadastroGrupoProdutosActionPerformed(evt);
-            }
-        });
-        jMenu3.add(imnuCadastroGrupoProdutos);
+        jMenuBar1.add(jMenu3);
 
-        imnuUsuario.setText("Cadastrar Usuarios");
-        imnuUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imnuUsuarioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(imnuUsuario);
+        jMenu1.setText("Produtos");
 
         imnuCadastoProdutos.setText("Cadastrar Produtos");
         imnuCadastoProdutos.addActionListener(new java.awt.event.ActionListener() {
@@ -187,7 +169,7 @@ public class frmPrincipal extends javax.swing.JFrame {
                 imnuCadastoProdutosActionPerformed(evt);
             }
         });
-        jMenu3.add(imnuCadastoProdutos);
+        jMenu1.add(imnuCadastoProdutos);
 
         jMenuItem1.setText("Cadastrar Marcas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
@@ -195,9 +177,17 @@ public class frmPrincipal extends javax.swing.JFrame {
                 jMenuItem1ActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem1);
+        jMenu1.add(jMenuItem1);
 
-        jMenuBar1.add(jMenu3);
+        imnuCadastroGrupoProdutos.setText("Cadastro de Grupo de Produtos");
+        imnuCadastroGrupoProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                imnuCadastroGrupoProdutosActionPerformed(evt);
+            }
+        });
+        jMenu1.add(imnuCadastroGrupoProdutos);
+
+        jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Vendas");
 
@@ -211,9 +201,6 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu1.setText("OS");
-        jMenuBar1.add(jMenu1);
-
         jMenu4.setText("Relatórios");
         jMenuBar1.add(jMenu4);
 
@@ -224,17 +211,9 @@ public class frmPrincipal extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(343, Short.MAX_VALUE)
                 .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(119, 119, 119))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(lblSessao)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtInicioSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(lblUsuario)
-                .addContainerGap(298, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(498, 498, 498)
@@ -246,12 +225,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(134, Short.MAX_VALUE)
                 .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(93, 93, 93)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblSessao)
-                    .addComponent(txtInicioSessao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(17, 17, 17))
+                .addGap(130, 130, 130))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(130, 130, 130)
@@ -361,7 +335,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imnuCadastroFornecedores;
     private javax.swing.JMenuItem imnuCadastroFuncionarios;
     private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
-    private javax.swing.JMenuItem imnuCadastroProdutos;
     private javax.swing.JMenuItem imnuUsuario;
     private javax.swing.JMenuItem imnuVenda;
     private javax.swing.JMenu jMenu1;
@@ -374,12 +347,10 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblNomeUsuario1;
-    private javax.swing.JLabel lblSessao;
-    private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu mnuControle;
-    private javax.swing.JFormattedTextField txtInicioSessao;
     // End of variables declaration//GEN-END:variables
 
     protected void logoff() {
