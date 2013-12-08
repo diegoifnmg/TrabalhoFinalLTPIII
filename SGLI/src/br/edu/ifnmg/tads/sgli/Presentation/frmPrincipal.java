@@ -4,19 +4,61 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
+import br.edu.ifnmg.tads.sgli.DataAccess.CaixaDAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.SessaoDAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.UsuarioDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Caixa;
+import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
+import br.edu.ifnmg.tads.sgli.DomainModel.Sessao;
+import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Diego
  */
 public class frmPrincipal extends javax.swing.JFrame {
 
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    Usuario usuario;
+    CaixaDAO caixaDAO = new CaixaDAO();
+    Funcionario funcionario = new Funcionario();
+    Sessao sessao;
+    SessaoDAO sessaoDAO;
+    Caixa caixa = new Caixa();
+    
+    
     /**
      * Creates new form frmPrincipal
      */
     public frmPrincipal() {
         initComponents();
+        this.funcionario = funcionario;
+        lblNomeUsuario.setText(this.funcionario.getNome());
+       // carregaSessao(funcionario);
     }
+    /*
+    private void carregaSessao(Funcionario funcionario) {
+        Date data = new Date();
+        try {
+            sessao = new Sessao();
+            sessaoDAO = new SessaoDAO();
+            caixa = caixaDAO.AbrirCaixa(1);
 
+            sessao.setDataInicio(data);
+            sessao.setUsuario(usuarioDAO.AbrirUsuario(funcionario.getCodigo()));
+            sessao.setCaixa(caixa);
+            sessao.setSaldoAbertura(caixa.getSaldo());
+
+            sessaoDAO.Salvar(sessao);
+            txtInicioSessao.setValue(sessao.getDataInicio());
+        } catch (Exception ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,6 +68,11 @@ public class frmPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblUsuario = new javax.swing.JLabel();
+        lblSessao = new javax.swing.JLabel();
+        txtInicioSessao = new javax.swing.JFormattedTextField();
+        lblNomeUsuario = new javax.swing.JLabel();
+        lblNomeUsuario1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -50,6 +97,19 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLI - Sistema Loja de Informática");
+
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsuario.setText("Usuario:");
+
+        lblSessao.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSessao.setText("Sessão iniacada: ");
+
+        txtInicioSessao.setEditable(false);
+        txtInicioSessao.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getTimeInstance(java.text.DateFormat.SHORT))));
+
+        lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+
+        lblNomeUsuario1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         mnuControle.setText("Controle");
 
@@ -163,11 +223,40 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(119, 119, 119))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblSessao)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtInicioSessao, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(33, 33, 33)
+                .addComponent(lblUsuario)
+                .addContainerGap(298, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(498, 498, 498)
+                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(134, Short.MAX_VALUE)
+                .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(93, 93, 93)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblSessao)
+                    .addComponent(txtInicioSessao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(17, 17, 17))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(130, 130, 130)
+                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(131, Short.MAX_VALUE)))
         );
 
         pack();
@@ -204,9 +293,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_imnuCadastroCargosActionPerformed
 
     private void imnuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuUsuarioActionPerformed
-        frmUsuarioListagem janela = new frmUsuarioListagem();
-        add(janela);
-        janela.setVisible(true);
+        
     }//GEN-LAST:event_imnuUsuarioActionPerformed
 
     private void imnuCadastoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastoProdutosActionPerformed
@@ -222,7 +309,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void imnuVendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuVendaActionPerformed
-        frmVenda janela = new frmVenda();
+        frmVenda janela = new frmVenda(funcionario,sessao);
         add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_imnuVendaActionPerformed
@@ -287,6 +374,34 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JLabel lblNomeUsuario;
+    private javax.swing.JLabel lblNomeUsuario1;
+    private javax.swing.JLabel lblSessao;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu mnuControle;
+    private javax.swing.JFormattedTextField txtInicioSessao;
     // End of variables declaration//GEN-END:variables
+
+    protected void logoff() {
+        Date data = new Date();
+        try {
+            sessao.setDataTermino(data);
+            sessao.setSaldoFechamento(caixa.getSaldo());
+            sessaoDAO.Salvar(sessao);
+
+
+            frmLogin janela = new frmLogin();
+
+            janela.setVisible(true);
+            setVisible(false);
+            dispose();
+        } catch (Exception ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
+
+
+
+
+

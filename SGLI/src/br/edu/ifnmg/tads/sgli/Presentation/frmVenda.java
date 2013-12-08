@@ -4,14 +4,16 @@
  */
 package br.edu.ifnmg.tads.sgli.Presentation;
 
+import br.edu.ifnmg.tads.sgli.DataAccess.CaixaDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.ClienteDAO;
-import br.edu.ifnmg.tads.sgli.DataAccess.FuncionarioDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.ProdutoDAO;
 import br.edu.ifnmg.tads.sgli.DataAccess.VendaDAO;
+import br.edu.ifnmg.tads.sgli.DomainModel.Caixa;
 import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
 import br.edu.ifnmg.tads.sgli.DomainModel.ItemVenda;
 import br.edu.ifnmg.tads.sgli.DomainModel.Produto;
+import br.edu.ifnmg.tads.sgli.DomainModel.Sessao;
 import br.edu.ifnmg.tads.sgli.DomainModel.Venda;
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,33 +34,39 @@ public class frmVenda extends javax.swing.JInternalFrame {
     Venda venda = new Venda();
     ItemVenda itemVenda;
     ClienteDAO clienteDAO = new ClienteDAO();
+    Funcionario funcionario = new Funcionario();
+    Sessao sessao;
+    Caixa caixa;
+    CaixaDAO caixaDAO = new CaixaDAO();
     
     /**
      * Creates new form frmVenda
      */
-    public frmVenda() {
+    public frmVenda(Funcionario funcionario, Sessao sessao) {
         initComponents();
         
+        this.funcionario = funcionario;
+        this.sessao = sessao;
+        this.caixa = caixaDAO.AbrirCaixa(1);
         carregaClientes();
         carregaProdutos();
+        
         preencheTabela(null);
         
     }
 
+   
+
     private void carregaVenda() {
         String formaPagamento = (String) cbxFormaPagamento.getSelectedItem();
         Cliente clienteSelecionado = (Cliente) cbxCliente.getSelectedItem();
-        FuncionarioDAO dao = new FuncionarioDAO();
-        
-        //Variaveis criadas para teste
-        //Date data = new Date();
-        Funcionario f = dao.AbrirFuncionario(10);
 
         try {
-            venda.setData((Date)txtData.getValue());
+            venda.setSessao(sessao);
+            venda.setData(new Date());
             venda.setFormaPagamento(formaPagamento);
             venda.setCliente(clienteSelecionado);
-            venda.setFuncionario(f);
+            venda.setFuncionario(funcionario);
         } catch (Exception ex) {
             Logger.getLogger(frmVenda.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -94,7 +102,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
             model.addColumn("Preço");
             model.addColumn("Quantidade");
             model.addColumn("Total");
-            //model.addColumn("Tipo");
+            model.addColumn("Tipo");
 
             if (listaItemVenda != null) {
                 for (ItemVenda i : listaItemVenda) {
@@ -104,7 +112,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
                     valores.add(2, i.getProduto().getPreco());
                     valores.add(3, i.getQuantidade());
                     valores.add(4, i.getValorTotalItem());
-                    //valores.add(5, i.getProduto().getTipo().getTipo());
+                    
 
                     model.addRow(valores);
                 }
@@ -126,7 +134,6 @@ public class frmVenda extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        lblData = new javax.swing.JLabel();
         lblFormaPagamento = new javax.swing.JLabel();
         cbxFormaPagamento = new javax.swing.JComboBox();
         lblCliente = new javax.swing.JLabel();
@@ -143,9 +150,6 @@ public class frmVenda extends javax.swing.JInternalFrame {
         txtTotalVenda = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
-        txtData = new javax.swing.JFormattedTextField();
-
-        lblData.setText("Data:");
 
         lblFormaPagamento.setText("Forma Pagamento:");
 
@@ -201,12 +205,6 @@ public class frmVenda extends javax.swing.JInternalFrame {
             }
         });
 
-        txtData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -231,11 +229,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
                                     .addComponent(lblQuantidade)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(txtQuantidade, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(lblData)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtData)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(lblFormaPagamento)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(cbxFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -262,10 +256,8 @@ public class frmVenda extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblData)
                     .addComponent(lblFormaPagamento)
-                    .addComponent(cbxFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbxFormaPagamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCliente)
@@ -286,7 +278,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalVenda)
                     .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -296,20 +288,22 @@ public class frmVenda extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDataActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDataActionPerformed
-
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realemente salvar os dados?") == 0) {
             try {
-                VendaDAO vendaDAO = new VendaDAO();                
-                
+                VendaDAO vendaDAO = new VendaDAO();
+
                 vendaDAO.Salvar(venda);
-               
+                caixa.setSaldo((float) (caixa.getSaldo() + venda.getValorTotal()));
+                caixaDAO.Salvar(caixa);
+
                 JOptionPane.showMessageDialog(rootPane, "Dados Salvos com Sucesso!");
                 
-                
+                //Fecha a tela atual e abre a tela de busca
+                this.setVisible(false);
+                frmProdutoListagem janela = new frmProdutoListagem();
+                this.getParent().add(janela);
+                janela.setVisible(true);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(rootPane, "Erro ao Salvar os dados! " + ex.getMessage());
             }
@@ -322,27 +316,35 @@ public class frmVenda extends javax.swing.JInternalFrame {
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realemente Cancelar?") == 0) {
 
             this.setVisible(false);
-            
+            frmProdutoListagem janela = new frmProdutoListagem();
+            this.getParent().add(janela);
+            janela.setVisible(true);
         }
+             
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         try {
             carregaVenda();
             Produto prodSelecionado = (Produto) cbxProduto.getSelectedItem();
+            prodSelecionado = produtoDAO.AbrirProduto(prodSelecionado.getCodProduto());
             int quantidade = Integer.parseInt(txtQuantidade.getText());
 
-            itemVenda = new ItemVenda();
-            itemVenda.setProduto(prodSelecionado);
-            itemVenda.setQuantidade(quantidade);
-            itemVenda.setVenda(venda);
-
-            venda.addItemVenda(itemVenda);
-            txtTotalVenda.setText("R$  " + venda.getValorTotal());
+            if (prodSelecionado.getQtd() >= quantidade) {
+                prodSelecionado.setQtd(prodSelecionado.getQtd() - quantidade);   
+                itemVenda = new ItemVenda();
+                itemVenda.setProduto(prodSelecionado);
+                itemVenda.setQuantidade(quantidade);
+                itemVenda.setVenda(venda);
+                venda.addItemVenda(itemVenda);
+                txtTotalVenda.setText("R$  " + venda.getValorTotal());
+            } else {
+                JOptionPane.showMessageDialog(rootPane, "Não há estoque suficiente para este produto.");
+            }
             preencheTabela(venda.getItensVenda());
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao tentar Adicionar Produto! " + ex.getMessage()); 
+            JOptionPane.showMessageDialog(rootPane, "Erro ao tentar Adicionar Produto! " + ex.getMessage());
         }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
@@ -362,7 +364,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
             preencheTabela(venda.getItensVenda());
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, "Erro ao tentar Remover Produto! " + ex.getMessage()); 
+            JOptionPane.showMessageDialog(rootPane, "Erro ao tentar Remover Produto! " + ex.getMessage());
         }
                                               
 
@@ -378,13 +380,11 @@ public class frmVenda extends javax.swing.JInternalFrame {
     private javax.swing.JComboBox cbxProduto;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCliente;
-    private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblFormaPagamento;
     private javax.swing.JLabel lblProduto;
     private javax.swing.JLabel lblQuantidade;
     private javax.swing.JLabel lblTotalVenda;
     private javax.swing.JTable tblListagem;
-    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtTotalVenda;
     // End of variables declaration//GEN-END:variables

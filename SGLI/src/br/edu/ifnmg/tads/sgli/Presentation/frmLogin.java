@@ -5,7 +5,11 @@
 package br.edu.ifnmg.tads.sgli.Presentation;
 
 import br.edu.ifnmg.tads.sgli.DataAccess.FuncionarioDAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.UsuarioDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
+import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
+import java.awt.HeadlessException;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,8 +27,7 @@ public class frmLogin extends javax.swing.JFrame {
     public frmLogin() {
         initComponents();
         
-        funcionario = new Funcionario();
-        funcionarioDao = new FuncionarioDAO();
+        
         
     }
 
@@ -37,19 +40,31 @@ public class frmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtLogin = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtSenha = new javax.swing.JTextField();
+        lblUsuario = new javax.swing.JLabel();
+        PtxtSenha = new javax.swing.JPasswordField();
+        txtUsuario = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
         btnEntrar = new javax.swing.JButton();
-        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Login:");
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsuario.setText("Usuario:");
 
-        jLabel2.setText("Senha:");
+        PtxtSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        PtxtSenha.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                PtxtSenhaKeyPressed(evt);
+            }
+        });
 
+        txtUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        txtUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+
+        lblSenha.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblSenha.setText("Senha:");
+
+        btnEntrar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         btnEntrar.setText("Entrar");
         btnEntrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -57,54 +72,60 @@ public class frmLogin extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(btnEntrar)
-                        .addGap(33, 33, 33)
-                        .addComponent(btnCancelar))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(90, 90, 90)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblSenha)
+                                .addGap(16, 16, 16)
+                                .addComponent(PtxtSenha))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblUsuario)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtUsuario)))
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(txtSenha))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(107, Short.MAX_VALUE))
+                            .addGap(75, 75, 75)
+                            .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGap(90, 90, 90)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(44, 44, 44)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEntrar)
-                    .addComponent(btnCancelar))
-                .addContainerGap(116, Short.MAX_VALUE))
+            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(90, 90, 90)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(PtxtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addComponent(btnEntrar, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(91, Short.MAX_VALUE)))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void PtxtSenhaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_PtxtSenhaKeyPressed
+        int tecla = evt.getKeyCode();
+        if(tecla == 10){
+            EntrarSistema();
+        }
+    }//GEN-LAST:event_PtxtSenhaKeyPressed
+
     private void btnEntrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEntrarActionPerformed
-        
+        EntrarSistema();
     }//GEN-LAST:event_btnEntrarActionPerformed
 
     /**
@@ -139,14 +160,50 @@ public class frmLogin extends javax.swing.JFrame {
             public void run() {
                 new frmLogin().setVisible(true);
             }
-        });
+        });   
     }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
+    private javax.swing.JPasswordField PtxtSenha;
     private javax.swing.JButton btnEntrar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField txtLogin;
-    private javax.swing.JTextField txtSenha;
+    private javax.swing.JLabel lblSenha;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+
+//Função que entra no sistema
+    protected void EntrarSistema() throws HeadlessException {
+        try {
+            Usuario usuario = new Usuario();
+            UsuarioDAO usuarioDao = new UsuarioDAO();            
+            boolean confirm = false;
+
+            usuario.setLogin(txtUsuario.getText());
+            usuario.setSenha(PtxtSenha.getText());
+            
+            confirm = usuarioDao.AutenticarUsuario(usuario);
+            
+            if (confirm) {
+                int codFuncionario = usuarioDao.RetornaCodFuncionario(usuario);
+                
+                funcionario = funcionarioDao.AbrirFuncionario(codFuncionario);
+                
+               // frmPrincipal janela = new frmPrincipal(funcionario);
+                //janela.setVisible(true);
+                this.setVisible(false);
+                JOptionPane.showMessageDialog(rootPane, "Seja Bem Vindo! " + funcionario.getNome());
+            } else {
+                if((!"".equals(usuario.getLogin())) && (!"".equals(usuario.getSenha())))
+                    JOptionPane.showMessageDialog(rootPane, "Login ou senha Incorretos!");
+                else if ("".equals(usuario.getSenha()))
+                    JOptionPane.showMessageDialog(rootPane, "O campo Senha não pode ficar vazio!");
+            }
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, "Erro! " + ex.getMessage());
+        }
+    }
 }
+

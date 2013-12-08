@@ -35,13 +35,12 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
 
     private void preencheTabela(List<Cliente> lista) {
         DefaultTableModel model = new DefaultTableModel();
-        model.addColumn("IdPessoa");
+        model.addColumn("Codigo");
         model.addColumn("Nome");
         model.addColumn("DataNascimento");
         model.addColumn("CPF");
         model.addColumn("RG");
-        model.addColumn("CNPJ");
-        model.addColumn("Fisica ou Juridica");
+
         for (Cliente c : lista) {
             Vector valores = new Vector();
             valores.add(0, c.getCodigo());
@@ -49,8 +48,7 @@ public class frmClienteListagem extends javax.swing.JInternalFrame {
             valores.add(2, c.getDataNascimento());
             valores.add(3, c.getCPF());
             valores.add(4, c.getRG());
-            valores.add(5, c.getCnpj());
-            valores.add(6, c.getFisicaouJuridica());
+
             model.addRow(valores);
         }
         tblListagem.setModel(model);

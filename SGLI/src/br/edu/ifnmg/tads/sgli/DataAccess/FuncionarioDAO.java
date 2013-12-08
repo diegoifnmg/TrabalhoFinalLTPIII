@@ -5,6 +5,7 @@
 package br.edu.ifnmg.tads.sgli.DataAccess;
 
 import br.edu.ifnmg.tads.sgli.DomainModel.Cargo;
+import br.edu.ifnmg.tads.sgli.DomainModel.Cliente;
 import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -56,8 +57,7 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
 
                 sql.setInt(1, obj.getCargo().getCodigo());
                 sql.setInt(2, obj.getAtivo());
-                
-                sql.setInt(5, obj.getCodigo());
+                sql.setInt(3, obj.getCodigo());
                 
 
                 sql.executeUpdate();
@@ -187,7 +187,22 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
             return null;
         }
     }
-    
+    public boolean RemoverFuncionario(Funcionario fun) {
+        if ((fun.getCodigo() >= 0) && (fun.getAtivo() == 1)){
+            try {
+                UsuarioDAO user = new UsuarioDAO();
+
+                user.RemoverUsuario(fun.getCodigo());
+                super.Remover(fun);
+
+                return true;
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
+        }
+        return false;
+    }
     
     
     

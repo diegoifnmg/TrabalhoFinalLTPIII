@@ -16,6 +16,7 @@ public class Funcionario extends Pessoa {
     private int ativo;
 
     public Funcionario() {
+        this.ativo = 1;
     }
 
     public Cargo getCargo() {

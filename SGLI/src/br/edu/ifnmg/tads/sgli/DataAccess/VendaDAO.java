@@ -21,16 +21,17 @@ import java.util.List;
 public class VendaDAO extends DAO{
     
     
+    //Construtor
     public VendaDAO() {
         super();
     }
 
-    
+    //Método Salvar
     public boolean Salvar(Venda obj) {
         if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sql = getConexao().prepareStatement
-                        ("insert into venda(data,valorTotal,formadePagamento,IdSessao,IdFuncionario,IdCliente) values(?,?,?,?,?,?)");
+                        ("insert into venda(data,valorTotal,formaPagamento,IdSessao,IdFuncionario,IdCliente) values(?,?,?,?,?,?)");
                 sql.setDate(1, new java.sql.Date(obj.getData().getTime()));
                 sql.setDouble(2, obj.getValorTotal());
                 sql.setString(3, obj.getFormaPagamento());
@@ -40,7 +41,7 @@ public class VendaDAO extends DAO{
                 sql.executeUpdate();
 
                 PreparedStatement sqlConsulta = getConexao().prepareStatement
-                        ("select IdVenda from Venda where valorTotal=? and Data=? and formadePagamento=? and idSessao=? and IdFuncionario=? and IdCliente=?");
+                        ("select IdVenda from Venda where valorTotal=? and Data=? and formaPagamento=? and IdSessao=? and IdFuncionario=? and IdCliente=?");
                 sqlConsulta.setDouble(1, obj.getValorTotal());
                 sqlConsulta.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 sqlConsulta.setString(3, obj.getFormaPagamento());
@@ -66,7 +67,8 @@ public class VendaDAO extends DAO{
         } else {
             try {
                 Connection con = getConexao();
-                PreparedStatement sqlUpdate = con.prepareStatement("update Venda set valorTotal=?, Data=?,formaPagamento=?,IdSessao=?,IdFuncionario=?,IdCliente=? where IdVenda=?");
+                PreparedStatement sqlUpdate = con.prepareStatement
+                        ("update Venda set valorTotal=?, Data=?,formaPagamento=?,IdSessao=?,IdFuncionario=?,IdCliente=? where IdVenda=?");
                 sqlUpdate.setDouble(1, obj.getValorTotal());
                 sqlUpdate.setDate(2, new java.sql.Date(obj.getData().getTime()));
                 sqlUpdate.setString(3, obj.getFormaPagamento());
@@ -84,9 +86,11 @@ public class VendaDAO extends DAO{
         }
     }
 
+    //Salva um Item da Venda
     private void SalvarItemVenda(Produto produto, Venda venda, ItemVenda obj) {
         if (obj.getCodigo() == 0) {
             try {
+                int codEstoque;
                 PreparedStatement sql = getConexao().prepareStatement
                         ("insert into ItemVenda(IdProduto,IdVenda,quantidade) values(?,?,?)");
                 sql.setInt(1, produto.getCodProduto());
@@ -95,6 +99,23 @@ public class VendaDAO extends DAO{
                 sql.executeUpdate();
 
                 obj.setCodigo(venda.getCodigo());
+                
+                //Atualiza o estoque
+                PreparedStatement sqlConsultaEstoque = getConexao().prepareStatement
+                        ("select * from Produto where IdProduto=?");
+                sqlConsultaEstoque.setInt(1, produto.getCodProduto());
+                
+                ResultSet resultado = sqlConsultaEstoque.executeQuery();
+                
+                if(resultado.next()){
+                    
+                    
+                    PreparedStatement sqlUpdateEstoque = getConexao().prepareStatement
+                            ("update PRODUTO ser QUANTIDADE=? where iDProduto=?");
+                    sqlUpdateEstoque.setInt(1, produto.getQtd());
+                    sqlUpdateEstoque.setInt(2, produto.getCodProduto());
+                    sqlUpdateEstoque.executeUpdate();
+                }
 
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
@@ -113,7 +134,7 @@ public class VendaDAO extends DAO{
         }
     }
 
-  
+    //Método Remover
     public boolean RemoverVenda(Venda obj) {
         if (obj.getCodigo() > 0) {
             try {
@@ -136,7 +157,7 @@ public class VendaDAO extends DAO{
         return true;
     }
 
-  
+    //Método AbriVenda
     public Venda Abrir(int id) {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from Venda where IdVenda=?");
@@ -162,7 +183,7 @@ public class VendaDAO extends DAO{
         }
     }
 
-    
+    //Método Listar vendas
     public List<Venda> ListarVendas() {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from Venda");
@@ -188,7 +209,7 @@ public class VendaDAO extends DAO{
         }
     }
 
-    
+    //Método que Carrega os dados da venda
     protected void CarregaObjetoVenda(Venda obj, ResultSet resultado, SessaoDAO sessao, ClienteDAO cliente, FuncionarioDAO funcionario) throws SQLException, Exception {
         obj.setCodigo(resultado.getInt("IdVenda"));
         obj.setData(resultado.getDate("Data"));

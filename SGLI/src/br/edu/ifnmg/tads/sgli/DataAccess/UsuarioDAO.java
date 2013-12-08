@@ -8,13 +8,6 @@ import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -31,7 +24,7 @@ public UsuarioDAO() {
         if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sql = getConexao().prepareStatement
-                        ("insert into usuarios(login,senha,codFuncionario) values(?,?,?)");
+                        ("insert into usuario(login,senha,IdPessoa) values(?,?,?)");
                 sql.setString(1, obj.getLogin());
                 sql.setString(2, obj.getSenha());
                 sql.setInt(3, obj.getFuncionario().getCodigo());
@@ -39,14 +32,14 @@ public UsuarioDAO() {
 
                 //Pega a chave primária que foi gerada no banco de dados
                 PreparedStatement sqlConsulta = getConexao().prepareStatement
-                        ("select codUsuario from Usuarios where login = ? and senha = ? and codFuncionario = ?");
+                        ("select IdUsuario from Usuario where login = ? and senha = ? and IdPessoa = ?");
                 sqlConsulta.setString(1, obj.getLogin());
                 sqlConsulta.setString(2, obj.getSenha());
                 sqlConsulta.setInt(3, obj.getFuncionario().getCodigo());
 
                 ResultSet resultado = sqlConsulta.executeQuery();
                 if (resultado.next()) {
-                    obj.setCodigo(resultado.getInt("codUsuario"));
+                    obj.setCodigo(resultado.getInt("IdUsuario"));
                 }
                 return true;
             } catch (Exception ex) {
@@ -58,7 +51,7 @@ public UsuarioDAO() {
                 //Atualiza os dados
                 Connection con = getConexao();
                 PreparedStatement sqlUpdate = con.prepareStatement
-                        ("update Usuarios set login=?, senha=? where codUsuario=? and codFuncionario=?");
+                        ("update Usuario set login=?, senha=? where IdUsuario=? and IdPessoa=?");
                 sqlUpdate.setString(1, obj.getLogin());
                 sqlUpdate.setString(2, obj.getSenha());
                 sqlUpdate.setInt(3, obj.getCodigo());
@@ -75,11 +68,11 @@ public UsuarioDAO() {
     }
 
     //Método Remover Usuario
-    public boolean RemoverUsuario(int codFuncionario) {
+    public boolean RemoverUsuario(int IdPessoa) {
         try {
             PreparedStatement sqlRemover = getConexao().prepareStatement
-                    ("delete from Usuarios where codFuncionario = ?");
-            sqlRemover.setInt(1, codFuncionario);
+                    ("delete from Usuario where IdPessoa = ?");
+            sqlRemover.setInt(1, IdPessoa);
             sqlRemover.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -91,7 +84,7 @@ public UsuarioDAO() {
     //Método AbrirUsuario
     public Usuario AbrirUsuario(int id) {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from Usuarios where codUsuario=?");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Usuario where IdPessoa=?");
             sql.setInt(1, id);
 
             ResultSet resultado = sql.executeQuery();
@@ -100,10 +93,10 @@ public UsuarioDAO() {
                 Usuario obj = new Usuario();
                 FuncionarioDAO fDAO = new FuncionarioDAO();
 
-                obj.setCodigo(resultado.getInt("codUsuario"));
+                obj.setCodigo(resultado.getInt("IdUsuario"));
                 obj.setLogin(resultado.getString("login"));
                 obj.setSenha(resultado.getString("senha"));
-                obj.setFuncionario(fDAO.AbrirFuncionario(resultado.getInt("codFuncionario")));
+                obj.setFuncionario(fDAO.AbrirFuncionario(resultado.getInt("IdPessoa")));
 
                 return obj;
             } else {
@@ -118,10 +111,10 @@ public UsuarioDAO() {
     //Buscar usuarios
     public boolean AutenticarUsuario(Usuario usuario) {
         try {            
-            PreparedStatement sql = getConexao().prepareStatement("select login,senha from usuarios");
+            PreparedStatement sql = getConexao().prepareStatement("select login,senha from usuario");
             ResultSet resultado = sql.executeQuery();
 
-            if (resultado.next()) {
+            while (resultado.next()) {
                 if ((usuario.getLogin().equals(resultado.getString("login")))
                         && (usuario.getSenha().equals(resultado.getString("senha")))) {
                     
@@ -135,6 +128,23 @@ public UsuarioDAO() {
         return false;
     }
     
+    public int RetornaCodFuncionario(Usuario usuario){
+        try {            
+            PreparedStatement sql = getConexao().prepareStatement("select * from usuario");
+            ResultSet resultado = sql.executeQuery();
+
+            while (resultado.next()) {
+                if ((usuario.getLogin().equals(resultado.getString("login")))
+                        && (usuario.getSenha().equals(resultado.getString("senha")))) {
+                    
+                    return resultado.getInt("IdPessoa");
+                }
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return 0;
+    }
 }
 
     

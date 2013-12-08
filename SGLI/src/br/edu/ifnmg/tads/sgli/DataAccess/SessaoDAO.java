@@ -29,18 +29,16 @@ public class SessaoDAO extends DAO{
         if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sqlInsert = getConexao().prepareStatement
-                        ("insert into sessoes(dataInicio,saldoAbertura,codCaixa,codUsuario) values(?,?,?,?)");
+                        ("insert into sessao(dataInicio,saldoAbertura,IdCaixa,IdUsuario) values(?,?,?,?)");
 
                 sqlInsert.setDate(1, new java.sql.Date(obj.getDataInicio().getTime()));
-                //sqlInsert.setDate(2, new java.sql.Date(obj.getDataTermino().getTime()));
-                sqlInsert.setDouble(3, obj.getSaldoAbertura());
-                //sqlInsert.setDouble(4, obj.getSaldoFechamento());
-                sqlInsert.setInt(5, obj.getCaixa().getCodCaixa());
-                sqlInsert.setInt(6, obj.getUsuario().getCodigo());
+                sqlInsert.setDouble(2, obj.getSaldoAbertura());
+                sqlInsert.setInt(3, obj.getCaixa().getCodCaixa());
+                sqlInsert.setInt(4, obj.getUsuario().getCodigo());
                 sqlInsert.executeUpdate();
 
                 PreparedStatement sqlConsulta = getConexao().prepareStatement
-                        ("select codSessao from Sessoes where dataInicio=? and saldoAbertura=? and codUsuario=? and codCaixa=?");
+                        ("select max(IdSessao) from Sessao where dataInicio=? and saldoAbertura=? and IdUsuario=? and IdCaixa=?");
                 sqlConsulta.setDate(1, new java.sql.Date(obj.getDataInicio().getTime()));
                 sqlConsulta.setDouble(2, obj.getSaldoAbertura());
                 sqlConsulta.setInt(3, obj.getUsuario().getCodigo());
@@ -49,7 +47,7 @@ public class SessaoDAO extends DAO{
                 ResultSet resultado = sqlConsulta.executeQuery();
 
                 if (resultado.next()) {
-                    obj.setCodigo(resultado.getInt("codSessao"));
+                    obj.setCodigo(resultado.getInt("max(IdSessao)"));
                 }
 
                 return true;
@@ -60,7 +58,7 @@ public class SessaoDAO extends DAO{
         } else {
             try {
                 Connection con = getConexao();
-                PreparedStatement sql = con.prepareStatement("update Sessoes set dataTermino=?, saldoFechamento=? where codSessao=?");
+                PreparedStatement sql = con.prepareStatement("update Sessao set dataTermino=?, saldoFechamento=? where IdSessao=?");
                 sql.setDate(1, new java.sql.Date(obj.getDataTermino().getTime()));
                 sql.setDouble(2, obj.getSaldoFechamento());
                 sql.setInt(3, obj.getCodigo());
@@ -74,11 +72,10 @@ public class SessaoDAO extends DAO{
         }
     }
 
-    //Método Remover Sessão
     public boolean Remover(Sessao obj) {
         if (obj.getCodigo() >= 0) {
             try {
-                PreparedStatement sqlDelete = getConexao().prepareStatement("delete from Sessoes where codSessao=?");
+                PreparedStatement sqlDelete = getConexao().prepareStatement("delete from Sessao where IdSessao=?");
                 sqlDelete.setInt(1, obj.getCodigo());
                 sqlDelete.executeUpdate();
                 return true;
@@ -90,10 +87,10 @@ public class SessaoDAO extends DAO{
         return false;
     }
 
-    //Método Abrir Sessao
+
     public Sessao Abrir(int id) {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from sessoes where codSessao=?");
+            PreparedStatement sql = getConexao().prepareStatement("select * from sessao where IdSessao=?");
             sql.setInt(1, id);
 
             ResultSet resultado = sql.executeQuery();
@@ -118,7 +115,7 @@ public class SessaoDAO extends DAO{
     //Método Listar Sessões
     public List<Sessao> ListarSessoes() {
         try {
-            PreparedStatement sql = getConexao().prepareStatement("select * from Sessoes");
+            PreparedStatement sql = getConexao().prepareStatement("select * from Sessao");
 
             ResultSet resultado = sql.executeQuery();
 
@@ -143,7 +140,7 @@ public class SessaoDAO extends DAO{
     //Método Buscar
     public List<Sessao> Buscar(Sessao filtro) {
         try {
-            String sql = "select * from Sessoes ";
+            String sql = "select * from Sessao ";
             String where = "";
 
             if (filtro.getDataInicio() != null) {
@@ -161,7 +158,7 @@ public class SessaoDAO extends DAO{
                 if (where.length() > 0) {
                     where = where + " and ";
                 }
-                where = where + " codSessao = " + filtro.getCodigo();
+                where = where + " IdSessao = " + filtro.getCodigo();
             }
 
             if (where.length() > 0) {
@@ -188,15 +185,14 @@ public class SessaoDAO extends DAO{
         }
     }
 
-    //Método que carrega os dados da sessão
+
     protected void CarregaObjetoSessao(Sessao obj, ResultSet resultado, UsuarioDAO user, CaixaDAO caixa) throws SQLException, Exception {
-        obj.setCodigo(resultado.getInt("codSessao"));
+        obj.setCodigo(resultado.getInt("IdSessao"));
         obj.setDataInicio(resultado.getDate("dataAbertura"));
         obj.setDataTermino(resultado.getDate("dataTermino"));
         obj.setSaldoAbertura(resultado.getDouble("saldoAbertura"));
         obj.setSaldoFechamento(resultado.getDouble("saldoFechamento"));
-        obj.setUsuario(user.AbrirUsuario(resultado.getInt("codUsuario")));
-        obj.setCaixa(caixa.AbrirCaixa(resultado.getInt("codCaixa")));
+        obj.setUsuario(user.AbrirUsuario(resultado.getInt("IdUsuario")));
+        obj.setCaixa(caixa.AbrirCaixa(resultado.getInt("IdCaixa")));
     }
-    
 }

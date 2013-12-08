@@ -105,20 +105,26 @@ public class ClienteDAO extends PessoaDAO<Cliente> {
             return null;
         }
     }
+    
+    public boolean Remover(Cliente obj) {
+        if ((obj.getCodigo() > 0) && (obj.getAtivo() == 1)) {
+            try {
+                //Seta o atributo ativo com valor '0'
+                PreparedStatement sqlUpdate = getConexao().prepareStatement
+                        ("update cliente set ativo = 0 where IdPessoa=?");
+                sqlUpdate.setInt(1, obj.getCodigo());
+                sqlUpdate.executeUpdate();
 
-    public boolean Apagar(int cod) {
-        try {
-            PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update cliente set ativo = 0 where IdPessoa = ?");
-            comando.setInt(1, cod);
-            comando.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+                return true;
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
         }
+        return true;
     }
-
+    
+ 
     public List<Cliente> buscar(Cliente filtro) {
         try {
 

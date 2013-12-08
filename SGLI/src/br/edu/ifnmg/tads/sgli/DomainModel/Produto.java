@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class Produto {
 
-    private int CodProduto;
+    private int codigo;
     private Marca marca;
     private Fornecedor fornecedor;
     private String Nome;
@@ -26,7 +26,7 @@ public class Produto {
     }
 
     public Produto(int CodProduto, Marca marca, Fornecedor fornecedor, String Nome, int qtd, float Preco, int ativo, String descricao) {
-        this.CodProduto = CodProduto;
+        this.codigo = CodProduto;
         this.marca = marca;
         this.fornecedor = fornecedor;
         this.Nome = Nome;
@@ -37,11 +37,11 @@ public class Produto {
     }
 
     public int getCodProduto() {
-        return CodProduto;
+        return codigo;
     }
 
     public void setCodProduto(int CodProduto) {
-        this.CodProduto = CodProduto;
+        this.codigo = CodProduto;
     }
 
     public Marca getMarca() {
@@ -100,10 +100,12 @@ public class Produto {
         this.descricao = descricao;
     }
 
+    
+    
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 43 * hash + this.CodProduto;
+        hash = 43 * hash + this.codigo;
         hash = 43 * hash + Objects.hashCode(this.marca);
         hash = 43 * hash + Objects.hashCode(this.fornecedor);
         hash = 43 * hash + Objects.hashCode(this.Nome);
@@ -123,7 +125,7 @@ public class Produto {
             return false;
         }
         final Produto other = (Produto) obj;
-        if (this.CodProduto != other.CodProduto) {
+        if (this.codigo != other.codigo) {
             return false;
         }
         if (!Objects.equals(this.marca, other.marca)) {

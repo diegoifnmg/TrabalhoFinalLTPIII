@@ -43,7 +43,7 @@ public class Marca {
     }
 
     public void setNome(String nome) throws Exception {
-        Pattern Nome = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{3,}");
+        Pattern Nome = Pattern.compile("[\\w\\sÀ-àçã-õâ-ûéêõóòáúû]{2,}");
         Matcher verifica = Nome.matcher(nome);
 
         if (verifica.matches()) {
