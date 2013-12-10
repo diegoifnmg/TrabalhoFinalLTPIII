@@ -35,7 +35,7 @@ public class VendaDAO extends DAO{
                 sql.setDate(1, new java.sql.Date(obj.getData().getTime()));
                 sql.setDouble(2, obj.getValorTotal());
                 sql.setString(3, obj.getFormaPagamento());
-                //sql.setInt(4, obj.getSessao().getCodigo());
+                sql.setInt(4, obj.getSessao().getCodigo());
                 sql.setInt(5, obj.getFuncionario().getCodigo());
                 sql.setInt(6, obj.getCliente().getCodigo());
                 sql.executeUpdate();

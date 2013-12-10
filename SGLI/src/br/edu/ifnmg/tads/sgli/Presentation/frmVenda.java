@@ -50,7 +50,6 @@ public class frmVenda extends javax.swing.JInternalFrame {
         this.caixa = caixaDAO.AbrirCaixa(1);
         carregaClientes();
         carregaProdutos();
-        
         preencheTabela(null);
         
     }
