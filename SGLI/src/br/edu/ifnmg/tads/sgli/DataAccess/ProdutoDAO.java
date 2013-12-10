@@ -76,30 +76,28 @@ public class ProdutoDAO extends DAO {
         }
     }
 
-    public Produto AbrirProduto(int id) {
+    public Produto Abrir(int id) {
         try {
-
-            FornecedorDAO fornecedorDAO = new FornecedorDAO();
-            MarcaDAO marcaDAO = new MarcaDAO();
-
+            PreparedStatement sqlConsultaProduto = getConexao().prepareStatement
+                    ("select * from produto where IdProduto=? and ativo = 1");            
+            sqlConsultaProduto.setInt(1, id);
             
-            PreparedStatement sql = getConexao().prepareStatement("select * from Produto where IdProduto=?");
-            sql.setInt(1, id);
-            ResultSet resultado = sql.executeQuery();
+            
 
+            ResultSet resultadoProduto = sqlConsultaProduto.executeQuery();
+            
 
+            if (resultadoProduto.next()) {
+                Produto obj = new Produto();
 
-            if (resultado.next()) {
-
-                produto.setFornecedor(fornecedorDAO.AbrirFornecedor(resultado.getInt("Fornecedor")));
-                produto.setMarca(marcaDAO.Abrir(resultado.getInt("Marca")));
-
-                return produto;
+                CarregaObjetoProduto(obj, resultadoProduto);
+                
+                
+                
+                return obj;
             } else {
                 return null;
             }
-
-
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
             return null;

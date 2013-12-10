@@ -25,60 +25,62 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Diego
  */
-
 public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
 
-    FuncionarioDAO DAO;
     Funcionario funcionario;
-    CargoDAO cargoDAO;
-    Cargo selecionado;
+    FuncionarioDAO funcionarioDAO;
+    CargoDAO cargoDAO = new CargoDAO();
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     Usuario usuario = new Usuario();
-    
+    Usuario userSistema = new Usuario();
+
     /**
      * Creates new form frmFuncionarioEditar
      */
-    public frmFuncionarioEditar(Funcionario p, FuncionarioDAO d) {
+    public frmFuncionarioEditar(Funcionario funcionario, FuncionarioDAO funcionarioDAO, Usuario usuario, Usuario userSistema) {
         initComponents();
-        cargoDAO = new CargoDAO();
+        this.funcionario = funcionario;
+        this.funcionarioDAO = funcionarioDAO;
+        this.usuario = usuario;
+        this.userSistema = userSistema;
         carregaCargos();
-        if (p.getCodigo() > 0) {
-            this.funcionario = p;
-            this.DAO = d;
+        if (funcionario != null && funcionarioDAO != null) {
 
             carregaCampos();
 
-            List<Telefone> telefones = funcionario.getTelefones();
-            atualizaTabelaTelefones(telefones);
-
-            List<Endereco> enderecos = funcionario.getEnderecos();
-            atualizaTabelaEnderecos(enderecos);
-
-            List<Email> emails = funcionario.getEmails();
-            atualizaTabelaEmails(emails);
-
-
+            if (funcionario.getTelefones() != null) {
+                atualizaTabelaTelefones(funcionario.getTelefones());
+            }
+            if (funcionario.getEnderecos() != null) {
+                atualizaTabelaEnderecos(funcionario.getEnderecos());
+            }
+            if (funcionario.getEmails() != null) {
+                atualizaTabelaEmails(funcionario.getEmails());
+            }
         } else {
-            funcionario = new Funcionario();
-            DAO = new FuncionarioDAO();
+            this.funcionario = new Funcionario();
+            this.funcionarioDAO = new FuncionarioDAO();
         }
-        
+
     }
-    
-    private void carregaCargos(){
+
+    private void carregaCargos() {
         List<Cargo> cargos = cargoDAO.ListarCargos();
         CbxCargo.removeAllItems();
-        for(Cargo c : cargos){
+        for (Cargo c : cargos) {
             CbxCargo.addItem(c);
-        }        
+        }
     }
-    
+
     private void carregaCampos() {
+        usuario = usuarioDAO.AbrirUsuario(funcionario.getCodigo());
         lblId.setText(Integer.toString(funcionario.getCodigo()));
         txtNome.setText(funcionario.getNome());
         txtDataNasc.setText(String.valueOf(funcionario.getDataNascimento()));
         txtCPF.setText(funcionario.getCPF());
         txtRG.setText(funcionario.getRG());
+        txtLogin.setText(usuario.getLogin());
+        txtSenha.setText(usuario.getSenha());
 
     }
 
@@ -89,17 +91,17 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
             funcionario.setDataNascimento(Date.valueOf(txtDataNasc.getText()));
             funcionario.setCPF(txtCPF.getText());
             funcionario.setRG(txtRG.getText());
-            funcionario.setCargo((Cargo)CbxCargo.getSelectedItem());
-            
-            
+            funcionario.setCargo((Cargo) CbxCargo.getSelectedItem());
+            funcionario.setLogin(txtLogin.getText());
+            funcionario.setSenha(txtSenha.getText());
+
+
 
         } catch (Exception ex) {
             Logger.getLogger(frmFuncionarioEditar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,6 +126,10 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
         txtRG = new javax.swing.JTextField();
         lblCargo = new javax.swing.JLabel();
         CbxCargo = new javax.swing.JComboBox();
+        lblLogin = new javax.swing.JLabel();
+        txtLogin = new javax.swing.JTextField();
+        lblSenha = new javax.swing.JLabel();
+        txtSenha = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         lblRua = new javax.swing.JLabel();
         txtRua = new javax.swing.JTextField();
@@ -197,6 +203,10 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
             }
         });
 
+        lblLogin.setText("Login:");
+
+        lblSenha.setText("Senha:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -221,25 +231,38 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(lblCpf)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(txtCPF, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txtRG, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lblNome)
                             .addComponent(lblIdCampo, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblId)
-                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 55, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lblLogin)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(lblSenha)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 346, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 64, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(34, 34, 34)
+                .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblIdCampo)
-                    .addComponent(lblId))
+                    .addComponent(lblId)
+                    .addComponent(lblLogin)
+                    .addComponent(txtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblSenha)
+                    .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNome)
@@ -256,7 +279,7 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
                     .addComponent(lblRg)
                     .addComponent(lblCargo)
                     .addComponent(CbxCargo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(148, Short.MAX_VALUE))
+                .addContainerGap(145, Short.MAX_VALUE))
         );
 
         pnlGuias.addTab("Dados Gerais", jPanel1);
@@ -565,7 +588,7 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(pnlGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -667,7 +690,7 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
     private void btnApagar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApagar1ActionPerformed
         if (JOptionPane.showConfirmDialog(rootPane, "Deseja realmente apagar dos dados?") == 0) {
             try {
-                DAO.RemoverFuncionario(funcionario);
+                funcionarioDAO.RemoverFuncionario(funcionario);
                 JOptionPane.showMessageDialog(rootPane, "Exclusão concluida com sucesso!");
 
                 this.setVisible(false);
@@ -687,8 +710,14 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
             if (JOptionPane.showConfirmDialog(rootPane, "Deseja Salvar?") == 0) {
 
                 carregaObjeto();
+                Usuario user = new Usuario();
 
-                if (DAO.Salvar(funcionario)) {
+                if (funcionarioDAO.Salvar(funcionario)) {
+                    user.setFuncionario(funcionario);
+                    user.setLogin(txtLogin.getText());
+                    user.setSenha(txtSenha.getText());
+
+                    usuarioDAO.Salvar(user);
                     JOptionPane.showMessageDialog(rootPane, "Salvo com sucesso!");
 
                 } else {
@@ -777,11 +806,6 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
         tblEmailListagem.setModel(model);
         tblEmailListagem.repaint();
     }
-    
-    
-    
-    
-    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Adicionar;
     private javax.swing.JComboBox CbxCargo;
@@ -809,11 +833,13 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
     private javax.swing.JLabel lblEstado;
     private javax.swing.JLabel lblId;
     private javax.swing.JLabel lblIdCampo;
+    private javax.swing.JLabel lblLogin;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblPais;
     private javax.swing.JLabel lblRg;
     private javax.swing.JLabel lblRua;
+    private javax.swing.JLabel lblSenha;
     private javax.swing.JTabbedPane pnlGuias;
     private javax.swing.JTable tblEmailListagem;
     private javax.swing.JTable tblListagemEnderecos;
@@ -827,11 +853,13 @@ public class frmFuncionarioEditar extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtDataNasc;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtEstado;
+    private javax.swing.JTextField txtLogin;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtNumero;
     private javax.swing.JTextField txtPais;
     private javax.swing.JTextField txtRG;
     private javax.swing.JTextField txtRua;
+    private javax.swing.JTextField txtSenha;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  */
 public class frmLogin extends javax.swing.JFrame {
 
-    FuncionarioDAO funcionarioDao;
+    FuncionarioDAO funcionarioDao = new FuncionarioDAO();
     Funcionario funcionario;
     
     
@@ -188,10 +188,10 @@ public class frmLogin extends javax.swing.JFrame {
             if (confirm) {
                 int codFuncionario = usuarioDao.RetornaCodFuncionario(usuario);
                 
-                funcionario = funcionarioDao.AbrirFuncionario(codFuncionario);
-                
-               // frmPrincipal janela = new frmPrincipal(funcionario);
-                //janela.setVisible(true);
+                //funcionario = funcionarioDao.AbrirFuncionario(codFuncionario);
+                Funcionario funcionario = funcionarioDao.AbrirFuncionario(codFuncionario);
+                frmPrincipal janela = new frmPrincipal(funcionario);
+                janela.setVisible(true);
                 this.setVisible(false);
                 JOptionPane.showMessageDialog(rootPane, "Seja Bem Vindo! " + funcionario.getNome());
             } else {

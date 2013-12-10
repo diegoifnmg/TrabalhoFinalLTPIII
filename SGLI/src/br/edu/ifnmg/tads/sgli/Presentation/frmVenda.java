@@ -102,7 +102,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
             model.addColumn("Preço");
             model.addColumn("Quantidade");
             model.addColumn("Total");
-            model.addColumn("Tipo");
+            
 
             if (listaItemVenda != null) {
                 for (ItemVenda i : listaItemVenda) {
@@ -150,6 +150,9 @@ public class frmVenda extends javax.swing.JInternalFrame {
         txtTotalVenda = new javax.swing.JTextField();
         btnSalvar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+
+        setClosable(true);
+        setMaximizable(true);
 
         lblFormaPagamento.setText("Forma Pagamento:");
 
@@ -278,7 +281,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblTotalVenda)
                     .addComponent(txtTotalVenda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCancelar)
                     .addComponent(btnSalvar))
@@ -327,7 +330,7 @@ public class frmVenda extends javax.swing.JInternalFrame {
         try {
             carregaVenda();
             Produto prodSelecionado = (Produto) cbxProduto.getSelectedItem();
-            prodSelecionado = produtoDAO.AbrirProduto(prodSelecionado.getCodProduto());
+            prodSelecionado = produtoDAO.Abrir(prodSelecionado.getCodProduto());
             int quantidade = Integer.parseInt(txtQuantidade.getText());
 
             if (prodSelecionado.getQtd() >= quantidade) {

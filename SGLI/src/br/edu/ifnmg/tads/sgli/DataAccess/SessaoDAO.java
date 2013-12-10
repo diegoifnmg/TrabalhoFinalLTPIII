@@ -33,7 +33,7 @@ public class SessaoDAO extends DAO{
 
                 sqlInsert.setDate(1, new java.sql.Date(obj.getDataInicio().getTime()));
                 sqlInsert.setDouble(2, obj.getSaldoAbertura());
-                sqlInsert.setInt(3, obj.getCaixa().getCodCaixa());
+                sqlInsert.setInt(3, obj.getCaixa().getCodigo());
                 sqlInsert.setInt(4, obj.getUsuario().getCodigo());
                 sqlInsert.executeUpdate();
 
@@ -42,7 +42,7 @@ public class SessaoDAO extends DAO{
                 sqlConsulta.setDate(1, new java.sql.Date(obj.getDataInicio().getTime()));
                 sqlConsulta.setDouble(2, obj.getSaldoAbertura());
                 sqlConsulta.setInt(3, obj.getUsuario().getCodigo());
-                sqlConsulta.setInt(4, obj.getCaixa().getCodCaixa());
+                sqlConsulta.setInt(4, obj.getCaixa().getCodigo());
 
                 ResultSet resultado = sqlConsulta.executeQuery();
 
@@ -72,6 +72,7 @@ public class SessaoDAO extends DAO{
         }
     }
 
+    //Método Remover Sessão
     public boolean Remover(Sessao obj) {
         if (obj.getCodigo() >= 0) {
             try {
@@ -87,7 +88,7 @@ public class SessaoDAO extends DAO{
         return false;
     }
 
-
+    //Método Abrir Sessao
     public Sessao Abrir(int id) {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from sessao where IdSessao=?");
@@ -185,7 +186,7 @@ public class SessaoDAO extends DAO{
         }
     }
 
-
+    //Método que carrega os dados da sessão
     protected void CarregaObjetoSessao(Sessao obj, ResultSet resultado, UsuarioDAO user, CaixaDAO caixa) throws SQLException, Exception {
         obj.setCodigo(resultado.getInt("IdSessao"));
         obj.setDataInicio(resultado.getDate("dataAbertura"));

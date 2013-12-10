@@ -159,7 +159,7 @@ public class frmProdutoListagem extends javax.swing.JInternalFrame {
 
     private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
         Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        Produto c = DAO.AbrirProduto((int) valor);
+        Produto c = DAO.Abrir((int) valor);
         frmProdutoEditar janela = new frmProdutoEditar(c, DAO);
         this.getParent().add(janela);
         janela.setVisible(true);

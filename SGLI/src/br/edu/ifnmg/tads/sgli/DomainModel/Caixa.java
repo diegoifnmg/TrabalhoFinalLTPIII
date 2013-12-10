@@ -12,37 +12,50 @@ import java.util.Objects;
  * @author Diego
  */
 public class Caixa {
-    
-    private int CodCaixa;
-    private float Saldo;
+    private int codigo;
+    private double saldo;
 
+    //Construtor 
     public Caixa() {
+        this.codigo = 0;
+        this.saldo = 0;
+    }
+    
+    //Getters
+    public int getCodigo() {
+        return codigo;
     }
 
-    public int getCodCaixa() {
-        return CodCaixa;
+    public double getSaldo() {
+        return saldo;
+    }
+    
+    //Setters
+    public void setCodigo(int codigo) throws Exception{
+        if (codigo > 0) {
+            this.codigo = codigo;
+        } else {
+            throw new Exception("Valor passado para o campo 'codigo' não pode ser negativo!");
+        }
     }
 
-    public void setCodCaixa(int CodCaixa) {
-        this.CodCaixa = CodCaixa;
+    public void setSaldo(double saldo) throws Exception{
+        if(saldo >= 0)
+            this.saldo = saldo;
+        else
+            throw new Exception("Valor passado para o campo 'Saldo' não pode ser negativo!");
     }
-
-    public float getSaldo() {
-        return Saldo;
-    }
-
-    public void setSaldo(float Saldo) {
-        this.Saldo = Saldo;
-    }
-
+    
+    //hashCode
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 29 * hash + this.CodCaixa;
-        hash = 29 * hash + Float.floatToIntBits(this.Saldo);
+        int hash = 7;
+        hash = 41 * hash + this.codigo;
+        hash = 41 * hash + (int) (Double.doubleToLongBits(this.saldo) ^ (Double.doubleToLongBits(this.saldo) >>> 32));
         return hash;
     }
 
+    //Equals
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -52,19 +65,18 @@ public class Caixa {
             return false;
         }
         final Caixa other = (Caixa) obj;
-        if (this.CodCaixa != other.CodCaixa) {
+        if (this.codigo != other.codigo) {
             return false;
         }
-        if (Float.floatToIntBits(this.Saldo) != Float.floatToIntBits(other.Saldo)) {
+        if (Double.doubleToLongBits(this.saldo) != Double.doubleToLongBits(other.saldo)) {
             return false;
         }
         return true;
     }
 
+    //toString
     @Override
     public String toString() {
-        return "Caixa{" + "CodCaixa=" + CodCaixa + ", Saldo=" + Saldo + '}';
-    }
-
-    
+        return "Caixa{" + "Codigo do Caixa = " + codigo + ", Saldo = R$ " + saldo + '}';
+    }   
 }

@@ -24,22 +24,22 @@ public class frmPrincipal extends javax.swing.JFrame {
     UsuarioDAO usuarioDAO = new UsuarioDAO();
     Usuario usuario;
     CaixaDAO caixaDAO = new CaixaDAO();
-    Funcionario funcionario = new Funcionario();
+    Caixa caixa = new Caixa();
+    Funcionario funcionario;
     Sessao sessao;
     SessaoDAO sessaoDAO;
-    Caixa caixa = new Caixa();
     
     
     /**
      * Creates new form frmPrincipal
      */
-    public frmPrincipal() {
+    public frmPrincipal(Funcionario funcionario) {
         initComponents();
         this.funcionario = funcionario;
         lblNomeUsuario.setText(this.funcionario.getNome());
-       // carregaSessao(funcionario);
+        carregaSessao(funcionario);
     }
-    /*
+    
     private void carregaSessao(Funcionario funcionario) {
         Date data = new Date();
         try {
@@ -53,12 +53,11 @@ public class frmPrincipal extends javax.swing.JFrame {
             sessao.setSaldoAbertura(caixa.getSaldo());
 
             sessaoDAO.Salvar(sessao);
-            txtInicioSessao.setValue(sessao.getDataInicio());
         } catch (Exception ex) {
             Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-*/
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,7 +68,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         lblNomeUsuario = new javax.swing.JLabel();
-        lblNomeUsuario1 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -77,6 +76,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem4 = new javax.swing.JMenuItem();
         Ferramentas = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
+        mnuiLogoff = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         imnuCadastroClientes = new javax.swing.JMenuItem();
         imnuCadastroFuncionarios = new javax.swing.JMenuItem();
@@ -97,7 +97,8 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         lblNomeUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
-        lblNomeUsuario1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsuario.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        lblUsuario.setText("Usuario:");
 
         mnuControle.setText("Controle");
 
@@ -113,6 +114,14 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuItem6.setText("Fechar");
         mnuControle.add(jMenuItem6);
+
+        mnuiLogoff.setText("Logoff");
+        mnuiLogoff.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiLogoffActionPerformed(evt);
+            }
+        });
+        mnuControle.add(mnuiLogoff);
 
         jMenuBar1.add(mnuControle);
 
@@ -210,27 +219,25 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(343, Short.MAX_VALUE)
-                .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(119, 119, 119))
+            .addGap(0, 588, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(498, 498, 498)
+                    .addGap(442, 442, 442)
+                    .addComponent(lblUsuario)
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                     .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(134, Short.MAX_VALUE)
-                .addComponent(lblNomeUsuario1, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(130, 130, 130))
+            .addGap(0, 281, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(130, 130, 130)
-                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(131, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(lblUsuario)
+                        .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addContainerGap(134, Short.MAX_VALUE)))
         );
 
         pack();
@@ -288,15 +295,15 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_imnuVendaActionPerformed
 
+    private void mnuiLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiLogoffActionPerformed
+        logoff();
+    }//GEN-LAST:event_mnuiLogoffActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-
-
-
-
 
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -323,7 +330,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new frmPrincipal().setVisible(true);
+                new frmPrincipal(null).setVisible(true);
             }
         });
     }
@@ -349,13 +356,15 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblNomeUsuario;
-    private javax.swing.JLabel lblNomeUsuario1;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu mnuControle;
+    private javax.swing.JMenuItem mnuiLogoff;
     // End of variables declaration//GEN-END:variables
 
-    protected void logoff() {
+   protected void logoff() {
         Date data = new Date();
         try {
+            caixa = caixaDAO.AbrirCaixa(1);
             sessao.setDataTermino(data);
             sessao.setSaldoFechamento(caixa.getSaldo());
             sessaoDAO.Salvar(sessao);

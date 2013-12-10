@@ -19,7 +19,7 @@ public UsuarioDAO() {
         super();
     }
 
-    //Método Salvar
+    
     public boolean Salvar(Usuario obj) {
         if (obj.getCodigo() == 0) {
             try {
@@ -30,9 +30,9 @@ public UsuarioDAO() {
                 sql.setInt(3, obj.getFuncionario().getCodigo());
                 sql.executeUpdate();
 
-                //Pega a chave primária que foi gerada no banco de dados
+                
                 PreparedStatement sqlConsulta = getConexao().prepareStatement
-                        ("select IdUsuario from Usuario where login = ? and senha = ? and IdPessoa = ?");
+                        ("select codUsuario from Usuario where login = ? and senha = ? and IdPessoa = ?");
                 sqlConsulta.setString(1, obj.getLogin());
                 sqlConsulta.setString(2, obj.getSenha());
                 sqlConsulta.setInt(3, obj.getFuncionario().getCodigo());
@@ -48,10 +48,10 @@ public UsuarioDAO() {
             }
         } else {
             try {
-                //Atualiza os dados
+                
                 Connection con = getConexao();
                 PreparedStatement sqlUpdate = con.prepareStatement
-                        ("update Usuario set login=?, senha=? where IdUsuario=? and IdPessoa=?");
+                        ("update Usuarios set login=?, senha=? where IdUsuario=? and IdPessoa=?");
                 sqlUpdate.setString(1, obj.getLogin());
                 sqlUpdate.setString(2, obj.getSenha());
                 sqlUpdate.setInt(3, obj.getCodigo());
@@ -67,12 +67,12 @@ public UsuarioDAO() {
         return false;
     }
 
-    //Método Remover Usuario
-    public boolean RemoverUsuario(int IdPessoa) {
+    
+    public boolean RemoverUsuario(int codFuncionario) {
         try {
             PreparedStatement sqlRemover = getConexao().prepareStatement
                     ("delete from Usuario where IdPessoa = ?");
-            sqlRemover.setInt(1, IdPessoa);
+            sqlRemover.setInt(1, codFuncionario);
             sqlRemover.executeUpdate();
             return true;
         } catch (Exception ex) {
@@ -81,7 +81,7 @@ public UsuarioDAO() {
         }
     }
 
-    //Método AbrirUsuario
+    
     public Usuario AbrirUsuario(int id) {
         try {
             PreparedStatement sql = getConexao().prepareStatement("select * from Usuario where IdPessoa=?");
@@ -108,7 +108,7 @@ public UsuarioDAO() {
         }
     }
 
-    //Buscar usuarios
+    
     public boolean AutenticarUsuario(Usuario usuario) {
         try {            
             PreparedStatement sql = getConexao().prepareStatement("select login,senha from usuario");

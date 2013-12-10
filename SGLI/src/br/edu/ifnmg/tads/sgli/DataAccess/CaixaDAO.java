@@ -21,9 +21,9 @@ public class CaixaDAO extends DAO{
         super();
     }
     
-
+    //Método Salvar
     public boolean Salvar(Caixa obj) {
-        if (obj.getCodCaixa() == 0) {
+        if (obj.getCodigo() == 0) {
             try {
                 PreparedStatement sqlInsert = getConexao().prepareStatement
                         ("insert into caixa(saldo) values(?)");
@@ -39,7 +39,7 @@ public class CaixaDAO extends DAO{
                 ResultSet resultado = sqlConsulta.executeQuery();
 
                 if (resultado.next()) {
-                    obj.setCodCaixa(resultado.getInt("IdCaixa"));
+                    obj.setCodigo(resultado.getInt("IdCaixa"));
                 }
 
                 return true;
@@ -52,7 +52,7 @@ public class CaixaDAO extends DAO{
                 Connection con = getConexao();
                 PreparedStatement sql = con.prepareStatement("update Caixa set saldo=? where IdCaixa=?");
                 sql.setDouble(1, obj.getSaldo());
-                sql.setInt(2, obj.getCodCaixa());
+                sql.setInt(2, obj.getCodigo());
                 sql.executeUpdate();
 
                 return true;
@@ -63,11 +63,14 @@ public class CaixaDAO extends DAO{
         }
     }    
     
-
+    //Método Remover
+    
+    
+    //Método Abrir Caixa
     public Caixa AbrirCaixa(int id) {
         try {
             PreparedStatement sql = getConexao().prepareStatement
-                    ("select * from caixa where IdCaixa=?");
+                    ("select * from caixa where IdCaixas=?");
             sql.setInt(1, id);
 
             ResultSet resultado = sql.executeQuery();
@@ -75,8 +78,8 @@ public class CaixaDAO extends DAO{
             if (resultado.next()) {                
                 Caixa caixa = new Caixa();
 
-                caixa.setCodCaixa(resultado.getInt("IdCaixa"));
-                caixa.setSaldo(resultado.getFloat("saldo"));
+                caixa.setCodigo(resultado.getInt("IdCaixas"));
+                caixa.setSaldo(resultado.getDouble("saldo"));
                 
                 return caixa;
             } else {
@@ -86,5 +89,5 @@ public class CaixaDAO extends DAO{
             System.err.println(ex.getMessage());
             return null;
         }
-    } 
+    }
 }

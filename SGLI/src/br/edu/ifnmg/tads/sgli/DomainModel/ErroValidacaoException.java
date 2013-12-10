@@ -10,7 +10,17 @@ package br.edu.ifnmg.tads.sgli.DomainModel;
  */
 public class ErroValidacaoException extends Exception {
 
-    public ErroValidacaoException(String msg) {
+     String campo;
+    public ErroValidacaoException(String msg, String cmp){
         super(msg);
+        setCampo(cmp);
+    }
+
+    public String getCampo() {
+        return campo;
+    }
+
+    public void setCampo(String campo) {
+        this.campo = campo;
     }
 }

@@ -72,14 +72,12 @@ public class Pessoa {
         return dataNascimento;
     }
 
-    public void setDataNascimento(Date dataNascimento) throws Exception {
+    public void setDataNascimento(Date dataNascimento) {
         Calendar calendario = GregorianCalendar.getInstance();
         calendario.set(1900, 1, 1);
 
         if (calendario.getTime().before(dataNascimento)) {
             this.dataNascimento = dataNascimento;
-        } else {
-            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
         }
     }
 

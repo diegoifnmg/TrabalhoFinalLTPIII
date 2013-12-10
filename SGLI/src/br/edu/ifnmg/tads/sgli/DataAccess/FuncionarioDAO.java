@@ -88,7 +88,7 @@ public class FuncionarioDAO extends PessoaDAO<Funcionario> {
 
 
             if (resultado.next()) {
-
+                
                 funcionario.setCargo(cargoDAO.AbrirCargo(resultado.getInt("IdCargo")));
 
                 return funcionario;

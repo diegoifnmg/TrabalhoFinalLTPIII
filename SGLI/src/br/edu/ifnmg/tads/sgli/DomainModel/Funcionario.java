@@ -14,6 +14,8 @@ public class Funcionario extends Pessoa {
 
     private Cargo cargo;
     private int ativo;
+    private String login;
+    private String senha;
 
     public Funcionario() {
         this.ativo = 1;
@@ -39,11 +41,29 @@ public class Funcionario extends Pessoa {
         }
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 61 * hash + Objects.hashCode(this.cargo);
-        hash = 61 * hash + this.ativo;
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.cargo);
+        hash = 79 * hash + this.ativo;
+        hash = 79 * hash + Objects.hashCode(this.login);
+        hash = 79 * hash + Objects.hashCode(this.senha);
         return hash;
     }
 
@@ -62,13 +82,18 @@ public class Funcionario extends Pessoa {
         if (this.ativo != other.ativo) {
             return false;
         }
+        if (!Objects.equals(this.login, other.login)) {
+            return false;
+        }
+        if (!Objects.equals(this.senha, other.senha)) {
+            return false;
+        }
         return true;
     }
 
     @Override
     public String toString() {
-        return "Funcionario{" + "cargo=" + cargo + ", Ativo=" + ativo + '}';
+        return "Funcionario{" + "cargo=" + cargo + ", ativo=" + ativo + ", login=" + login + ", senha=" + senha + '}';
     }
 
-    
 }

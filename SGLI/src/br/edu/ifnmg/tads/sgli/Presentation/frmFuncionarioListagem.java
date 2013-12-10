@@ -5,7 +5,9 @@
 package br.edu.ifnmg.tads.sgli.Presentation;
 
 import br.edu.ifnmg.tads.sgli.DataAccess.FuncionarioDAO;
+import br.edu.ifnmg.tads.sgli.DataAccess.UsuarioDAO;
 import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
+import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
 import java.util.List;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -19,6 +21,9 @@ import javax.swing.table.DefaultTableModel;
 public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
 
     FuncionarioDAO DAO;
+    Usuario usuario = new Usuario();
+    Usuario userSistema = new Usuario();
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
     
     /**
      * Creates new form frmFuncionarioListagem
@@ -164,18 +169,25 @@ public class frmFuncionarioListagem extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void tblListagemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblListagemMouseClicked
-        Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
-        Funcionario f = DAO.AbrirFuncionario((int) valor);
-        frmFuncionarioEditar janela = new frmFuncionarioEditar(f, DAO);
-        this.getParent().add(janela);
-        janela.setVisible(true);
-        this.setVisible(false);
+        
+            
+
+                Object valor = tblListagem.getValueAt(tblListagem.getSelectedRow(), 0);
+                FuncionarioDAO dao = new FuncionarioDAO();
+                Funcionario funcionario = dao.AbrirFuncionario((int) valor);
+                usuario = usuarioDAO.AbrirUsuario((int) valor);
+
+                frmFuncionarioEditar janela = new frmFuncionarioEditar(funcionario, dao, usuario, userSistema);
+                this.getParent().add(janela);
+                janela.setVisible(true);
+                this.setVisible(false);
+            
     }//GEN-LAST:event_tblListagemMouseClicked
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         Funcionario c = new Funcionario();
         FuncionarioDAO d = new FuncionarioDAO();
-        frmFuncionarioEditar janela = new frmFuncionarioEditar(c, d);
+        frmFuncionarioEditar janela = new frmFuncionarioEditar(null, null, null, userSistema);
         this.getParent().add(janela);
         janela.setVisible(true);
         this.setVisible(false);

@@ -14,6 +14,7 @@ import java.util.Objects;
  * @author Diego
  */
 public class Sessao {
+    
     private int codigo;
     private Date dataInicio;
     private Date dataTermino;
@@ -25,8 +26,6 @@ public class Sessao {
     //Construtor
     public Sessao() {
         this.codigo = 0;
-        this.dataInicio = new Date();
-        this.saldoAbertura = caixa.getSaldo();
     }
 
 
@@ -76,7 +75,7 @@ public class Sessao {
         if (calendario.getTime().before(dataInicio)) {
             this.dataInicio = dataInicio;
         } else {
-            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
+            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!","DataInicio");
         }
     }
 
@@ -87,7 +86,7 @@ public class Sessao {
         if (calendario.getTime().before(dataTermino)) {
             this.dataTermino = new Date();
         } else {
-            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!");
+            throw new ErroValidacaoException("Valor passado para o campo 'Data' é invalido!","DataTermino");
         }
     }
 
@@ -167,7 +166,7 @@ public class Sessao {
     public String toString() {
         return "Sessao{" + "Codigo = " + codigo + ", Inicio = " + dataInicio 
                 + ", Termino = " + dataTermino + ", Saldo de Abertura=" + saldoAbertura 
-                + ", Saldo de Fechamento = " + saldoFechamento + ", Codido do Caixa=" + caixa.getCodCaixa()
+                + ", Saldo de Fechamento = " + saldoFechamento + ", Codido do Caixa=" + caixa.getCodigo() 
                 + ", Usuario=" + usuario.getLogin() + '}';
     }
     
