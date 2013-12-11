@@ -11,9 +11,20 @@ import br.edu.ifnmg.tads.sgli.DomainModel.Caixa;
 import br.edu.ifnmg.tads.sgli.DomainModel.Funcionario;
 import br.edu.ifnmg.tads.sgli.DomainModel.Sessao;
 import br.edu.ifnmg.tads.sgli.DomainModel.Usuario;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import net.sf.jasperreports.engine.JRDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRResultSetDataSource;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -73,15 +84,14 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuControle = new javax.swing.JMenu();
         jMenuItem3 = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        mnuiTrocarFuncionario = new javax.swing.JMenuItem();
         Ferramentas = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         mnuiLogoff = new javax.swing.JMenuItem();
+        mnuiFechar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         imnuCadastroClientes = new javax.swing.JMenuItem();
         imnuCadastroFuncionarios = new javax.swing.JMenuItem();
         imnuCadastroFornecedores = new javax.swing.JMenuItem();
-        imnuUsuario = new javax.swing.JMenuItem();
         jSeparator2 = new javax.swing.JPopupMenu.Separator();
         imnuCadastroCargos = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
@@ -90,7 +100,10 @@ public class frmPrincipal extends javax.swing.JFrame {
         imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         imnuVenda = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
+        imnuClienteRelatorio = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        mnuiFuncionarioRelatorio = new javax.swing.JMenuItem();
+        mnuiFornecedores = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLI - Sistema Loja de Informática");
@@ -106,14 +119,16 @@ public class frmPrincipal extends javax.swing.JFrame {
         mnuControle.add(jMenuItem3);
         mnuControle.add(jSeparator1);
 
-        jMenuItem4.setText("Trocar de Funcionário");
-        mnuControle.add(jMenuItem4);
+        mnuiTrocarFuncionario.setText("Trocar de Funcionário");
+        mnuiTrocarFuncionario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiTrocarFuncionarioActionPerformed(evt);
+            }
+        });
+        mnuControle.add(mnuiTrocarFuncionario);
 
         Ferramentas.setText("Ferramentas");
         mnuControle.add(Ferramentas);
-
-        jMenuItem6.setText("Fechar");
-        mnuControle.add(jMenuItem6);
 
         mnuiLogoff.setText("Logoff");
         mnuiLogoff.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +137,14 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         mnuControle.add(mnuiLogoff);
+
+        mnuiFechar.setText("Fechar");
+        mnuiFechar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiFecharActionPerformed(evt);
+            }
+        });
+        mnuControle.add(mnuiFechar);
 
         jMenuBar1.add(mnuControle);
 
@@ -150,14 +173,6 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         jMenu3.add(imnuCadastroFornecedores);
-
-        imnuUsuario.setText("Cadastrar Usuarios");
-        imnuUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imnuUsuarioActionPerformed(evt);
-            }
-        });
-        jMenu3.add(imnuUsuario);
         jMenu3.add(jSeparator2);
 
         imnuCadastroCargos.setText("Cadastro de Cargos");
@@ -210,8 +225,33 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu2);
 
-        jMenu4.setText("Relatórios");
-        jMenuBar1.add(jMenu4);
+        imnuClienteRelatorio.setText("Relatórios");
+
+        jMenuItem2.setText("Clientes");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        imnuClienteRelatorio.add(jMenuItem2);
+
+        mnuiFuncionarioRelatorio.setText("Funcionários");
+        mnuiFuncionarioRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiFuncionarioRelatorioActionPerformed(evt);
+            }
+        });
+        imnuClienteRelatorio.add(mnuiFuncionarioRelatorio);
+
+        mnuiFornecedores.setText("Fornecedores");
+        mnuiFornecedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiFornecedoresActionPerformed(evt);
+            }
+        });
+        imnuClienteRelatorio.add(mnuiFornecedores);
+
+        jMenuBar1.add(imnuClienteRelatorio);
 
         setJMenuBar(jMenuBar1);
 
@@ -219,25 +259,21 @@ public class frmPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 588, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(442, 442, 442)
-                    .addComponent(lblUsuario)
-                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(680, Short.MAX_VALUE)
+                .addComponent(lblUsuario)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 281, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(130, 130, 130)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(lblUsuario)
-                        .addComponent(lblNomeUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addContainerGap(134, Short.MAX_VALUE)))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblUsuario))
+                .addContainerGap(525, Short.MAX_VALUE))
         );
 
         pack();
@@ -273,10 +309,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_imnuCadastroCargosActionPerformed
 
-    private void imnuUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuUsuarioActionPerformed
-        
-    }//GEN-LAST:event_imnuUsuarioActionPerformed
-
     private void imnuCadastoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastoProdutosActionPerformed
         frmProdutoListagem janela = new frmProdutoListagem();
         add(janela);
@@ -298,6 +330,126 @@ public class frmPrincipal extends javax.swing.JFrame {
     private void mnuiLogoffActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiLogoffActionPerformed
         logoff();
     }//GEN-LAST:event_mnuiLogoffActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        Connection conn = null;
+        try {
+            // Obtém o diretório da aplicação
+            String arquivo = System.getProperty("user.dir");
+
+            // Carrega conexão via JDBC
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/sg", "root", "");
+            Statement sql = conn.createStatement();
+
+            // Carrega fonte de dados
+            ResultSet rs = sql.executeQuery("select * from cliente c join pessoa p on c.idPessoa = p.idPessoa where ativo = 1");
+            JRDataSource ds = new JRResultSetDataSource(rs);
+
+            // Preenche o relatório com os dados
+            JasperPrint print = JasperFillManager.fillReport(arquivo + "/src/br/edu/ifnmg/tads/sgli/Relatorio/relatorioClientes.jasper", null, ds);
+
+            // Exibe visualização dos dados
+            JasperViewer.viewReport(print, false);
+
+        } catch (JRException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void mnuiTrocarFuncionarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiTrocarFuncionarioActionPerformed
+        frmLogin janela = new frmLogin();
+        janela.setVisible(true);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_mnuiTrocarFuncionarioActionPerformed
+
+    private void mnuiFecharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiFecharActionPerformed
+        System.exit(1);
+    }//GEN-LAST:event_mnuiFecharActionPerformed
+
+    private void mnuiFuncionarioRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiFuncionarioRelatorioActionPerformed
+        Connection conn = null;
+        try {
+            // Obtém o diretório da aplicação
+            String arquivo = System.getProperty("user.dir");
+
+            // Carrega conexão via JDBC
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/sg", "root", "");
+            Statement sql = conn.createStatement();
+
+            // Carrega fonte de dados
+            ResultSet rs = sql.executeQuery("select * from funcionario f join pessoa p on f.idPessoa = p.idPessoa where ativo = 1");
+            JRDataSource ds = new JRResultSetDataSource(rs);
+
+            // Preenche o relatório com os dados
+            JasperPrint print = JasperFillManager.fillReport(arquivo + "/src/br/edu/ifnmg/tads/sgli/Relatorio/relatorioFuncionario.jasper", null, ds);
+
+            // Exibe visualização dos dados
+            JasperViewer.viewReport(print, false);
+
+        } catch (JRException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnuiFuncionarioRelatorioActionPerformed
+
+    private void mnuiFornecedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiFornecedoresActionPerformed
+        Connection conn = null;
+        try {
+            // Obtém o diretório da aplicação
+            String arquivo = System.getProperty("user.dir");
+
+            // Carrega conexão via JDBC
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/sg", "root", "");
+            Statement sql = conn.createStatement();
+
+            // Carrega fonte de dados
+            ResultSet rs = sql.executeQuery("select * from fornecedor f join pessoa p on f.IdPessoa = p.IdPessoa where ativo = 1");
+            JRDataSource ds = new JRResultSetDataSource(rs);
+
+            // Preenche o relatório com os dados
+            JasperPrint print = JasperFillManager.fillReport(arquivo + "/src/br/edu/ifnmg/tads/sgli/Relatorio/relatorioFornecedores.jasper", null, ds);
+
+            // Exibe visualização dos dados
+            JasperViewer.viewReport(print, false);
+
+        } catch (JRException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnuiFornecedoresActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,23 +494,25 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imnuCadastroFornecedores;
     private javax.swing.JMenuItem imnuCadastroFuncionarios;
     private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
-    private javax.swing.JMenuItem imnuUsuario;
+    private javax.swing.JMenu imnuClienteRelatorio;
     private javax.swing.JMenuItem imnuVenda;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JLabel lblNomeUsuario;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JMenu mnuControle;
+    private javax.swing.JMenuItem mnuiFechar;
+    private javax.swing.JMenuItem mnuiFornecedores;
+    private javax.swing.JMenuItem mnuiFuncionarioRelatorio;
     private javax.swing.JMenuItem mnuiLogoff;
+    private javax.swing.JMenuItem mnuiTrocarFuncionario;
     // End of variables declaration//GEN-END:variables
 
    protected void logoff() {
