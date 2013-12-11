@@ -97,7 +97,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenu1 = new javax.swing.JMenu();
         imnuCadastoProdutos = new javax.swing.JMenuItem();
         jMenuItem1 = new javax.swing.JMenuItem();
-        imnuCadastroGrupoProdutos = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         imnuVenda = new javax.swing.JMenuItem();
         imnuClienteRelatorio = new javax.swing.JMenu();
@@ -115,7 +114,12 @@ public class frmPrincipal extends javax.swing.JFrame {
 
         mnuControle.setText("Controle");
 
-        jMenuItem3.setText("Estatística de Caixa");
+        jMenuItem3.setText("Caixa");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
         mnuControle.add(jMenuItem3);
         mnuControle.add(jSeparator1);
 
@@ -203,14 +207,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem1);
 
-        imnuCadastroGrupoProdutos.setText("Cadastro de Grupo de Produtos");
-        imnuCadastroGrupoProdutos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                imnuCadastroGrupoProdutosActionPerformed(evt);
-            }
-        });
-        jMenu1.add(imnuCadastroGrupoProdutos);
-
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Vendas");
@@ -284,12 +280,6 @@ public class frmPrincipal extends javax.swing.JFrame {
         add(janela);
         janela.setVisible(true);
     }//GEN-LAST:event_imnuCadastroClientesActionPerformed
-
-    private void imnuCadastroGrupoProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroGrupoProdutosActionPerformed
-        frmGrupoProdutosListagem janela = new frmGrupoProdutosListagem();
-        add(janela);
-        janela.setVisible(true);
-    }//GEN-LAST:event_imnuCadastroGrupoProdutosActionPerformed
 
     private void imnuCadastroFuncionariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_imnuCadastroFuncionariosActionPerformed
         frmFuncionarioListagem janela = new frmFuncionarioListagem();
@@ -451,6 +441,12 @@ public class frmPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_mnuiFornecedoresActionPerformed
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        frmCaixa janela = new frmCaixa();
+        add(janela);
+        janela.setVisible(true);
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -493,7 +489,6 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem imnuCadastroClientes;
     private javax.swing.JMenuItem imnuCadastroFornecedores;
     private javax.swing.JMenuItem imnuCadastroFuncionarios;
-    private javax.swing.JMenuItem imnuCadastroGrupoProdutos;
     private javax.swing.JMenu imnuClienteRelatorio;
     private javax.swing.JMenuItem imnuVenda;
     private javax.swing.JMenu jMenu1;

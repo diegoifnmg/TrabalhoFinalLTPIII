@@ -76,7 +76,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
 
 
         } catch (Exception ex) {
-            Logger.getLogger(frmPessoaEditar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmClienteEditar.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -529,7 +529,7 @@ public class frmClienteEditar extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(19, Short.MAX_VALUE)
                 .addComponent(pnlGuias, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)

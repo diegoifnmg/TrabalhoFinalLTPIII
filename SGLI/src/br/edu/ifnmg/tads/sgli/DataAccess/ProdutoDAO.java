@@ -40,8 +40,9 @@ public class ProdutoDAO extends DAO {
     }
 
     public boolean Salvar(Produto produto) {
-        try {
-            if (grupoProdutos.getCodGrupoProdutos() == 0) {
+        if (produto.getCodProduto() == 0) {
+            try {
+
                 PreparedStatement comando = bd.getConexao().
                         prepareStatement("insert into Produto(nome,marca,fornecedor,qtd,preco,descricao,ativo) values(?,?,?,?,?,?,?)");
                 comando.setString(1, produto.getNome());
@@ -54,46 +55,65 @@ public class ProdutoDAO extends DAO {
 
                 comando.executeUpdate();
 
-            } else {
-                PreparedStatement comando = bd.getConexao().
-                        prepareStatement("update Produto set nome = ? and marca=? and fornecedor=? and qtd=? and preco=? and descricao=? and ativo=? where idProduto = ?");
-                comando.setString(1, produto.getNome());
-                comando.setString(2, produto.getMarca().getNome());
-                comando.setString(3, produto.getFornecedor().getNome());
-                comando.setInt(4, produto.getQtd());
-                comando.setFloat(5, produto.getPreco());
-                comando.setString(6, produto.getDescricao());
-                comando.setInt(7, produto.getAtivo());
-                comando.setInt(8, produto.getCodProduto());
-                
-                
-                comando.executeUpdate();
+                PreparedStatement sqlConsulta = getConexao().prepareStatement("select IdProduto from Produto where nome= ? and marca= ? and fornecedor= ? and qtd= ? and preco= ? and descricao = ? and ativo=?");
+                sqlConsulta.setString(1, produto.getNome());
+                sqlConsulta.setString(2, produto.getMarca().getNome());
+                sqlConsulta.setInt(3, produto.getFornecedor().getCodigo());
+                sqlConsulta.setInt(4, produto.getQtd());
+                sqlConsulta.setFloat(5, produto.getPreco());
+                sqlConsulta.setString(6, produto.getDescricao());
+                sqlConsulta.setInt(7, produto.getAtivo());
+
+                ResultSet resultado = sqlConsulta.executeQuery();
+
+                if (resultado.next()) {
+                    produto.setCodProduto(resultado.getInt("IdProduto"));
+                }
+                return true;
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
             }
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(GrupoProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+
+        } else {
+            try {
+                PreparedStatement sql = getConexao().prepareStatement("update Produto set Nome=?, marca=? , fornecedor=?, qtd=?, preco=?, descricao=?,ativo=? where IdProduto=?");
+                sql.setString(1, produto.getNome());
+                sql.setString(2, produto.getMarca().getNome());
+                sql.setInt(3, produto.getFornecedor().getCodigo());
+                sql.setInt(4, produto.getQtd());
+                sql.setFloat(5, produto.getPreco());
+                sql.setString(6, produto.getDescricao());
+                sql.setInt(7, produto.getAtivo());
+
+                sql.executeUpdate();
+
+                return true;
+
+            } catch (SQLException ex) {
+                Logger.getLogger(GrupoProdutosDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
+            }
         }
     }
 
     public Produto Abrir(int id) {
         try {
-            PreparedStatement sqlConsultaProduto = getConexao().prepareStatement
-                    ("select * from produto where IdProduto=? and ativo = 1");            
+            PreparedStatement sqlConsultaProduto = getConexao().prepareStatement("select * from produto where IdProduto=? and ativo = 1");
             sqlConsultaProduto.setInt(1, id);
-            
-            
+
+
 
             ResultSet resultadoProduto = sqlConsultaProduto.executeQuery();
-            
+
 
             if (resultadoProduto.next()) {
                 Produto obj = new Produto();
 
                 CarregaObjetoProduto(obj, resultadoProduto);
-                
-                
-                
+
+
+
                 return obj;
             } else {
                 return null;
@@ -169,31 +189,57 @@ public class ProdutoDAO extends DAO {
                     tmp.setCodProduto(resultado.getInt("IdProduto"));
                     tmp.setNome(resultado.getString("nome"));
 
+
+
+
+
+
+
+
+
                 } catch (Exception ex) {
-                    Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ProdutoDAO.class
+                            .getName()).log(Level.SEVERE, null, ex);
                 }
 
                 // Pega o objeto e coloca na lista
                 produtos.add(tmp);
             }
             return produtos;
+
+
+
+
+
+
+
+
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProdutoDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+
+
+
+
             return null;
         }
     }
 
-    public boolean Apagar(int cod) {
-        try {
-            PreparedStatement comando = bd.getConexao().
-                    prepareStatement("update produto where idProduto = ?");
-            comando.setInt(1, cod);
-            comando.executeUpdate();
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
+    public boolean Remover(Produto obj) {
+        if ((obj.getCodProduto() > 0) && (obj.getAtivo() == 1)) {
+            try {
+                //Seta o atributo ativo com valor '0'
+                PreparedStatement sqlUpdate = getConexao().prepareStatement("update produto set ativo = 0 where IdProduto=?");
+                sqlUpdate.setInt(1, obj.getCodProduto());
+                sqlUpdate.executeUpdate();
+
+                return true;
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+                return false;
+            }
         }
+        return true;
     }
 
     protected void CarregaObjetoProduto(Produto obj, ResultSet resultado) throws Exception, SQLException {

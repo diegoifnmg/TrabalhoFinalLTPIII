@@ -164,7 +164,7 @@ public class frmGrupoProdutosListagem extends javax.swing.JInternalFrame {
         try {
             g.setNome(txtFiltro.getText());
         } catch (Exception ex) {
-            Logger.getLogger(frmPessoaListagem.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(frmGrupoProdutosListagem.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         List<GrupoProdutos> lista = DAO.BuscarGrupoProdutos(g);

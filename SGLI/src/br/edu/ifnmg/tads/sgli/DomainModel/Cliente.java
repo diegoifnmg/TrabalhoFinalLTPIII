@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 public class Cliente extends Pessoa{
     
     private int fisicaouJuridica;
-    private String cnpj;
+
     private int ativo;
 
     public Cliente() {
@@ -31,13 +31,7 @@ public class Cliente extends Pessoa{
         this.fisicaouJuridica = fisicaouJuridica;
     }
 
-    public String getCnpj() {
-        return cnpj;
-    }
 
-    public void setCnpj(String cnpj) {
-        this.cnpj = cnpj;
-    }
 
     public int getAtivo() {
         return ativo;
@@ -51,7 +45,7 @@ public class Cliente extends Pessoa{
     public int hashCode() {
         int hash = 3;
         hash = 53 * hash + this.fisicaouJuridica;
-        hash = 53 * hash + Objects.hashCode(this.cnpj);
+
         hash = 53 * hash + this.ativo;
         return hash;
     }
@@ -68,9 +62,7 @@ public class Cliente extends Pessoa{
         if (this.fisicaouJuridica != other.fisicaouJuridica) {
             return false;
         }
-        if (!Objects.equals(this.cnpj, other.cnpj)) {
-            return false;
-        }
+        
         if (this.ativo != other.ativo) {
             return false;
         }
