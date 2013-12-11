@@ -103,6 +103,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         jMenuItem2 = new javax.swing.JMenuItem();
         mnuiFuncionarioRelatorio = new javax.swing.JMenuItem();
         mnuiFornecedores = new javax.swing.JMenuItem();
+        mnuiProdutos = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("SGLI - Sistema Loja de Informática");
@@ -246,6 +247,14 @@ public class frmPrincipal extends javax.swing.JFrame {
             }
         });
         imnuClienteRelatorio.add(mnuiFornecedores);
+
+        mnuiProdutos.setText("Produtos");
+        mnuiProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuiProdutosActionPerformed(evt);
+            }
+        });
+        imnuClienteRelatorio.add(mnuiProdutos);
 
         jMenuBar1.add(imnuClienteRelatorio);
 
@@ -447,6 +456,42 @@ public class frmPrincipal extends javax.swing.JFrame {
         janela.setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
+    private void mnuiProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuiProdutosActionPerformed
+        Connection conn = null;
+        try {
+            // Obtém o diretório da aplicação
+            String arquivo = System.getProperty("user.dir");
+
+            // Carrega conexão via JDBC
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/sg", "root", "");
+            Statement sql = conn.createStatement();
+
+            // Carrega fonte de dados
+            ResultSet rs = sql.executeQuery("select * from Produto where ativo = 1");
+            JRDataSource ds = new JRResultSetDataSource(rs);
+
+            // Preenche o relatório com os dados
+            JasperPrint print = JasperFillManager.fillReport(arquivo + "/src/br/edu/ifnmg/tads/sgli/Relatorio/relatorioProduto.jasper", null, ds);
+
+            // Exibe visualização dos dados
+            JasperViewer.viewReport(print, false);
+
+        } catch (JRException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(frmPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_mnuiProdutosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -507,6 +552,7 @@ public class frmPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem mnuiFornecedores;
     private javax.swing.JMenuItem mnuiFuncionarioRelatorio;
     private javax.swing.JMenuItem mnuiLogoff;
+    private javax.swing.JMenuItem mnuiProdutos;
     private javax.swing.JMenuItem mnuiTrocarFuncionario;
     // End of variables declaration//GEN-END:variables
 

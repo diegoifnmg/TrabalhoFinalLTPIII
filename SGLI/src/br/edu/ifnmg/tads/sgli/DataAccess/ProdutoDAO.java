@@ -69,6 +69,9 @@ public class ProdutoDAO extends DAO {
                 if (resultado.next()) {
                     produto.setCodProduto(resultado.getInt("IdProduto"));
                 }
+                
+                
+                
                 return true;
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
