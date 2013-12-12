@@ -5,6 +5,8 @@
 package br.edu.ifnmg.tads.sgli.DomainModel;
 
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
 public class Cliente extends Pessoa{
     
     private int fisicaouJuridica;
-
+    private String cnpj;
     private int ativo;
 
     public Cliente() {
@@ -31,7 +33,15 @@ public class Cliente extends Pessoa{
         this.fisicaouJuridica = fisicaouJuridica;
     }
 
+    public String getCnpj() {
+        return cnpj;
+    }
 
+    public void setCnpj(String cnpj) {
+       
+            this.cnpj = cnpj;
+       
+    }
 
     public int getAtivo() {
         return ativo;
@@ -45,7 +55,7 @@ public class Cliente extends Pessoa{
     public int hashCode() {
         int hash = 3;
         hash = 53 * hash + this.fisicaouJuridica;
-
+        
         hash = 53 * hash + this.ativo;
         return hash;
     }

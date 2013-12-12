@@ -156,55 +156,7 @@ public class Pessoa {
         return telefones;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 73 * hash + this.codigo;
-        hash = 73 * hash + Objects.hashCode(this.nome);
-        hash = 73 * hash + Objects.hashCode(this.cpf);
-        hash = 73 * hash + Objects.hashCode(this.rg);
-        hash = 73 * hash + Objects.hashCode(this.dataNascimento);
-        hash = 73 * hash + Objects.hashCode(this.emails);
-        hash = 73 * hash + Objects.hashCode(this.enderecos);
-        hash = 73 * hash + Objects.hashCode(this.telefones);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Pessoa other = (Pessoa) obj;
-        if (this.codigo != other.codigo) {
-            return false;
-        }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        if (!Objects.equals(this.cpf, other.cpf)) {
-            return false;
-        }
-        if (!Objects.equals(this.rg, other.rg)) {
-            return false;
-        }
-        if (!Objects.equals(this.dataNascimento, other.dataNascimento)) {
-            return false;
-        }
-        if (!Objects.equals(this.emails, other.emails)) {
-            return false;
-        }
-        if (!Objects.equals(this.enderecos, other.enderecos)) {
-            return false;
-        }
-        if (!Objects.equals(this.telefones, other.telefones)) {
-            return false;
-        }
-        return true;
-    }
+    
 
     @Override
     public String toString() {
